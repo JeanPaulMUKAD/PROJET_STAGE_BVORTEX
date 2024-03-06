@@ -19,7 +19,8 @@ Long description of module's purpose
 
     'data': [
         'security/ir.model.access.csv',
-        'views/views_declaration_tva.xml'   ,
+        'views/views_declaration_tva.xml',
+        'views/new_declaration.xml'
     ],
     'images': ['static/description/icon.png'],
     'application': True,

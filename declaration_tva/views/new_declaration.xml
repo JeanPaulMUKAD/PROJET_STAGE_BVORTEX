@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <record id="view_declaration_tva_kanban" model="ir.ui.view">
+            <field name="name">declaration_tva.kanban</field>
+            <field name="model">declaration_tva</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="mois"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_declaration_tva_list" model="ir.ui.view">
+            <field name="name">declaration_tva.list</field>
+            <field name="model">declaration_tva</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="mois"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_declaration_tva_form" model="ir.ui.view">
+            <field name="name">declaration_tva.form</field>
+            <field name="model">declaration_tva</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="mois"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+       <record id="action_declaration_tva" model="ir.actions.act_window">
+            <field name="name">Déclarations TVA</field>
+            <field name="res_model">declaration_tva</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+    </data>
+</odoo>

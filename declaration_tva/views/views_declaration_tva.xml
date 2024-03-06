@@ -3,7 +3,7 @@
     <data>
 
         <record id="view_expert_solution_kanban" model="ir.ui.view">
-            <field name="name">expert.menu.kanban</field>
+            <field name="name">declaratioN.menu.kanban</field>
             <field name="model">declaration_tva</field>
             <field name="arch" type="xml">
                 <kanban>
@@ -14,15 +14,15 @@
             </field>
         </record>
 
-        <record id="expert_solution_action" model="ir.actions.act_window">
-            <field name="name">Expert Solution</field>
-            <field name="res_model">expert_menu</field>
+        <record id="declaration_tva_action" model="ir.actions.act_window">
+            <field name="name">Declaration tva</field>
+            <field name="res_model">declaration_tva</field>
             <field name="view_mode">kanban</field>
         </record>
 
-        <menuitem id="expert_action_menu"
-                  action="expert_solution_action"
-                  name="Expert Solution"
+        <menuitem id="declaration_tva_action_menu"
+                  action="action_declaration_tva"
+                  name="Declaration TVA"
                   sequence="400"
         />
 

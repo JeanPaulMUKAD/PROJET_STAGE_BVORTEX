@@ -1,4 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-expert_solution.access_expert_menu,access_expert_menu,expert_solution.model_expert_menu,base.group_user,1,1,1,1
+declaration_tva.access_declaration_tva,access_declaration_tva,declaration_tva.model_declaration_tva,base.group_user,1,1,1,1
 
 
