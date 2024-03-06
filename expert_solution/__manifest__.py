@@ -15,12 +15,15 @@ Long description of module's purpose
     'category': 'Uncategorized',
     'version': '17.0',
 
-    'depends': ['base', 'sale_management'],
+    'depends': ['base', 'account_accountant'],
 
     'data': [
+        'security/ir.model.access.csv',
         'views/expert_solution_views.xml',
     ],
+    'images': ['static/description/icon.png'],
     'application': True,
+    'installable': True,
 
 }
 

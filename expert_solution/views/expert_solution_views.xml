@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="view_expert_solution_kanban" model="ir.ui.view">
+            <field name="name">expert.menu.kanban</field>
+            <field name="model">expert_menu</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="description"/>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="expert_solution_action" model="ir.actions.act_window">
+            <field name="name">Expert Solution</field>
+            <field name="res_model">expert_menu</field>
+            <field name="view_mode">kanban</field>
+        </record>
+
+
+        <menuitem id="expert_action_menu"
+                  action="expert_solution_action"
+                  name="Expert Solution"
+                  sequence="400"
+        />
+
+    </data>
+</odoo>
