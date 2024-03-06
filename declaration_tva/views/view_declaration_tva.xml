@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="view_declaeration_tva" model="ir.ui.view">
+            <field name="name">declaration.menu.kanban</field>
+            <field name="model">declation_tva</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="description"/>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="declation_tva_action" model="ir.actions.act_window">
+            <field name="name">Declaration TVA</field>
+            <field name="res_model">declation_tva</field>
+            <field name="view_mode">kanban</field>
+        </record>
+
+        <!-- Assurez-vous que l'ID externe spécifié ici correspond à celui du menu parent -->
+        <menuitem id="declaration_tva_menu"
+                  action="declaration_tva_action"
+                  name="D&#xE9;claration TVA"
+                  parent="expert_solution.expert_action_menu"/>
+
+    </data>
+</odoo>

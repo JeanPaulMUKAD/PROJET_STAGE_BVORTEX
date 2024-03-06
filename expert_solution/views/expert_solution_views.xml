@@ -7,8 +7,9 @@
             <field name="model">expert_menu</field>
             <field name="arch" type="xml">
                 <kanban>
-                    <field name="name"/>
-                    <field name="description"/>
+                    <templates>
+                        <t t-name="kanban-box"/>
+                    </templates>
                 </kanban>
             </field>
         </record>
@@ -18,7 +19,6 @@
             <field name="res_model">expert_menu</field>
             <field name="view_mode">kanban</field>
         </record>
-
 
         <menuitem id="expert_action_menu"
                   action="expert_solution_action"
