@@ -3,20 +3,20 @@
 
 
 # class ../bvortexCommercial/customSales(http.Controller):
-#     @http.route('/../bvortex_commercial/expert_solution/../bvortex_commercial/expert_solution', auth='public')
+#     @http.route('/../bvortex_commercial/declaration_tva/../bvortex_commercial/declaration_tva', auth='public')
 #     def index(self, **kw):
 #         return "Hello, world"
 
-#     @http.route('/../bvortex_commercial/expert_solution/../bvortex_commercial/expert_solution/objects', auth='public')
+#     @http.route('/../bvortex_commercial/declaration_tva/../bvortex_commercial/declaration_tva/objects', auth='public')
 #     def list(self, **kw):
-#         return http.request.render('../bvortex_commercial/expert_solution.listing', {
-#             'root': '/../bvortex_commercial/expert_solution/../bvortex_commercial/expert_solution',
-#             'objects': http.request.env['../bvortex_commercial/expert_solution.../bvortex_commercial/expert_solution'].search([]),
+#         return http.request.render('../bvortex_commercial/declaration_tva.listing', {
+#             'root': '/../bvortex_commercial/declaration_tva/../bvortex_commercial/declaration_tva',
+#             'objects': http.request.env['../bvortex_commercial/declaration_tva.../bvortex_commercial/declaration_tva'].search([]),
 #         })
 
-#     @http.route('/../bvortex_commercial/expert_solution/../bvortex_commercial/expert_solution/objects/<model("../bvortex_commercial/expert_solution.../bvortex_commercial/expert_solution"):obj>', auth='public')
+#     @http.route('/../bvortex_commercial/declaration_tva/../bvortex_commercial/declaration_tva/objects/<model("../bvortex_commercial/declaration_tva.../bvortex_commercial/declaration_tva"):obj>', auth='public')
 #     def object(self, obj, **kw):
-#         return http.request.render('../bvortex_commercial/expert_solution.object', {
+#         return http.request.render('../bvortex_commercial/declaration_tva.object', {
 #             'object': obj
 #         })
 

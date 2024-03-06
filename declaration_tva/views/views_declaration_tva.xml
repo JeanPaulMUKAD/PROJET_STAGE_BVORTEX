@@ -4,7 +4,7 @@
 
         <record id="view_expert_solution_kanban" model="ir.ui.view">
             <field name="name">expert.menu.kanban</field>
-            <field name="model">expert_menu</field>
+            <field name="model">declaration_tva</field>
             <field name="arch" type="xml">
                 <kanban>
                     <templates>
@@ -25,6 +25,7 @@
                   name="Expert Solution"
                   sequence="400"
         />
+
 
     </data>
 </odoo>

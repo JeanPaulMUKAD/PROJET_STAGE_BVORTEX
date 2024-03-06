@@ -3,8 +3,8 @@
 from odoo import models, fields, api, _
 
 
-class Declaration(models.Model):
-    _name = "declation_tva"
+class ExpertSolutionMenu(models.Model):
+    _name = "declaration_tva"
 
     name = fields.Char(string="Name")
     description = fields.Text(string="Description")

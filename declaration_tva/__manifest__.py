@@ -2,7 +2,7 @@
 {
     'name': "declaration_tva",
 
-    'summary': "DECLARATION TVA",
+    'summary': "Expert soluition for accounting TVA",
 
     'description': """
 Long description of module's purpose
@@ -19,7 +19,7 @@ Long description of module's purpose
 
     'data': [
         'security/ir.model.access.csv',
-        'views/view_declaration_tva.xml',
+        'views/views_declaration_tva.xml'   ,
     ],
     'images': ['static/description/icon.png'],
     'application': True,
