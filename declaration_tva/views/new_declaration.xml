@@ -42,6 +42,7 @@
                             <group id="left_column" class="col-6">
                                 <field name="partner_id"/>
                                 <field name="mois"/>
+                                <field name="last_declaration"/>
                                 <field name="manager"/>
                             </group>
                             <group id="right_column" class="col-6">
@@ -50,7 +51,18 @@
                                 <field name="collaborator"/>
                             </group>
                         </group>
+                        <hr/>
+                        <group>
+                            <group id="left_column" class="col-6">
+                                <field name="total_vat_collected"/>
+                                <field name="total_deductible_vat"/>
 
+                            </group>
+                            <group id="right_column" class="col-6">
+                                <field name="vat_payable"/>
+                                <field name="vat_credit"/>
+                            </group>
+                        </group>
                         <notebook>
                             <page string="FACTURES VENTES">
                                 <field name="sales_invoices"/>
@@ -59,6 +71,13 @@
                             <page string="FACTURES ACHATS ">
                                <field name="purchases_invoices"/>
                             </page>
+                            <page string="RECAP">
+
+                            </page>
+                            <page string="RELEVES">
+
+                            </page>
+
                         </notebook>
                     </sheet>
                 <div class="oe_chatter">

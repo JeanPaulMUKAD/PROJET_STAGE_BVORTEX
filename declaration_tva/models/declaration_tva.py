@@ -7,6 +7,7 @@ class DeclarationTVA(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     reference = fields.Char(string="Reference")
+    last_declaration = fields.Many2one('declaration_tva', "Déclaration précédente")
 
     mois = fields.Selection([
         ('janvier', 'Janvier'),
@@ -22,16 +23,23 @@ class DeclarationTVA(models.Model):
         ('novembre', 'Novembre'),
         ('décembre', 'Décembre'),
     ], string='Mois', required=True)
-
     start_date = fields.Date(string="Date de début", default=lambda self: self._get_default_start_date(), compute="_compute_dates", required=True)
     end_date = fields.Date(string="Date de fin", default=lambda self: self._get_default_end_date(), compute="_compute_dates", required=True)
-    total_purchases = fields.Integer(string="Total des achats",  compute='_compute_purchases_total')
-    total_sales = fields.Integer(string="Total des achats", compute='_compute_sales_total')
+
+    total_vat_collected = fields.Integer(string="Total de la TVA collectée")
+    total_deductible_vat = fields.Integer(string="Total de la TVA déductible")
+    vat_payable = fields.Integer(string="TVA Payable")
+    vat_credit = fields.Integer(string="Crédit TVA")
+
+
+
     collaborator = fields.Many2one('res.users', string="Collaborateur")
     manager = fields.Many2one('res.users', string="Manager", required=True)
-
     partner_id = fields.Many2one('res.partner', string="Société", required=True)
+
     state = fields.Selection([('draft', 'Brouillon'), ('confirm', 'Confirmé'), ('validate', 'validé'), ('declared', 'Déclaré'), ('appured', 'Appuré'), ('cancel', 'Annulé')], default="draft", string='Status')
+    status = fields.Selection([('credit', 'Crédit'), ('payable', 'Payable')])
+
     sales_invoices = fields.Many2many('account.move', 'campaign_id', string="Facture clients")
     purchases_invoices = fields.Many2many('account.move', string="Facture Fourniseurs")
 
@@ -78,16 +86,28 @@ class DeclarationTVA(models.Model):
             month = self._get_month_number(self.mois)
             return date(year, month, 15)
 
-    @api.model
-    def _get_default_end_date(self):
-        if self.start_date:
-            return self.start_date + timedelta(days=30)
+    @api.onchange('partner_id', 'mois')
+    def _onchange_partner_id_mois(self):
+        if self.partner_id and self.mois:
+            start_date = self.start_date
+            end_date = self.end_date
+            sales_invoices = self.env['account.move'].search([
+                ('partner_id', '=', self.partner_id.id),
+                ('invoice_date', '>=', start_date),
+                ('move_type', '=', 'out_invoice'),
+                ('payment_state', 'in', ['posted', 'paid', 'partial']),
+                ('invoice_date', '<=', end_date),
+            ])
+            self.sales_invoices = [(6, 0, sales_invoices.ids)]
+            purchases_invoices = self.env['account.move'].search([
+                ('partner_id', '=', self.partner_id.id),
+                ('invoice_date', '>=', start_date),
+                ('move_type', '=', 'in_invoice'),
+                ('payment_state', 'in', ['posted', 'paid', 'partial']),
+                ('invoice_date', '<=', end_date),
+            ])
+            self.purchases_invoices = [(6, 0, purchases_invoices.ids)]
 
-    @api.depends('sales_invoices.amount_untaxed')
-    def _compute_montant_total(self):
-        for record in self:
-            record.montant_total = sum(record.factures_clients.mapped('amount_untaxed'))
-            print(record.montant_total)
 
 
 
