@@ -5,12 +5,13 @@
             <field name="model">declaration_tva</field>
             <field name="arch" type="xml">
                 <kanban>
-                    <field name="mois"/>
-                    <field name="start_date"/>
-                    <field name="end_date"/>
+                    <field name="mois" widget="label"/>
+                    <field name="start_date" widget="label"/>
+                    <field name="end_date" widget="label"/>
                 </kanban>
             </field>
         </record>
+
 
         <record id="view_declaration_tva_list" model="ir.ui.view">
             <field name="name">declaration_tva.list</field>
@@ -21,6 +22,7 @@
                     <field name="start_date"/>
                     <field name="end_date"/>
                 </tree>
+
             </field>
         </record>
 
@@ -28,25 +30,57 @@
             <field name="name">declaration_tva.form</field>
             <field name="model">declaration_tva</field>
             <field name="arch" type="xml">
-                <form>
-                    <sheet>
-                        <group>
+                <form class="oe_stat_button oe_highlight">
+                    <header>
+                        <button name="button_edit" string="Éditer" type="object" class="oe_highlight"/>
+                        <button name="button_cancel" string="Annuler" type="object" class="oe_link"/>
+                        <field name="state" widget="statusbar"  options="{'clickable': '1'}"/>
+                    </header>
+                    <br/>
+                    <group>
+                        <group id="left_column" class="col-6">
+                            <field name="partner_id"/>
                             <field name="mois"/>
+                            <field name="manager"/>
+                        </group>
+                        <group id="right_column" class="col-6">
                             <field name="start_date"/>
                             <field name="end_date"/>
+                            <field name="collaborator"/>
                         </group>
+                    </group>
+
+                    <sheet>
+                        <notebook>
+                            <page string="FACTURES VENTES">
+                                <field name="sales_invoices"/>
+                            </page>
+
+                            <page string="FACTURES ACHATS ">
+                               <field name="purchases_invoices"/>
+                            </page>
+                        </notebook>
                     </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" options="{'post_refresh':True}" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
                 </form>
+
             </field>
         </record>
-
-
 
        <record id="action_declaration_tva" model="ir.actions.act_window">
             <field name="name">Déclarations TVA</field>
             <field name="res_model">declaration_tva</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">tree,form</field>
         </record>
 
     </data>
 </odoo>
+
+
+
+
+

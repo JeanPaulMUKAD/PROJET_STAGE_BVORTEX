@@ -1,8 +1,11 @@
 from odoo import models, fields, api
 from datetime import date, timedelta
 
+
 class DeclarationTVA(models.Model):
     _name = "declaration_tva"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+
     reference = fields.Char(string="Reference")
 
     mois = fields.Selection([
@@ -22,6 +25,17 @@ class DeclarationTVA(models.Model):
 
     start_date = fields.Date(string="Date de début", default=lambda self: self._get_default_start_date(), compute="_compute_dates", required=True)
     end_date = fields.Date(string="Date de fin", default=lambda self: self._get_default_end_date(), compute="_compute_dates", required=True)
+    total_purchases = fields.Integer(string="Total des achats")
+    total_sales = fields.Integer(string="Total des achats")
+    collaborator = fields.Many2one('res.users', string="Collaborateur")
+    manager = fields.Many2one('res.users', string="Manager", required=True)
+
+    partner_id = fields.Many2one('res.partner', string="Société", required=True)
+    state = fields.Selection([('draft', 'Brouillon'), ('confirm', 'Confirmé'), ('validate', 'validé'), ('declared', 'Déclaré'), ('appured', 'Appuré'), ('cancel', 'Annulé')], default="draft", string='Status')
+    sales_invoices = fields.Many2many('account.move', 'campaign_id', string="Facture clients")
+    purchases_invoices = fields.Many2many('account.move', string="Facture Fourniseurs")
+
+
 
     @api.depends('mois')
     def _compute_dates(self):
@@ -68,3 +82,14 @@ class DeclarationTVA(models.Model):
     def _get_default_end_date(self):
         if self.start_date:
             return self.start_date + timedelta(days=30)
+
+    def save(self):
+        pass
+
+    def button_edit(self):
+        pass
+
+    def button_cancel(self):
+        pass
+
+

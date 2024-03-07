@@ -15,7 +15,7 @@ Long description of module's purpose
     'category': 'Uncategorized',
     'version': '17.0',
 
-    'depends': ['base', 'account_accountant'],
+    'depends': ['base', 'account_accountant', 'sale_management', 'mail'],
 
     'data': [
         'security/ir.model.access.csv',
