@@ -37,20 +37,20 @@
                         <field name="state" widget="statusbar"  options="{'clickable': '1'}"/>
                     </header>
                     <br/>
-                    <group>
-                        <group id="left_column" class="col-6">
-                            <field name="partner_id"/>
-                            <field name="mois"/>
-                            <field name="manager"/>
-                        </group>
-                        <group id="right_column" class="col-6">
-                            <field name="start_date"/>
-                            <field name="end_date"/>
-                            <field name="collaborator"/>
-                        </group>
-                    </group>
-
                     <sheet>
+                        <group>
+                            <group id="left_column" class="col-6">
+                                <field name="partner_id"/>
+                                <field name="mois"/>
+                                <field name="manager"/>
+                            </group>
+                            <group id="right_column" class="col-6">
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="collaborator"/>
+                            </group>
+                        </group>
+
                         <notebook>
                             <page string="FACTURES VENTES">
                                 <field name="sales_invoices"/>

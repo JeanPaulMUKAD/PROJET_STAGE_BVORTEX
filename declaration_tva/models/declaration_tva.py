@@ -25,8 +25,8 @@ class DeclarationTVA(models.Model):
 
     start_date = fields.Date(string="Date de début", default=lambda self: self._get_default_start_date(), compute="_compute_dates", required=True)
     end_date = fields.Date(string="Date de fin", default=lambda self: self._get_default_end_date(), compute="_compute_dates", required=True)
-    total_purchases = fields.Integer(string="Total des achats")
-    total_sales = fields.Integer(string="Total des achats")
+    total_purchases = fields.Integer(string="Total des achats",  compute='_compute_purchases_total')
+    total_sales = fields.Integer(string="Total des achats", compute='_compute_sales_total')
     collaborator = fields.Many2one('res.users', string="Collaborateur")
     manager = fields.Many2one('res.users', string="Manager", required=True)
 
@@ -82,6 +82,14 @@ class DeclarationTVA(models.Model):
     def _get_default_end_date(self):
         if self.start_date:
             return self.start_date + timedelta(days=30)
+
+    @api.depends('sales_invoices.amount_untaxed')
+    def _compute_montant_total(self):
+        for record in self:
+            record.montant_total = sum(record.factures_clients.mapped('amount_untaxed'))
+            print(record.montant_total)
+
+
 
     def save(self):
         pass
