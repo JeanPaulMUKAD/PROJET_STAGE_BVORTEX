@@ -21,7 +21,9 @@ Long description of module's purpose
         'security/ir.model.access.csv',
         'views/views_declaration_tva.xml',
         'views/new_declaration.xml',
-        'report/declaration_report.xml'
+        'report/declaration_report.xml',
+        'report/vat_recap_report.xml',
+        'report/vat_synthese_report.xml',
     ],
     'images': ['static/description/icon.png'],
     'application': True,

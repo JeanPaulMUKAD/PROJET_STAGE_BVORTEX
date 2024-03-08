@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
+<data>
 
-        <record id="action_print_report_1" model="ir.actions.report">
-            <field name="name">Recap de la déclaration</field>
-            <field name="type">ir.actions.report</field>
-            <field name="report_type">qweb-html</field>
-            <field name="report_name">declaration_tva.recap</field>
-            <field name="binding_model_id" ref="model_declaration_tva"/>
-            <field name="binding_type">report</field>
-            <field name="binding_report_id" ref="report_report_1"/>
-        </record>
+    <record id="action_report_recap" model="ir.actions.report">
+        <field name="name">Recap</field>
+        <field name="model">declaration_tva</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">declaration_tva.report_vat_recap</field>
+        <field name="report_file">declaration_tva.report_vat_recap</field>
+        <field name="print_report_name">'Recap tva - %s' % (object.name).replace('/', '')</field>
+        <field name="binding_model_id" ref="model_declaration_tva"/>
+        <field name="binding_type">report</field>
 
-    </data>
+
+    </record>
+
+    <template id="report_declaration_tva">
+        <t t-call="web.html_container">
+        </t>
+
+    </template>
+</data>
 </odoo>

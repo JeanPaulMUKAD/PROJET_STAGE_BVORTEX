@@ -134,7 +134,7 @@ class DeclarationTVA(models.Model):
     def button_cancel(self):
         pass
 
-    @api.onchange('sales_invoices', 'purchases_invoices')
+    @api.onchange('sales_invoices', 'purchases_invoices', 'last_declaration')
     def _onchange_invoices(self):
         total_vat_collected = sum(invoice.amount_tax_signed for invoice in self.sales_invoices)
 
@@ -142,13 +142,21 @@ class DeclarationTVA(models.Model):
 
         vat_credit = 0
 
-        if self.last_declaration.vat_credit == 0 :
+        declaration_tva = self.last_declaration
+
+        if declaration_tva.vat_credit == 0 :
             vat_payable = total_vat_collected + total_deductible_vat
             if vat_payable < 0 :
                 vat_credit = vat_payable
+                vat_payable = 0
         else :
-            vat_credit = self.self.last_declaration.vat_credit
+            vat_credit = self.last_declaration.vat_credit
             vat_payable = total_vat_collected + total_deductible_vat + vat_credit
+            vat_credit = vat_payable
+            vat_payable = 0
+            if vat_credit >= 0:
+                vat_payable = vat_credit
+                vat_credit = 0
 
 
         self.write({

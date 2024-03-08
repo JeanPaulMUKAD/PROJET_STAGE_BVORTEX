@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <report
-        id="declaration_tva.declaration_tva_report"
-        model="declaration_tva"
-        string="Déclaration de TVA"
-        report_type="qweb-pdf"
-        name="declaration_tva.declaration_tva_report_template"
-    />
+<data>
 
-    <template id="declaration_tva.declaration_tva_report_template">
+    <record id="action_report_declaratiion" model="ir.actions.report">
+        <field name="name">Declaration</field>
+        <field name="model">declaration_tva</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">declaration_tva.report_declaration_tva</field>
+        <field name="report_file">declaration_tva.report_declaration_tva</field>
+        <field name="print_report_name">'Déclaration tva - %s' % (object.name).replace('/', '')</field>
+        <field name="binding_model_id" ref="model_declaration_tva"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_declaration_tva">
+        <t t-call="web.html_container">
+        </t>
 
     </template>
+</data>
 </odoo>
