@@ -45,6 +45,21 @@ class DeclarationTVA(models.Model):
 
     releve_doc = fields.Binary(string='Relevé', attachment=True, help='Document de relevé')
 
+    customer_total_amount_tcc_usd = fields.Float(string="Total des factures des clients en USD", default=0)
+    customer_total_amount_tcc_cdf = fields.Float(string="Total des factures des clients en CDF", default=0)
+    customer_total_amount_ht_usd = fields.Float(string="Total hors taxe des factures des clients en USD",default=0)
+    customer_total_amount_ht_cdf = fields.Float(string="Total hors taxe des factures des clients en CDF",default=0)
+    customer_vat_usd = fields.Float(string="TVA des factures des clients en USD", default=0)
+    customer_vat_cdf = fields.Float(string="TVA des factures des clients en CDF", default=0)
+
+    partner_total_amount_tcc_usd = fields.Float(string="Total des factures des fourniseurs en USD", default=0)
+    partner_total_amount_tcc_cdf = fields.Float(string="Total des factures des fourniseurs en CDF", default=0)
+    partner_total_amount_ht_usd = fields.Float(string="Total hors taxe des factures des fourniseurs en USD", default=0)
+    partner_total_amount_ht_cdf = fields.Float(string="Total hors taxe des factures des fourniseurs en CDF", default=0)
+    partner_vat_usd = fields.Float(string="TVA des factures des fourniseurs en USD", default=0)
+    partner_vat_cdf = fields.Float(string="TVA des factures des fourniseurs en CDF", default=0)
+
+
 
     @api.depends('mois')
     def _compute_dates(self):
@@ -167,4 +182,49 @@ class DeclarationTVA(models.Model):
             'vat_payable': vat_payable,
         })
 
+    def get_customer_invoices(self):
+        customer_invoices = []
+        for invoice in self.sales_invoices:
+            customer_name = invoice.partner_id.name
+            invoice_info = {
+                'partner_id': customer_name,
+                'tax_number': invoice.partner_id.vat,
+                'designation': invoice.partner_id.commercial_company_name,
+                'date': invoice.invoice_date,
+                'invoice_reference': invoice.name,
+                'montant_ttc_usd' : invoice.amount_tax_signed,
+                'montant_ttc_cdf' : invoice.amount_tax_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+                'montant_ht_usd' : invoice.amount_untaxed_signed,
+                'montant_ht_cdf' : invoice.amount_untaxed_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+                'vat_usd' : invoice.amount_tax_signed,
+                'vat_cdf' : invoice.amount_tax_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
 
+            }
+            customer_invoices.append(invoice_info)
+
+            self.customer_total_amount_tcc_usd += invoice_info['montant_ttc_usd']
+            self.customer_total_amount_tcc_cdf += invoice_info['montant_ttc_cdf']
+            self.customer_total_amount_ht_usd += invoice_info['montant_ht_usd']
+            self.customer_total_amount_ht_cdf += invoice_info['montant_ht_cdf']
+            self.customer_vat_usd += invoice_info['vat_usd']
+            self.customer_vat_cdf += invoice_info['vat_cdf']
+
+            print(self.customer_total_amount_tcc_usd)
+            print(self.customer_total_amount_tcc_cdf)
+            print(self.customer_total_amount_ht_usd)
+            print(self.customer_total_amount_ht_cdf)
+            print(self.customer_vat_usd)
+            print(self.customer_vat_cdf)
+            print(invoice_info)
+            print("-"*100)
+
+        return customer_invoices
+
+    @api.model
+    def get_active_currency_rate(self):
+        active_currencies = self.env['res.currency'].search([('active', '=', True)])
+        cdf_currency = active_currencies.filtered(lambda c: c.name == 'CDF')
+        if cdf_currency:
+            return cdf_currency.rate_ids.company_rate
+        else:
+            return None
