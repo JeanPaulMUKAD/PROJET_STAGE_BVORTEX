@@ -24,6 +24,7 @@ Long description of module's purpose
         'report/declaration_report.xml',
         'report/vat_recap_report.xml',
         'report/vat_synthese_report.xml',
+        'views/vat_comptes_views.xml'
     ],
     'images': ['static/description/icon.png'],
     'application': True,

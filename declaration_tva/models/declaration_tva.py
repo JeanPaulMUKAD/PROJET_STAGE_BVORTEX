@@ -37,7 +37,7 @@ class DeclarationTVA(models.Model):
     manager = fields.Many2one('res.users', string="Manager", required=True)
     partner_id = fields.Many2one('res.partner', string="Société", required=True)
 
-    state = fields.Selection([('draft', 'Brouillon'), ('confirm', 'Confirmé'), ('validate', 'validé'), ('declared', 'Déclaré'), ('appured', 'Appuré'), ('cancel', 'Annulé')], default="draft", string='Status')
+    state = fields.Selection([('draft', 'Brouillon'), ('confirm', 'Confirmé'), ('validate', 'validé'), ('declared', 'Déclaré'), ('appured', 'Appuré'), ('delivered', 'Remis')], default="draft", string='Status')
     status = fields.Selection([('credit', 'Crédit'), ('payable', 'Payable')])
 
     sales_invoices = fields.Many2many('account.move', 'campaign_id', string="Facture clients")
