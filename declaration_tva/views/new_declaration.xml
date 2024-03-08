@@ -71,11 +71,9 @@
                             <page string="FACTURES ACHATS ">
                                <field name="purchases_invoices"/>
                             </page>
-                            <page string="RECAP">
 
-                            </page>
                             <page string="RELEVES">
-
+                                <field name="releve_doc"/>
                             </page>
 
                         </notebook>

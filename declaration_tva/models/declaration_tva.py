@@ -43,6 +43,7 @@ class DeclarationTVA(models.Model):
     sales_invoices = fields.Many2many('account.move', 'campaign_id', string="Facture clients")
     purchases_invoices = fields.Many2many('account.move', string="Facture Fourniseurs")
 
+    releve_doc = fields.Binary(string='Relevé', attachment=True, help='Document de relevé')
 
 
     @api.depends('mois')
