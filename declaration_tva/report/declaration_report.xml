@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="declaration_tva.declaration_tva_report"
+        model="declaration_tva"
+        string="Déclaration de TVA"
+        report_type="qweb-pdf"
+        name="declaration_tva.declaration_tva_report_template"
+    />
+
+    <template id="declaration_tva.declaration_tva_report_template">
+
+    </template>
+</odoo>

@@ -86,6 +86,20 @@ class DeclarationTVA(models.Model):
             month = self._get_month_number(self.mois)
             return date(year, month, 15)
 
+    @api.model
+    def _get_default_end_date(self):
+        if self.mois:
+            year = date.today().year
+            month = self._get_month_number(self.mois)
+            next_month = month + 1
+            next_year = year
+            if next_month > 12:
+                next_month = 1
+                next_year += 1
+            return date(next_year, next_month, 15) - timedelta(days=1)
+        else:
+            return False
+
     @api.onchange('partner_id', 'mois')
     def _onchange_partner_id_mois(self):
         if self.partner_id and self.mois:
@@ -119,5 +133,29 @@ class DeclarationTVA(models.Model):
 
     def button_cancel(self):
         pass
+
+    @api.onchange('sales_invoices', 'purchases_invoices')
+    def _onchange_invoices(self):
+        total_vat_collected = sum(invoice.amount_tax_signed for invoice in self.sales_invoices)
+
+        total_deductible_vat = sum(invoice.amount_tax_signed for invoice in self.purchases_invoices)
+
+        vat_credit = 0
+
+        if self.last_declaration.vat_credit == 0 :
+            vat_payable = total_vat_collected + total_deductible_vat
+            if vat_payable < 0 :
+                vat_credit = vat_payable
+        else :
+            vat_credit = self.self.last_declaration.vat_credit
+            vat_payable = total_vat_collected + total_deductible_vat + vat_credit
+
+
+        self.write({
+            'total_vat_collected': total_vat_collected,
+            'total_deductible_vat': total_deductible_vat,
+            'vat_credit': vat_credit,
+            'vat_payable': vat_payable,
+        })
 
 

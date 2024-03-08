@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_print_report_1" model="ir.actions.report">
+            <field name="name">Synthèse des déclarations</field>
+            <field name="type">ir.actions.report</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">declaration_tva_synthesse</field>
+            <field name="binding_model_id" ref="model_declaration_tva"/>
+            <field name="binding_type">report</field>
+            <field name="binding_report_id" ref="report_report_1"/>
+        </record>
+
+    </data>
+</odoo>
