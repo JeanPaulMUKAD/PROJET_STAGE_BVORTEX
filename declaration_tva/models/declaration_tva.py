@@ -166,19 +166,26 @@ class DeclarationTVA(models.Model):
         vat_credit = 0
         declaration_tva = self.last_declaration
 
-        if declaration_tva.vat_credit == 0 :
-            vat_payable = total_vat_collected + total_deductible_vat
-            if vat_payable < 0 :
+        if declaration_tva:
+            vat_payable = total_vat_collected + total_deductible_vat + declaration_tva.vat_credit
+            if vat_payable < 0:
                 vat_credit = vat_payable
                 vat_payable = 0
-        else :
-            vat_credit = self.last_declaration.vat_credit
-            vat_payable = total_vat_collected + total_deductible_vat + vat_credit
-            vat_credit = vat_payable
-            vat_payable = 0
-            if vat_credit >= 0:
-                vat_payable = vat_credit
+            else :
                 vat_credit = 0
+            self.vat_credit = vat_credit
+            self.vat_credit_cdf = vat_credit * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
+        else:
+            vat_payable = total_vat_collected + total_deductible_vat
+            if vat_payable < 0:
+                vat_credit = vat_payable
+                print(vat_credit)
+                vat_payable = 0
+            else:
+                vat_credit = 0
+            self.vat_credit = 0
+            self.vat_credit_cdf = 0
+
 
         self.write({
             'total_vat_collected': total_vat_collected,
@@ -187,6 +194,7 @@ class DeclarationTVA(models.Model):
             'vat_payable': vat_payable,
             'vat_payable_cdf' : vat_payable * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
         })
+
 
     @api.model
     def get_customer_invoices(self):
@@ -232,8 +240,6 @@ class DeclarationTVA(models.Model):
 
         self.total_vat_collected = s_vat_usd
         self.total_vat_collected_cdf = s_vat_cdf
-        self.vat_credit = self.last_declaration.vat_credit if self.last_declaration else 0
-        self.vat_credit_cdf = self.vat_credit * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
 
         return customer_invoices
 
