@@ -182,12 +182,13 @@ class DeclarationTVA(models.Model):
             'vat_payable': vat_payable,
         })
 
+    @api.model
     def get_customer_invoices(self):
         customer_invoices = []
         for invoice in self.sales_invoices:
             customer_name = invoice.partner_id.name
             invoice_info = {
-                'partner_id': customer_name,
+                'partner': customer_name,
                 'tax_number': invoice.partner_id.vat,
                 'designation': invoice.partner_id.commercial_company_name,
                 'date': invoice.invoice_date,
@@ -209,16 +210,38 @@ class DeclarationTVA(models.Model):
             self.customer_vat_usd += invoice_info['vat_usd']
             self.customer_vat_cdf += invoice_info['vat_cdf']
 
-            print(self.customer_total_amount_tcc_usd)
-            print(self.customer_total_amount_tcc_cdf)
-            print(self.customer_total_amount_ht_usd)
-            print(self.customer_total_amount_ht_cdf)
-            print(self.customer_vat_usd)
-            print(self.customer_vat_cdf)
-            print(invoice_info)
-            print("-"*100)
+        return customer_invoices
+
+    @api.model
+    def get_partner_invoices(self):
+        customer_invoices = []
+        for invoice in self.purchases_invoices:
+            customer_name = invoice.partner_id.name
+            invoice_info = {
+                'partner': customer_name,
+                'tax_number': invoice.partner_id.vat,
+                'designation': invoice.partner_id.commercial_company_name,
+                'date': invoice.invoice_date,
+                'invoice_reference': invoice.name,
+                'montant_ttc_usd' : invoice.amount_tax_signed,
+                'montant_ttc_cdf' : invoice.amount_tax_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+                'montant_ht_usd' : invoice.amount_untaxed_signed,
+                'montant_ht_cdf' : invoice.amount_untaxed_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+                'vat_usd' : invoice.amount_tax_signed,
+                'vat_cdf' : invoice.amount_tax_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+
+            }
+            customer_invoices.append(invoice_info)
+
+            self.partner_total_amount_tcc_usd += invoice_info['montant_ttc_usd']
+            self.partner_total_amount_tcc_cdf += invoice_info['montant_ttc_cdf']
+            self.partner_total_amount_ht_usd += invoice_info['montant_ht_usd']
+            self.partner_total_amount_ht_cdf += invoice_info['montant_ht_cdf']
+            self.partner_vat_usd += invoice_info['vat_usd']
+            self.partner_vat_cdf += invoice_info['vat_cdf']
 
         return customer_invoices
+
 
     @api.model
     def get_active_currency_rate(self):
