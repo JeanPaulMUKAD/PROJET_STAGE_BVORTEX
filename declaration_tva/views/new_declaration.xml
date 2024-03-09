@@ -40,7 +40,7 @@
                     <sheet>
                         <group>
                             <group id="left_column" class="col-6">
-                                <field name="partner_id"/>
+                                <field name="company_id"/>
                                 <field name="mois"/>
                                 <field name="last_declaration"/>
                                 <field name="manager"/>

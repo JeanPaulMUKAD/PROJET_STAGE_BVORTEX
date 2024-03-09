@@ -42,7 +42,8 @@ class DeclarationTVA(models.Model):
 
     collaborator = fields.Many2one('res.users', string="Collaborateur")
     manager = fields.Many2one('res.users', string="Manager", required=True)
-    partner_id = fields.Many2one('res.partner', string="Société", required=True)
+    partner_id = fields.Many2one('res.partner', string="partenaire")
+    company_id = fields.Many2one('res.company', string="Société", required=True)
 
     state = fields.Selection([('draft', 'Brouillon'), ('confirm', 'Confirmé'), ('validate', 'validé'), ('declared', 'Déclaré'), ('appured', 'Appuré'), ('delivered', 'Remis')], default="draft", string='Status')
     status = fields.Selection([('credit', 'Crédit'), ('payable', 'Payable')])
@@ -123,13 +124,13 @@ class DeclarationTVA(models.Model):
         else:
             return False
 
-    @api.onchange('partner_id', 'mois')
+    @api.onchange('company_id', 'mois')
     def _onchange_partner_id_mois(self):
-        if self.partner_id and self.mois:
+        if self.company_id and self.mois:
             start_date = self.start_date
             end_date = self.end_date
             sales_invoices = self.env['account.move'].search([
-                ('partner_id', '=', self.partner_id.id),
+                ('company_id', '=', self.company_id.id),
                 ('invoice_date', '>=', start_date),
                 ('move_type', '=', 'out_invoice'),
                 ('payment_state', 'in', ['posted', 'paid', 'partial']),
@@ -137,7 +138,7 @@ class DeclarationTVA(models.Model):
             ])
             self.sales_invoices = [(6, 0, sales_invoices.ids)]
             purchases_invoices = self.env['account.move'].search([
-                ('partner_id', '=', self.partner_id.id),
+                ('company_id', '=', self.company_id.id),
                 ('invoice_date', '>=', start_date),
                 ('move_type', '=', 'in_invoice'),
                 ('payment_state', 'in', ['posted', 'paid', 'partial']),
