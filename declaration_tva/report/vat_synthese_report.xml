@@ -36,7 +36,7 @@
                         a.comment-indicator { background:red; display:inline-block; border:1px solid black; width:0.5em; height:0.5em;  }
                         comment { display:none;  }
                     </style>
-                    <table cellspacing="0" border="0" style="width: 100%;">
+                    <table cellspacing="0" border="0" style="width: 100%;  border-style: hidden;  border-left: 1px solid #000000">
                         <colgroup width="356"></colgroup>
                         <colgroup span="2" width="86"></colgroup>
                         <colgroup width="121"></colgroup>
@@ -179,12 +179,12 @@
                                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom"><b><i><font face="Times New Roman" color="#000000"><br/></font></i></b></td>
                                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom"><font face="Times New Roman" color="#000000"><t t-esc="invoice['date']"/></font></td>
                                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign="bottom"><b><font face="Times New Roman" color="#000000"><t t-esc="invoice['invoice_reference']"/></font></b></td>
-                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><b><i><font face="Times New Roman" color="#000000"><t t-esc="invoice['montant_ttc_usd']"/></font></i></b></td>
-                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><i><font face="Times New Roman" color="#000000"><t t-esc="invoice['montant_ttc_cdf']"/></font></i></td>
-                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom"><i><font face="Times New Roman" color="#000000"><t t-esc="invoice['montant_ht_usd']"/></font></i></td>
-                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom"><i><font face="Times New Roman" color="#000000"><t t-esc="invoice['montant_ht_cdf']"/></font></i></td>
-                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom"><b><i><font face="Times New Roman" color="#000000"><t t-esc="invoice['vat_usd']"/></font></i></b></td>
-                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom"  ><b><i><font face="Times New Roman" color="#000000"><t t-esc="invoice['vat_cdf']"/></font></i></b></td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><b><i><font face="Times New Roman" color="#000000">$ <t t-esc="invoice['montant_ttc_usd']"/></font></i></b></td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><i><font face="Times New Roman" color="#000000"><t t-esc="invoice['montant_ttc_cdf']"/> Fc</font></i></td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom"><i><font face="Times New Roman" color="#000000">$ <t t-esc="invoice['montant_ht_usd']"/></font></i></td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom"><i><font face="Times New Roman" color="#000000"><t t-esc="invoice['montant_ht_cdf']"/> Fc</font></i></td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom"><b><i><font face="Times New Roman" color="#000000">$ <t t-esc="invoice['vat_usd']"/></font></i></b></td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom"  ><b><i><font face="Times New Roman" color="#000000"><t t-esc="invoice['vat_cdf']"/> Fc</font></i></b></td>
                             </tr>
 
                         </t>
@@ -232,8 +232,8 @@
 
                         <tr>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="4" align="left" valign="bottom"><font face="Georgia" color="#000000">Total Collected VAT</font></td>
-                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="15094.2784" sdnum="1033;0;[$$-C09]#,##0.00"><font face="Georgia" color="#000000">$15,094.28</font></td>
-                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="30735875.334784" sdnum="1033;0;#,##0.00 &quot;FC&quot;"><font face="Georgia" color="#000000">30,735,875.33 FC</font></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="15094.2784" sdnum="1033;0;[$$-C09]#,##0.00"><font face="Georgia" color="#000000">$ <t t-esc="doc.total_vat_collected"/> </font></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="30735875.334784" sdnum="1033;0;#,##0.00 &quot;FC&quot;"><font face="Georgia" color="#000000"><t t-esc="doc.total_vat_collected_cdf"/> FC</font></td>
                             <td align="center" valign="bottom" sdnum="1033;0;@"><b><font face="Georgia" color="#000000">Fcatures ventes</font></b></td>
                             <td align="left" valign="bottom"><b><i><font face="Georgia" color="#000000"><br/></font></i></b></td>
                             <td align="left" valign="bottom"><b><i><font face="Georgia" color="#000000"><br/></font></i></b></td>
@@ -243,8 +243,8 @@
                         </tr>
                         <tr>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="4" align="left" valign="bottom"><font face="Georgia" color="#000000">Total Deductible VAT</font></td>
-                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="112.439397562197" sdnum="1033;0;[$$-C09]#,##0.00"><font face="Georgia" color="#000000">$112.44</font></td>
-                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="228955.84768" sdnum="1033;0;#,##0.00 &quot;FC&quot;"><font face="Georgia" color="#000000">228,955.85 FC</font></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="112.439397562197" sdnum="1033;0;[$$-C09]#,##0.00"><font face="Georgia" color="#000000">$ <t t-esc="doc.total_deductible_vat"/></font></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="228955.84768" sdnum="1033;0;#,##0.00 &quot;FC&quot;"><font face="Georgia" color="#000000"><t t-esc="doc.total_deductible_vat_cdf"/> FC</font></td>
                             <td align="center" valign="bottom" sdnum="1033;0;@"><b><font face="Georgia" color="#000000">Factures achats</font></b></td>
                             <td align="left" valign="bottom"><b><i><font face="Georgia" color="#000000"><br/></font></i></b></td>
                             <td align="left" valign="bottom"><b><i><font face="Georgia" color="#000000"><br/></font></i></b></td>
@@ -254,8 +254,8 @@
                         </tr>
                         <tr>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="4" align="left" valign="bottom"><font face="Georgia" color="#000000">Credit Vat</font></td>
-                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="1500" sdnum="1033;0;[$$-C09]#,##0.00"><font face="Georgia" color="#000000">$1,500.00</font></td>
-                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="4050000" sdnum="1033;0;[$$-C09]#,##0.00"><font face="Georgia" color="#000000">$4,050,000.00</font></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="1500" sdnum="1033;0;[$$-C09]#,##0.00"><font face="Georgia" color="#000000">$ <t t-esc="doc.vat_credit"/> </font></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="4050000" sdnum="1033;0;[$$-C09]#,##0.00"><font face="Georgia" color="#000000"><t t-esc="doc.vat_credit_cdf"/> Fc</font></td>
                             <td align="center" valign="bottom" sdnum="1033;0;@"><b><font face="Georgia" color="#000000">dec précedente</font></b></td>
                             <td align="left" valign="bottom"><b><i><font face="Georgia" color="#000000"><br/></font></i></b></td>
                             <td align="left" valign="bottom" sdnum="1033;0;[$$-C09]#,##0.00"><b><i><font face="Georgia" color="#000000"><br/></font></i></b></td>
@@ -265,8 +265,8 @@
                         </tr>
                         <tr>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="4" align="left" valign="bottom" bgcolor="#00B050"><b><font face="Georgia" color="#000000">Vat Payable</font></b></td>
-                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="16481.8390024378" sdnum="1033;0;[$$-C09]#,##0.00"><b><font face="Georgia" color="#000000">$16,481.84</font></b></td>
-                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="34556919.487104" sdnum="1033;0;#,##0.00 &quot;FC&quot;"><b><font face="Georgia" color="#000000">34,556,919.49 FC</font></b></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="16481.8390024378" sdnum="1033;0;[$$-C09]#,##0.00"><b><font face="Georgia" color="#000000">$ <t t-esc="doc.vat_payable"/></font></b></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="16481.8390024378" sdnum="1033;0;[$$-C09]#,##0.00"><b><font face="Georgia" color="#000000"><t t-esc="doc.vat_payable * doc.get_active_currency_rate()"/> Fc</font></b></td>
                             <td align="center" valign="bottom" sdnum="1033;0;@"><b><font face="Georgia" color="#000000">Relevés bancaires</font></b></td>
                             <td align="left" valign="bottom" sdnum="1033;0;[$$-C09]#,##0.00"><b><font face="Georgia" color="#000000"><br/></font></b></td>
                             <td align="left" valign="bottom" sdnum="1033;0;[$$-C09]#,##0.00"><b><font face="Georgia" color="#000000"><br/></font></b></td>

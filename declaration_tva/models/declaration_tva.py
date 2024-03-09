@@ -26,10 +26,17 @@ class DeclarationTVA(models.Model):
     start_date = fields.Date(string="Date de début", default=lambda self: self._get_default_start_date(), compute="_compute_dates", required=True)
     end_date = fields.Date(string="Date de fin", default=lambda self: self._get_default_end_date(), compute="_compute_dates", required=True)
 
-    total_vat_collected = fields.Integer(string="Total de la TVA collectée")
-    total_deductible_vat = fields.Integer(string="Total de la TVA déductible")
-    vat_payable = fields.Integer(string="TVA Payable")
-    vat_credit = fields.Integer(string="Crédit TVA")
+    total_vat_collected = fields.Float(string="Total de la TVA collectée")
+    total_vat_collected_cdf = fields.Float(string="Total de la TVA collectée en Fc")
+
+    total_deductible_vat = fields.Float(string="Total de la TVA déductible")
+    total_deductible_vat_cdf= fields.Float(string="Total de la TVA déductible en FC")
+
+    vat_payable = fields.Float(string="TVA Payable")
+    vat_payable_cdf = fields.Float(string="TVA Payable En Fc")
+
+    vat_credit = fields.Float(string="Crédit TVA")
+    vat_credit_cdf = fields.Float(string="Crédit TVA en Fc")
 
 
 
@@ -153,11 +160,9 @@ class DeclarationTVA(models.Model):
     @api.onchange('sales_invoices', 'purchases_invoices', 'last_declaration')
     def _onchange_invoices(self):
         total_vat_collected = sum(invoice.amount_tax_signed for invoice in self.sales_invoices)
-
         total_deductible_vat = sum(invoice.amount_tax_signed for invoice in self.purchases_invoices)
 
         vat_credit = 0
-
         declaration_tva = self.last_declaration
 
         if declaration_tva.vat_credit == 0 :
@@ -174,21 +179,35 @@ class DeclarationTVA(models.Model):
                 vat_payable = vat_credit
                 vat_credit = 0
 
-
         self.write({
             'total_vat_collected': total_vat_collected,
             'total_deductible_vat': total_deductible_vat,
             'vat_credit': vat_credit,
             'vat_payable': vat_payable,
+            'vat_payable_cdf' : vat_payable * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
         })
 
     @api.model
     def get_customer_invoices(self):
         customer_invoices = []
+        s_total_amount_tcc_usd = 0
+        s_total_amount_tcc_cdf = 0
+        s_total_amount_ht_usd = 0
+        s_total_amount_ht_cdf = 0
+        s_vat_usd = 0
+        s_vat_cdf = 0
+
+
         for invoice in self.sales_invoices:
-            customer_name = invoice.partner_id.name
+            s_total_amount_tcc_usd += invoice.amount_tax_signed
+            s_total_amount_tcc_cdf += invoice.amount_tax_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
+            s_total_amount_ht_usd += invoice.amount_untaxed_signed
+            s_total_amount_ht_cdf += invoice.amount_untaxed_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
+            s_vat_usd += invoice.amount_tax_signed
+            s_vat_cdf += invoice.amount_tax_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
+
             invoice_info = {
-                'partner': customer_name,
+                'partner': invoice.partner_id.name,
                 'tax_number': invoice.partner_id.vat,
                 'designation': invoice.partner_id.commercial_company_name,
                 'date': invoice.invoice_date,
@@ -203,22 +222,39 @@ class DeclarationTVA(models.Model):
             }
             customer_invoices.append(invoice_info)
 
-            self.customer_total_amount_tcc_usd += invoice_info['montant_ttc_usd']
-            self.customer_total_amount_tcc_cdf += invoice_info['montant_ttc_cdf']
-            self.customer_total_amount_ht_usd += invoice_info['montant_ht_usd']
-            self.customer_total_amount_ht_cdf += invoice_info['montant_ht_cdf']
-            self.customer_vat_usd += invoice_info['vat_usd']
-            self.customer_vat_cdf += invoice_info['vat_cdf']
+        self.customer_total_amount_tcc_usd = s_total_amount_tcc_usd
+        self.customer_total_amount_tcc_cdf = s_total_amount_tcc_cdf
+        self.customer_total_amount_ht_usd = s_total_amount_ht_usd
+        self.customer_total_amount_ht_cdf = s_total_amount_ht_cdf
+        self.customer_vat_usd = s_vat_usd
+        self.customer_vat_cdf = s_vat_cdf
+
+        self.total_vat_collected = s_vat_usd
+        self.total_vat_collected_cdf = s_vat_cdf
+        self.vat_credit = self.last_declaration.vat_credit if self.last_declaration else 0
+        self.vat_credit_cdf = self.vat_credit * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
 
         return customer_invoices
 
     @api.model
     def get_partner_invoices(self):
         customer_invoices = []
+        s_total_amount_tcc_usd = 0
+        s_total_amount_tcc_cdf = 0
+        s_total_amount_ht_usd = 0
+        s_total_amount_ht_cdf = 0
+        s_vat_usd = 0
+        s_vat_cdf = 0
         for invoice in self.purchases_invoices:
-            customer_name = invoice.partner_id.name
+            s_total_amount_tcc_usd += invoice.amount_tax_signed
+            s_total_amount_tcc_cdf += invoice.amount_tax_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
+            s_total_amount_ht_usd += invoice.amount_untaxed_signed
+            s_total_amount_ht_cdf += invoice.amount_untaxed_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
+            s_vat_usd += invoice.amount_tax_signed
+            s_vat_cdf += invoice.amount_tax_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
+
             invoice_info = {
-                'partner': customer_name,
+                'partner': invoice.partner_id.name,
                 'tax_number': invoice.partner_id.vat,
                 'designation': invoice.partner_id.commercial_company_name,
                 'date': invoice.invoice_date,
@@ -233,12 +269,16 @@ class DeclarationTVA(models.Model):
             }
             customer_invoices.append(invoice_info)
 
-            self.partner_total_amount_tcc_usd += invoice_info['montant_ttc_usd']
-            self.partner_total_amount_tcc_cdf += invoice_info['montant_ttc_cdf']
-            self.partner_total_amount_ht_usd += invoice_info['montant_ht_usd']
-            self.partner_total_amount_ht_cdf += invoice_info['montant_ht_cdf']
-            self.partner_vat_usd += invoice_info['vat_usd']
-            self.partner_vat_cdf += invoice_info['vat_cdf']
+            self.partner_total_amount_tcc_usd = s_total_amount_tcc_usd
+            self.partner_total_amount_tcc_cdf = s_total_amount_tcc_cdf
+            self.partner_total_amount_ht_usd = s_total_amount_ht_usd
+            self.partner_total_amount_ht_cdf = s_total_amount_ht_cdf
+            self.partner_vat_usd = s_vat_usd
+            self.partner_vat_cdf = s_vat_cdf
+
+            self.total_deductible_vat = s_vat_usd
+            self.total_deductible_vat_cdf = s_vat_cdf
+
 
         return customer_invoices
 
