@@ -8,7 +8,7 @@
         <field name="report_type">qweb-html</field>
         <field name="report_name">declaration_tva.report_declaration_tva</field>
         <field name="report_file">declaration_tva.report_declaration_tva</field>
-        <field name="print_report_name">'Déclaration tva - %s' % (object.name).replace('/', '')</field>
+        <field name="print_report_name">'Déclaration '</field>
         <field name="binding_model_id" ref="model_declaration_tva"/>
         <field name="binding_type">report</field>
     </record>

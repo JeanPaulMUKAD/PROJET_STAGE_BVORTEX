@@ -6,459 +6,152 @@
         <field name="name">Recap</field>
         <field name="model">declaration_tva</field>
         <field name="report_type">qweb-html</field>
-        <field name="report_name">declaration_tva.report_declaration_tva</field>
-        <field name="report_file">declaration_tva.report_declaration_tva</field>
+        <field name="report_name">declaration_tva.report_recap_tva</field>
+        <field name="report_file">declaration_tva.report_recap_tva</field>
         <field name="print_report_name">'Recap tva'</field>
         <field name="binding_model_id" ref="model_declaration_tva"/>
         <field name="paperformat_id" ref="declaration_tva.document_landscape_model"/>
         <field name="binding_type">report</field>
     </record>
 
-    <template id="report_declaration_tva">
+    <template id="report_recap_tva">
         <t t-call="web.html_container">
             <table cellspacing="0" border="0">
-	<colgroup width="40"></colgroup>
-	<colgroup width="86"></colgroup>
-	<colgroup width="162"></colgroup>
-	<colgroup width="150"></colgroup>
-	<colgroup span="4" width="135"></colgroup>
-	<colgroup span="7" width="133"></colgroup>
-	<colgroup span="2" width="86"></colgroup>
-	<tr>
-		<td height="22" align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="4" height="32" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">DEDUCTION</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="2" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">CA  REALISE</font></b></td>
-                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="2" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">CA IMPOSABLE DECLARE</font></b></td>
-                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="2" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">TVA COLLECTEE &amp; DECLAREE</font></b></td>
-                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="2" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">TVA NETTE</font></b></td>
-                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="2" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">SUIV</font></b></td>
-                <td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-                <td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-                <td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-            </tr>
-	        <tr>
-		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="46" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">#</font></b></td>
-		<td style="border-bottom: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">Mois</font></b></td>
-		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA déductible CDF</font></b></td>
-		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA déductible USD</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">CA CDF</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">CA USD</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">CA CDF</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">CA USD</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA Collectée <br/>CDF</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA Collectée USD</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA  <br/>CDF</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA  USD</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">Déclaration</font></b></td>
-		<td style="border-top: 2px solid #000000; border-right: 2px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">Apurement</font></b></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-right: 2px solid #000000" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">Mois</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">Taux </font></b></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="22" align="center" valign="bottom" sdval="1" sdnum="1033;"><font face="Comic Sans MS" color="#000000">1</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Janvier</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Janvier</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" sdval="2030.98" ><font face="Comic Sans MS" color="#000000"> 2,030.98    </font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="22" align="center" valign="bottom" sdval="2" sdnum="1033;"><font face="Comic Sans MS" color="#000000">2</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Février</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="112.439397562197" ><font face="Comic Sans MS" color="#000000"> 112.44    </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="right" valign="bottom" sdval="228955.84768" ><font face="Comic Sans MS" color="#000000"> 228,955.85    </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="40000" ><a class="comment-indicator"></a>
-		<comment>Cfr facturation
-</comment>
-		<font face="Comic Sans MS" color="#000000"> 40,000.00    </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="108000000" ><font face="Comic Sans MS" color="#000000"> 108,000,000.00    </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="222835096.177184" ><font face="Comic Sans MS" color="#000000"> 222,835,096.18    </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="109433.5184" ><font face="Comic Sans MS" color="#000000"> 109,433.52    </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" sdval="30735875.334784" ><font face="Comic Sans MS" color="#000000"> 30,735,875.33    </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="right" valign="bottom" sdval="15094.2784" ><font face="Comic Sans MS" color="#000000"> 15,094.28    </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" sdval="16481.8390024378" ><font face="Comic Sans MS" color="#000000"> 16,481.84    </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" sdval="34556919.487104" ><font face="Comic Sans MS" color="#000000"> 34,556,919.49    </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="center" valign="bottom" ><font face="Comic Sans MS" color="#000000"> Déclaré  </font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="center" valign="bottom" ><font face="Comic Sans MS" color="#000000"> Apurée/NA </font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Février</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" sdval="2035.99" ><font face="Comic Sans MS" color="#000000"> 2,035.99    </font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="22" align="center" valign="bottom" sdval="3" sdnum="1033;"><font face="Comic Sans MS" color="#000000">3</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Mars</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Mars</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" sdval="2036.26" ><font face="Comic Sans MS" color="#000000"> 2,036.26    </font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="22" align="center" valign="bottom" sdval="4" sdnum="1033;"><font face="Comic Sans MS" color="#000000">4</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Avril</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Avril</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" sdval="2107.34" ><font face="Comic Sans MS" color="#000000"> 2,107.34    </font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="22" align="center" valign="bottom" sdval="5" sdnum="1033;"><font face="Comic Sans MS" color="#000000">5</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Mai</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Mai</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" sdval="2305.28" ><font face="Comic Sans MS" color="#000000"> 2,305.28    </font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="22" align="center" valign="bottom" sdval="6" sdnum="1033;"><font face="Comic Sans MS" color="#000000">6</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Juin</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Juin</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" sdval="2389.58" ><font face="Comic Sans MS" color="#000000"> 2,389.58    </font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="22" align="center" valign="bottom" sdval="7" sdnum="1033;"><font face="Comic Sans MS" color="#000000">7</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Juillet</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Juillet</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" sdval="2430.97" ><font face="Comic Sans MS" color="#000000"> 2,430.97    </font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="22" align="center" valign="bottom" sdval="8" sdnum="1033;"><font face="Comic Sans MS" color="#000000">8</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Août</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Août</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" sdval="2430.97" ><font face="Comic Sans MS" color="#000000"> 2,430.97    </font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="22" align="center" valign="bottom" sdval="9" sdnum="1033;"><font face="Comic Sans MS" color="#000000">9</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Septembre</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Septembre</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" sdval="2493.5208" ><font face="Comic Sans MS" color="#000000"> 2,493.52    </font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="22" align="center" valign="bottom" sdval="10" sdnum="1033;"><font face="Comic Sans MS" color="#000000">10</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Octobre</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Octobre</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" sdval="2598.41" ><font face="Comic Sans MS" color="#000000"> 2,598.41    </font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="22" align="center" valign="bottom" sdval="11" sdnum="1033;"><font face="Comic Sans MS" color="#000000">11</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Novembre</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Novembre</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" sdval="2635.58" ><font face="Comic Sans MS" color="#000000"> 2,635.58    </font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="22" align="center" valign="bottom" sdval="12" sdnum="1033;"><font face="Comic Sans MS" color="#000000">12</font></td>
-		<td style="border-top: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Décembre</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><a class="comment-indicator"></a>
-		
-		<font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Décembre</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" sdval="2669.7907" ><font face="Comic Sans MS" color="#000000"> 2,669.79    </font></td>
-	</tr>
-	<tr>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000" colspan="2" height="32" align="center" valign="bottom" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000"><br/></font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" bgcolor="#F2F2F2" sdval="112.439397562197" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000">112.44</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" bgcolor="#F2F2F2" sdval="228955.84768" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000">228,955.85</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" bgcolor="#F2F2F2" sdval="40000" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000">40,000.00</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" bgcolor="#F2F2F2" sdval="108000000" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000">108,000,000.00</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" bgcolor="#F2F2F2" sdval="222835096.177184" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000">222,835,096.18</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" bgcolor="#F2F2F2" sdval="109433.5184" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000">109,433.52</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" bgcolor="#F2F2F2" sdval="30735875.334784" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000">30,735,875.33</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" bgcolor="#F2F2F2" sdval="15094.2784" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000">15,094.28</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-right: 2px solid #000000" align="left" valign="bottom" bgcolor="#F2F2F2" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000"><br/></font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-right: 2px solid #000000" align="left" valign="bottom" bgcolor="#F2F2F2" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000"><br/></font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="left" valign="bottom" bgcolor="#F2F2F2" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000"><br/></font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="left" valign="bottom" bgcolor="#F2F2F2" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000"><br/></font></b></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-	</tr>
-	<tr>
-		<td height="22" align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-	</tr>
-	<tr>
-		<td height="37" align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-	</tr>
-	<tr>
-		<td height="22" align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-	</tr>
-	<tr>
-		<td height="22" align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-	</tr>
-	<tr>
-		<td height="22" align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-	</tr>
-	<tr>
-		<td height="22" align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-	</tr>
-	<tr>
-		<td height="22" align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-		<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-	</tr>
-</table>
-        </t>
+			<colgroup width="40"></colgroup>
+			<colgroup width="86"></colgroup>
+			<colgroup width="162"></colgroup>
+			<colgroup width="150"></colgroup>
+			<colgroup span="4" width="135"></colgroup>
+			<colgroup span="7" width="133"></colgroup>
+			<colgroup span="2" width="86"></colgroup>
+			<tr>
+				<td height="22" align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+			</tr>
+			<tr>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="4" height="32" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">DEDUCTION</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="2" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">CA  REALISE</font></b></td>
+						<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="2" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">CA IMPOSABLE DECLARE</font></b></td>
+						<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="2" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">TVA COLLECTEE &amp; DECLAREE</font></b></td>
+						<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="2" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">TVA NETTE</font></b></td>
+						<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="2" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">SUIV</font></b></td>
+						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+					</tr>
+					<tr>
+				<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="46" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">#</font></b></td>
+				<td style="border-bottom: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">Mois</font></b></td>
+				<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA deductible CDF</font></b></td>
+				<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA deductible USD</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">CA CDF</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">CA USD</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">CA CDF</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">CA USD</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA Collectee <br/>CDF</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA Collectee USD</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA  <br/>CDF</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA  USD</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">Declaration</font></b></td>
+				<td style="border-top: 2px solid #000000; border-right: 2px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">Apurement</font></b></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">Mois</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">Taux </font></b></td>
+			</tr>
+			<tr>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="22" align="center" valign="bottom" sdval="1" sdnum="1033;"><font face="Comic Sans MS" color="#000000">1</font></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Janvier</font></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000">Janvier</font></td>
+				<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" sdval="2030.98" ><font face="Comic Sans MS" color="#000000"> 2,030.98    </font></td>
+			</tr>
+
+			<tr>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000" colspan="2" height="32" align="center" valign="bottom" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000"><br/></font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" bgcolor="#F2F2F2" sdval="112.439397562197" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000">112.44</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" bgcolor="#F2F2F2" sdval="228955.84768" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000">228,955.85</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" bgcolor="#F2F2F2" sdval="40000" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000">40,000.00</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" bgcolor="#F2F2F2" sdval="108000000" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000">108,000,000.00</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" bgcolor="#F2F2F2" sdval="222835096.177184" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000">222,835,096.18</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" bgcolor="#F2F2F2" sdval="109433.5184" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000">109,433.52</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" bgcolor="#F2F2F2" sdval="30735875.334784" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000">30,735,875.33</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" bgcolor="#F2F2F2" sdval="15094.2784" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000">15,094.28</font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-right: 2px solid #000000" align="left" valign="bottom" bgcolor="#F2F2F2" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000"><br/></font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-right: 2px solid #000000" align="left" valign="bottom" bgcolor="#F2F2F2" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000"><br/></font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="left" valign="bottom" bgcolor="#F2F2F2" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000"><br/></font></b></td>
+				<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="left" valign="bottom" bgcolor="#F2F2F2" sdnum="1033;0;#,##0.00"><b><font face="Comic Sans MS" color="#000000"><br/></font></b></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+			</tr>
+			<tr>
+				<td height="22" align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+			</tr>
+			<tr>
+				<td height="37" align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+				<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
+			</tr>
+
+		</table>
+		</t>
 
     </template>
 </data>
