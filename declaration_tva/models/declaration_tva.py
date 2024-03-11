@@ -1,5 +1,7 @@
 from odoo import models, fields, api
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
+
+
 
 
 class DeclarationTVA(models.Model):
@@ -25,6 +27,9 @@ class DeclarationTVA(models.Model):
     ], string='Mois', required=True)
     start_date = fields.Date(string="Date de début", default=lambda self: self._get_default_start_date(), compute="_compute_dates", required=True)
     end_date = fields.Date(string="Date de fin", default=lambda self: self._get_default_end_date(), compute="_compute_dates", required=True)
+    annee = fields.Integer(string="Année", compute="_compute_year", store=True)
+
+
 
     total_vat_collected = fields.Float(string="Total de la TVA collectée")
     total_vat_collected_cdf = fields.Float(string="Total de la TVA collectée en Fc")
@@ -67,7 +72,7 @@ class DeclarationTVA(models.Model):
     partner_vat_usd = fields.Float(string="TVA des factures des fourniseurs en USD", default=0)
     partner_vat_cdf = fields.Float(string="TVA des factures des fourniseurs en CDF", default=0)
 
-
+    month_exchange_rates = fields.Float("Taux de change de la déclaration", compute="_compute_month_rate")
 
     @api.depends('mois')
     def _compute_dates(self):
@@ -105,10 +110,16 @@ class DeclarationTVA(models.Model):
 
     @api.model
     def _get_default_start_date(self):
+
+
         if self.mois:
             year = date.today().year
             month = self._get_month_number(self.mois)
             return date(year, month, 15)
+
+    @api.model
+    def _compute_month_rate(self):
+        self.month_exchange_rates = self.get_active_currency_rate()
 
     @api.model
     def _get_default_end_date(self):
@@ -123,6 +134,15 @@ class DeclarationTVA(models.Model):
             return date(next_year, next_month, 15) - timedelta(days=1)
         else:
             return False
+
+    @api.depends('mois')
+    def _compute_year(self):
+        for declaration in self:
+            if declaration.mois:
+                current_year = fields.Date.today().year
+                declaration.annee = current_year
+            else:
+                declaration.annee = False
 
     @api.onchange('company_id', 'mois')
     def _onchange_partner_id_mois(self):
@@ -179,7 +199,6 @@ class DeclarationTVA(models.Model):
             vat_payable = total_vat_collected + total_deductible_vat
             if vat_payable < 0:
                 vat_credit = vat_payable
-                print(vat_credit)
                 vat_payable = 0
             else:
                 vat_credit = 0
@@ -298,3 +317,55 @@ class DeclarationTVA(models.Model):
             return cdf_currency.rate_ids.company_rate
         else:
             return None
+
+    @api.model
+    def compute_tva_values(self):
+        result = []
+
+        declarations = self.env['declaration_tva'].search([('company_id', '=', self.company_id.id), ('annee', '=', self.annee)])
+
+        for declaration in declarations:
+            declaration_month = declaration.mois
+
+            realized_sales = self.env['account.move'].search([
+                ('company_id', '=', self.company_id.id),
+                ('move_type', '=', 'out_invoice'),
+                ('invoice_month', '=', declaration_month)
+            ])
+            total_ca_usd = 0
+            total_taxable_ca_usd = 0
+
+            for invoice in self.sales_invoices:
+                total_taxable_ca_usd += invoice.amount_tax_signed
+
+            for invoice in realized_sales:
+                total_ca_usd += invoice.amount_tax_signed
+
+            declaration_info = {
+                'mois': declaration.mois,
+                'exchange_rate' : declaration.month_exchange_rates,
+                'vat_deductible_usd': declaration.total_deductible_vat,
+                'vat_deductible_cdf': declaration.total_deductible_vat_cdf,
+                'realized_ca_usd': total_ca_usd,
+                'realized_ca_cdf': total_ca_usd * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+                'taxable_ca_usd': total_taxable_ca_usd,
+                'taxable_ca_cdf': total_taxable_ca_usd * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+                'collected_vat_usd': self.total_vat_collected,
+                'collected_vat_cdf' : self.total_vat_collected_cdf,
+                'net_vat_usd': self.vat_payable,
+                'net_vat_cdf': self.vat_payable * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+            }
+
+            result.append(declaration_info)
+
+
+
+
+class AcountMove(models.Model):
+    _inherit = 'account.move'
+    invoice_month = fields.Char("Mois de la facture", compute="_compute_month")
+
+    @api.depends('invoice_date')
+    def _compute_month(self):
+        month = self.invoice_date.strftime('%B')
+        return month
