@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from datetime import date, timedelta, datetime
+import random
 
 
 
@@ -8,7 +9,7 @@ class DeclarationTVA(models.Model):
     _name = "declaration_tva"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    reference = fields.Char(string="Reference")
+    reference = fields.Char(string="Reference", tracking=True)
     last_declaration = fields.Many2one('declaration_tva', "Déclaration précédente")
 
     mois = fields.Selection([
@@ -72,7 +73,7 @@ class DeclarationTVA(models.Model):
     partner_vat_usd = fields.Float(string="TVA des factures des fourniseurs en USD", default=0)
     partner_vat_cdf = fields.Float(string="TVA des factures des fourniseurs en CDF", default=0)
 
-    month_exchange_rates = fields.Float("Taux de change de la déclaration", store=True, default=1)
+    month_exchange_rates = fields.Float("Taux de change de la déclaration", store=True, default=1,  tracking=True)
 
     @api.depends('mois')
     def _compute_dates(self):
@@ -110,8 +111,6 @@ class DeclarationTVA(models.Model):
 
     @api.model
     def _get_default_start_date(self):
-
-
         if self.mois:
             year = date.today().year
             month = self._get_month_number(self.mois)
@@ -167,17 +166,46 @@ class DeclarationTVA(models.Model):
             self.purchases_invoices = [(6, 0, purchases_invoices.ids)]
 
 
+    def button_confirm(self):
+        self.write({'state': 'confirm'})
 
 
+    def button_validate(self):
+        self.write({'state': 'validate'})
+
+
+    def button_declare(self):
+        self.write({'state': 'declared'})
+        return {
+            'effect': {
+                'fadeout': 'slow',
+                'message': 'Déclaration faite avec succès...',
+                'type': 'rainbow_man',
+            }
+        }
+
+
+    def button_approve(self):
+        self.write({'state': 'appured'})
+
+
+    def button_deliver(self):
+        self.write({'state': 'delivered'})
 
     def save(self):
-        pass
 
-    def button_edit(self):
-        pass
+        if not self.reference:
+            declaration_year = self.annee
+            declaration_month = self.mois
+            company = self.company_id.name
+            number = random.randint(1, 1_000_000)
+            reference = f"DEC/{declaration_year}/{declaration_month}/{company}/{number}"
+            self.write({'reference': reference})
+        else :
+            self.write({'reference': self.reference})
 
-    def button_cancel(self):
-        pass
+
+
 
     @api.onchange('sales_invoices', 'purchases_invoices', 'last_declaration')
     def _onchange_invoices(self):

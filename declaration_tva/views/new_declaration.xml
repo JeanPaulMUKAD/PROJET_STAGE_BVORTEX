@@ -1,13 +1,36 @@
 <odoo>
     <data>
+        <record id="action_declaration_tva" model="ir.actions.act_window">
+            <field name="name">Déclarations TVA</field>
+            <field name="res_model">declaration_tva</field>
+            <field name="view_mode">kanban,list,form</field>
+        </record>
+
         <record id="view_declaration_tva_kanban" model="ir.ui.view">
             <field name="name">declaration_tva.kanban</field>
             <field name="model">declaration_tva</field>
             <field name="arch" type="xml">
-                <kanban>
-                    <field name="mois" widget="label"/>
-                    <field name="start_date" widget="label"/>
-                    <field name="end_date" widget="label"/>
+                <kanban class="o_res_partner_kanban"
+                        js_class="website_pages_kanban"
+                        type="object" sample="1">
+                    <field name="company_id" widget="label"/>
+                    <t t-name="kanban-box">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click d-flex flex-column">
+                                <div>
+                                    <field name="mois"/>
+                                </div>
+                                <div class="border-top mt-2 pt-2">
+                                    <field name="state" widget="boolean_toggle"/>
+                                </div>
+                                        <field name="start_date" widget="label"/>
+                                        <field name="end_date" widget="label"/>
+                            </div>
+                        </t>
+                    </templates>
+                    </t>
+
                 </kanban>
             </field>
         </record>
@@ -18,9 +41,14 @@
             <field name="model">declaration_tva</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="company_id"/>
+                    <field name="company_id"/>
+                    <field name="annee"/>
                     <field name="mois"/>
-                    <field name="start_date"/>
-                    <field name="end_date"/>
+                    <field name="state"/>
+                    <field name="total_vat_collected"/>
+                    <field name="total_deductible_vat"/>
+                    <field name="vat_payable"/>
                 </tree>
 
             </field>
@@ -32,14 +60,21 @@
             <field name="arch" type="xml">
                 <form class="oe_stat_button oe_highlight">
                     <header>
-                        <button name="button_edit" string="Éditer" type="object" class="oe_highlight"/>
-                        <button name="button_cancel" string="Annuler" type="object" class="oe_link"/>
-                        <field name="state" widget="statusbar"  options="{'clickable': '1'}"/>
+
+                        <button name="save" string="Sauver" type="object" class="btn-primary"/>
+                        <button name="button_confirm" string="Confirmer" type="object" invisible ="state in ['validate','declared','appured', 'delivered']"/>
+                        <button name="button_validate" string="Valider" type="object" invisible ="state in ['validate','declared','appured', 'delivered']"/>
+                        <button name="button_declare" string="Déclarer" type="object" invisible ="state in ['declared','appured', 'delivered']"/>
+                        <button name="button_approve" string="Appuré" type="object" invisible ="state in ['appured', 'delivered']"/>
+                        <button name="button_deliver" string="Remettre" type="object" invisible ="state =='delivered'"/>
+                        <field name="state" widget="statusbar"/>
+
                     </header>
                     <br/>
                     <sheet>
                         <group>
                             <group id="left_column" class="col-6">
+                                <field name="reference" class="oe_inline col-md-12"/>
                                 <field name="company_id"/>
                                 <field name="mois"/>
                                 <field name="last_declaration"/>
@@ -89,11 +124,7 @@
             </field>
         </record>
 
-       <record id="action_declaration_tva" model="ir.actions.act_window">
-            <field name="name">Déclarations TVA</field>
-            <field name="res_model">declaration_tva</field>
-            <field name="view_mode">tree,form</field>
-        </record>
+
 
     </data>
 </odoo>
