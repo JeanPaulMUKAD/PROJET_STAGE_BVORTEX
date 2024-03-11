@@ -49,6 +49,7 @@
                                 <field name="start_date"/>
                                 <field name="end_date"/>
                                 <field name="collaborator"/>
+                                <field name="month_exchange_rates"/>
                             </group>
                         </group>
                         <hr/>

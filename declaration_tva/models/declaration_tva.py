@@ -72,7 +72,7 @@ class DeclarationTVA(models.Model):
     partner_vat_usd = fields.Float(string="TVA des factures des fourniseurs en USD", default=0)
     partner_vat_cdf = fields.Float(string="TVA des factures des fourniseurs en CDF", default=0)
 
-    month_exchange_rates = fields.Float("Taux de change de la déclaration", compute="_compute_month_rate")
+    month_exchange_rates = fields.Float("Taux de change de la déclaration", store=True, default=1)
 
     @api.depends('mois')
     def _compute_dates(self):
@@ -194,7 +194,7 @@ class DeclarationTVA(models.Model):
             else :
                 vat_credit = 0
             self.vat_credit = vat_credit
-            self.vat_credit_cdf = vat_credit * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
+            self.vat_credit_cdf = vat_credit * self.month_exchange_rates
         else:
             vat_payable = total_vat_collected + total_deductible_vat
             if vat_payable < 0:
@@ -211,7 +211,7 @@ class DeclarationTVA(models.Model):
             'total_deductible_vat': total_deductible_vat,
             'vat_credit': vat_credit,
             'vat_payable': vat_payable,
-            'vat_payable_cdf' : vat_payable * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
+            'vat_payable_cdf' : vat_payable * self.month_exchange_rates
         })
 
 
@@ -228,11 +228,11 @@ class DeclarationTVA(models.Model):
 
         for invoice in self.sales_invoices:
             s_total_amount_tcc_usd += invoice.amount_tax_signed
-            s_total_amount_tcc_cdf += invoice.amount_tax_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
+            s_total_amount_tcc_cdf += invoice.amount_tax_signed * self.month_exchange_rates
             s_total_amount_ht_usd += invoice.amount_untaxed_signed
-            s_total_amount_ht_cdf += invoice.amount_untaxed_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
+            s_total_amount_ht_cdf += invoice.amount_untaxed_signed * self.month_exchange_rates
             s_vat_usd += invoice.amount_tax_signed
-            s_vat_cdf += invoice.amount_tax_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
+            s_vat_cdf += invoice.amount_tax_signed * self.month_exchange_rates
 
             invoice_info = {
                 'partner': invoice.partner_id.name,
@@ -241,11 +241,11 @@ class DeclarationTVA(models.Model):
                 'date': invoice.invoice_date,
                 'invoice_reference': invoice.name,
                 'montant_ttc_usd' : invoice.amount_tax_signed,
-                'montant_ttc_cdf' : invoice.amount_tax_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+                'montant_ttc_cdf' : invoice.amount_tax_signed * self.month_exchange_rates,
                 'montant_ht_usd' : invoice.amount_untaxed_signed,
-                'montant_ht_cdf' : invoice.amount_untaxed_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+                'montant_ht_cdf' : invoice.amount_untaxed_signed * self.month_exchange_rates,
                 'vat_usd' : invoice.amount_tax_signed,
-                'vat_cdf' : invoice.amount_tax_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+                'vat_cdf' : invoice.amount_tax_signed * self.month_exchange_rates,
 
             }
             customer_invoices.append(invoice_info)
@@ -273,11 +273,11 @@ class DeclarationTVA(models.Model):
         s_vat_cdf = 0
         for invoice in self.purchases_invoices:
             s_total_amount_tcc_usd += invoice.amount_tax_signed
-            s_total_amount_tcc_cdf += invoice.amount_tax_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
+            s_total_amount_tcc_cdf += invoice.amount_tax_signed * self.month_exchange_rates
             s_total_amount_ht_usd += invoice.amount_untaxed_signed
-            s_total_amount_ht_cdf += invoice.amount_untaxed_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
+            s_total_amount_ht_cdf += invoice.amount_untaxed_signed * self.month_exchange_rates
             s_vat_usd += invoice.amount_tax_signed
-            s_vat_cdf += invoice.amount_tax_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1
+            s_vat_cdf += invoice.amount_tax_signed * self.month_exchange_rates
 
             invoice_info = {
                 'partner': invoice.partner_id.name,
@@ -286,11 +286,11 @@ class DeclarationTVA(models.Model):
                 'date': invoice.invoice_date,
                 'invoice_reference': invoice.name,
                 'montant_ttc_usd' : invoice.amount_tax_signed,
-                'montant_ttc_cdf' : invoice.amount_tax_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+                'montant_ttc_cdf' : invoice.amount_tax_signed * self.month_exchange_rates,
                 'montant_ht_usd' : invoice.amount_untaxed_signed,
-                'montant_ht_cdf' : invoice.amount_untaxed_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+                'montant_ht_cdf' : invoice.amount_untaxed_signed * self.month_exchange_rates,
                 'vat_usd' : invoice.amount_tax_signed,
-                'vat_cdf' : invoice.amount_tax_signed * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+                'vat_cdf' : invoice.amount_tax_signed * self.month_exchange_rates,
 
             }
             customer_invoices.append(invoice_info)
@@ -308,15 +308,6 @@ class DeclarationTVA(models.Model):
 
         return customer_invoices
 
-
-    @api.model
-    def get_active_currency_rate(self):
-        active_currencies = self.env['res.currency'].search([('active', '=', True)])
-        cdf_currency = active_currencies.filtered(lambda c: c.name == 'CDF')
-        if cdf_currency:
-            return cdf_currency.rate_ids.company_rate
-        else:
-            return None
 
     @api.model
     def compute_tva_values(self):
@@ -347,16 +338,17 @@ class DeclarationTVA(models.Model):
                 'vat_deductible_usd': declaration.total_deductible_vat,
                 'vat_deductible_cdf': declaration.total_deductible_vat_cdf,
                 'realized_ca_usd': total_ca_usd,
-                'realized_ca_cdf': total_ca_usd * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+                'realized_ca_cdf': total_ca_usd * self.month_exchange_rates,
                 'taxable_ca_usd': total_taxable_ca_usd,
-                'taxable_ca_cdf': total_taxable_ca_usd * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+                'taxable_ca_cdf': total_taxable_ca_usd * self.month_exchange_rates,
                 'collected_vat_usd': self.total_vat_collected,
                 'collected_vat_cdf' : self.total_vat_collected_cdf,
                 'net_vat_usd': self.vat_payable,
-                'net_vat_cdf': self.vat_payable * self.get_active_currency_rate() if self.get_active_currency_rate() != None else 1,
+                'net_vat_cdf': self.vat_payable * self.month_exchange_rates,
             }
 
             result.append(declaration_info)
+
 
 
 
