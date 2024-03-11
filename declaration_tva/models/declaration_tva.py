@@ -169,6 +169,7 @@ class DeclarationTVA(models.Model):
 
 
 
+
     def save(self):
         pass
 
@@ -310,7 +311,7 @@ class DeclarationTVA(models.Model):
 
 
     @api.model
-    def compute_tva_values(self):
+    def declaration_recap(self):
         result = []
 
         declarations = self.env['declaration_tva'].search([('company_id', '=', self.company_id.id), ('annee', '=', self.annee)])
@@ -333,21 +334,24 @@ class DeclarationTVA(models.Model):
                 total_ca_usd += invoice.amount_tax_signed
 
             declaration_info = {
+                'company_name' : self.company_id,
                 'mois': declaration.mois,
                 'exchange_rate' : declaration.month_exchange_rates,
                 'vat_deductible_usd': declaration.total_deductible_vat,
-                'vat_deductible_cdf': declaration.total_deductible_vat_cdf,
+                'vat_deductible_cdf': declaration.total_deductible_vat * self.month_exchange_rates,
                 'realized_ca_usd': total_ca_usd,
                 'realized_ca_cdf': total_ca_usd * self.month_exchange_rates,
                 'taxable_ca_usd': total_taxable_ca_usd,
                 'taxable_ca_cdf': total_taxable_ca_usd * self.month_exchange_rates,
                 'collected_vat_usd': self.total_vat_collected,
-                'collected_vat_cdf' : self.total_vat_collected_cdf,
+                'collected_vat_cdf' : self.total_vat_collected * self.month_exchange_rates,
                 'net_vat_usd': self.vat_payable,
                 'net_vat_cdf': self.vat_payable * self.month_exchange_rates,
+                'declaration_state': declaration.state,
             }
 
             result.append(declaration_info)
+        return result
 
 
 
