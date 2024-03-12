@@ -1,6 +1,8 @@
 from odoo import models, fields, api
 from datetime import date, timedelta, datetime
 import random
+from odoo.exceptions import UserError
+
 
 
 
@@ -51,7 +53,7 @@ class DeclarationTVA(models.Model):
     partner_id = fields.Many2one('res.partner', string="partenaire")
     company_id = fields.Many2one('res.company', string="Société", required=True)
 
-    state = fields.Selection([('draft', 'Brouillon'), ('confirm', 'Confirmé'), ('validate', 'validé'), ('declared', 'Déclaré'), ('appured', 'Appuré'), ('delivered', 'Remis')], default="draft", string='Status')
+    state = fields.Selection([('draft', 'Brouillon'), ('confirm', 'Envoyé'), ('validate', 'validé'), ('declared', 'Déclaré'), ('appured', 'Appuré'), ('delivered', 'Remis')], default="draft", string='Status')
     status = fields.Selection([('credit', 'Crédit'), ('payable', 'Payable')])
 
     sales_invoices = fields.Many2many('account.move', 'campaign_id', string="Facture clients")
@@ -165,9 +167,29 @@ class DeclarationTVA(models.Model):
             ])
             self.purchases_invoices = [(6, 0, purchases_invoices.ids)]
 
-
     def button_confirm(self):
         self.write({'state': 'confirm'})
+        self.generate_reference()
+
+        # Envoie de la notification au manager
+        manager_user = self.manager
+        declaration_view_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url') + \
+                               '/web#id=%s&view_type=form&model=declaration_tva' % self.id
+
+        notification = self.env['mail.activity'].create({
+            'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
+            'note': 'Nouvelle déclaration TVA à valider. Cliquez <a href="%s">ici</a> pour voir la déclaration.' % declaration_view_url,
+            'res_id': self.id,
+            'user_id': manager_user.id,
+            'date_deadline': fields.Date.today(),
+            'summary': 'Validation de déclaration TVA',
+            'res_model_id': self.env.ref('declaration_tva.model_declaration_tva').id,
+        })
+
+        return True
+
+    def button_edit(self):
+        self.write({'state': 'draft'})
 
 
     def button_validate(self):
@@ -193,7 +215,9 @@ class DeclarationTVA(models.Model):
         self.write({'state': 'delivered'})
 
     def save(self):
+        self.generate_reference()
 
+    def generate_reference(self):
         if not self.reference:
             declaration_year = self.annee
             declaration_month = self.mois
@@ -203,8 +227,6 @@ class DeclarationTVA(models.Model):
             self.write({'reference': reference})
         else :
             self.write({'reference': self.reference})
-
-
 
 
     @api.onchange('sales_invoices', 'purchases_invoices', 'last_declaration')

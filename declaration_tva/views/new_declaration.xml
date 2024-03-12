@@ -3,7 +3,7 @@
         <record id="action_declaration_tva" model="ir.actions.act_window">
             <field name="name">Déclarations TVA</field>
             <field name="res_model">declaration_tva</field>
-            <field name="view_mode">kanban,list,form</field>
+            <field name="view_mode">list,form</field>
         </record>
 
         <record id="view_declaration_tva_kanban" model="ir.ui.view">
@@ -61,8 +61,10 @@
                 <form class="oe_stat_button oe_highlight">
                     <header>
 
-                        <button name="save" string="Sauver" type="object" class="btn-primary"/>
-                        <button name="button_confirm" string="Confirmer" type="object" invisible ="state in ['validate','declared','appured', 'delivered']"/>
+                        <button name="save" string="Sauver" type="object" class="btn-primary"  invisible ="state in ['validate','declared','appured', 'delivered']"/>
+                        <button name="button_confirm" string="Envoyer au manager" type="object" invisible ="state in ['confirm', 'validate','declared','appured', 'delivered']"/>
+                        <button name="button_edit" string="Editer" type="object" invisible ="state in ['validate','declared','appured', 'delivered']"/>
+
                         <button name="button_validate" string="Valider" type="object" invisible ="state in ['validate','declared','appured', 'delivered']"/>
                         <button name="button_declare" string="Déclarer" type="object" invisible ="state in ['declared','appured', 'delivered']"/>
                         <button name="button_approve" string="Appuré" type="object" invisible ="state in ['appured', 'delivered']"/>
@@ -72,44 +74,46 @@
                     </header>
                     <br/>
                     <sheet>
+                        <widget name="web_ribbon" title="Déclaré" bg_color="text-bg-danger" invisible="state in ['validate', 'confirm', 'draft']"/>
+
                         <group>
                             <group id="left_column" class="col-6">
-                                <field name="reference" class="oe_inline col-md-12"/>
-                                <field name="company_id"/>
-                                <field name="mois"/>
-                                <field name="last_declaration"/>
-                                <field name="manager"/>
+                                <field name="reference"  readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="company_id" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="mois" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="last_declaration" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="manager" readonly=" state in ['declared', 'appured', 'delivered']"/>
                             </group>
                             <group id="right_column" class="col-6">
                                 <field name="start_date"/>
                                 <field name="end_date"/>
-                                <field name="collaborator"/>
-                                <field name="month_exchange_rates"/>
+                                <field name="collaborator" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="month_exchange_rates" readonly=" state in ['declared', 'appured', 'delivered']"/>
                             </group>
                         </group>
                         <hr/>
                         <group>
                             <group id="left_column" class="col-6">
-                                <field name="total_vat_collected"/>
-                                <field name="total_deductible_vat"/>
+                                <field name="total_vat_collected" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="total_deductible_vat" readonly=" state in ['declared', 'appured', 'delivered']"/>
 
                             </group>
                             <group id="right_column" class="col-6">
-                                <field name="vat_payable"/>
-                                <field name="vat_credit"/>
+                                <field name="vat_payable" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="vat_credit" readonly=" state in ['declared', 'appured', 'delivered']"/>
                             </group>
                         </group>
                         <notebook>
                             <page string="FACTURES VENTES">
-                                <field name="sales_invoices"/>
+                                <field name="sales_invoices" readonly=" state in ['declared', 'appured', 'delivered']"/>
                             </page>
 
                             <page string="FACTURES ACHATS ">
-                               <field name="purchases_invoices"/>
+                               <field name="purchases_invoices" readonly=" state in ['declared', 'appured', 'delivered']"/>
                             </page>
 
                             <page string="RELEVES">
-                                <field name="releve_doc"/>
+                                <field name="releve_doc" readonly=" state in ['declared', 'appured', 'delivered']"/>
                             </page>
 
                         </notebook>
