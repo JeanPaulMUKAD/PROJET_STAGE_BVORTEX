@@ -4,9 +4,6 @@ import random
 from odoo.exceptions import UserError
 
 
-
-
-
 class DeclarationTVA(models.Model):
     _name = "declaration_tva"
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -59,7 +56,7 @@ class DeclarationTVA(models.Model):
     sales_invoices = fields.Many2many('account.move', 'campaign_id', string="Facture clients")
     purchases_invoices = fields.Many2many('account.move', string="Facture Fourniseurs")
 
-    releve_doc = fields.Binary(string='Relevé', attachment=True, help='Document de relevé')
+    releve_doc = fields.Binary(string='Relevé', attachment=True, help='Document de relevé', required=True)
 
     customer_total_amount_tcc_usd = fields.Float(string="Total des factures des clients en USD", default=0)
     customer_total_amount_tcc_cdf = fields.Float(string="Total des factures des clients en CDF", default=0)
