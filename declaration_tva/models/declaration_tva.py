@@ -311,7 +311,7 @@ class DeclarationTVA(models.Model):
 
     @api.model
     def get_partner_invoices(self):
-        customer_invoices = []
+        partner_invoices = []
         s_total_amount_tcc_usd = 0
         s_total_amount_tcc_cdf = 0
         s_total_amount_ht_usd = 0
@@ -325,6 +325,8 @@ class DeclarationTVA(models.Model):
             s_total_amount_ht_cdf += invoice.amount_untaxed_signed * self.month_exchange_rates
             s_vat_usd += invoice.amount_tax_signed
             s_vat_cdf += invoice.amount_tax_signed * self.month_exchange_rates
+
+
 
             invoice_info = {
                 'partner': invoice.partner_id.name,
@@ -341,8 +343,7 @@ class DeclarationTVA(models.Model):
 
             }
 
-
-            customer_invoices.append(invoice_info)
+            partner_invoices.append(invoice_info)
 
         self.partner_total_amount_tcc_usd = s_total_amount_tcc_usd
         self.partner_total_amount_tcc_cdf = s_total_amount_tcc_cdf
@@ -355,7 +356,7 @@ class DeclarationTVA(models.Model):
         self.total_deductible_vat_cdf = s_vat_cdf
 
 
-        return customer_invoices
+        return partner_invoices
 
 
     @api.model
