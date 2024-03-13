@@ -334,7 +334,7 @@ class DeclarationTVA(models.Model):
                 'designation': invoice.partner_id.commercial_company_name,
                 'date': invoice.invoice_date,
                 'invoice_reference': invoice.name,
-                'montant_ttc_usd' : invoice.amount_total_signed,
+                'montant_ttc_usd' : '{:,.3f}'.format(invoice.amount_total_signed).replace(',', ' '),
                 'montant_ttc_cdf' : invoice.amount_total_signed * self.month_exchange_rates,
                 'montant_ht_usd' : invoice.amount_untaxed_signed,
                 'montant_ht_cdf' : invoice.amount_untaxed_signed * self.month_exchange_rates,

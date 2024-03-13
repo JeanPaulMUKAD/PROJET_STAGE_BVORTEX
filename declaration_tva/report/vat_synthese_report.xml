@@ -200,11 +200,7 @@
                         <tr>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; background-color:#D9D9D9;" colspan="5" align="center" valign="bottom"><b><font face="Georgia" color="#000000">SYNTHESE CALCUL TVA MOIS DE <t t-esc="doc.mois.upper()"/> <t t-esc="doc.start_date.strftime('%Y')"/></font></b></td>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000;  background-color:#D9D9D9; border-right: 1px solid #000000; text-align : center" align="left" valign="bottom"><b><font face="Georgia" color="#000000">Validé</font></b></td>
-                            <td align="left" valign="bottom"><b><font face="Georgia" color="#000000"><br/></font></b></td>
-                            <td align="left" valign="bottom"><b><font face="Georgia" color="#000000"><br/></font></b></td>
-                            <td align="left" valign="bottom"><b><font face="Georgia" color="#000000"><br/></font></b></td>
-                            <td align="left" valign="bottom"><b><font face="Georgia" color="#000000"><br/></font></b></td>
-                            <td align="left" valign="bottom"><b><font face="Georgia" color="#000000"><br/></font></b></td>
+
                         </tr>
 
 
