@@ -1,7 +1,7 @@
 from odoo import models, fields, api
 from datetime import date, timedelta, datetime
 import random
-from odoo.exceptions import UserError
+
 
 
 class DeclarationTVA(models.Model):
@@ -273,10 +273,9 @@ class DeclarationTVA(models.Model):
         s_vat_usd = 0
         s_vat_cdf = 0
 
-
         for invoice in self.sales_invoices:
-            s_total_amount_tcc_usd += invoice.amount_tax_signed
-            s_total_amount_tcc_cdf += invoice.amount_tax_signed * self.month_exchange_rates
+            s_total_amount_tcc_usd += invoice.amount_total_signed
+            s_total_amount_tcc_cdf += invoice.amount_total_signed * self.month_exchange_rates
             s_total_amount_ht_usd += invoice.amount_untaxed_signed
             s_total_amount_ht_cdf += invoice.amount_untaxed_signed * self.month_exchange_rates
             s_vat_usd += invoice.amount_tax_signed
@@ -288,8 +287,8 @@ class DeclarationTVA(models.Model):
                 'designation': invoice.partner_id.commercial_company_name,
                 'date': invoice.invoice_date,
                 'invoice_reference': invoice.name,
-                'montant_ttc_usd' : invoice.amount_tax_signed,
-                'montant_ttc_cdf' : invoice.amount_tax_signed * self.month_exchange_rates,
+                'montant_ttc_usd' : invoice.amount_total_signed,
+                'montant_ttc_cdf' : invoice.amount_total_signed * self.month_exchange_rates,
                 'montant_ht_usd' : invoice.amount_untaxed_signed,
                 'montant_ht_cdf' : invoice.amount_untaxed_signed * self.month_exchange_rates,
                 'vat_usd' : invoice.amount_tax_signed,
@@ -320,8 +319,8 @@ class DeclarationTVA(models.Model):
         s_vat_usd = 0
         s_vat_cdf = 0
         for invoice in self.purchases_invoices:
-            s_total_amount_tcc_usd += invoice.amount_tax_signed
-            s_total_amount_tcc_cdf += invoice.amount_tax_signed * self.month_exchange_rates
+            s_total_amount_tcc_usd += invoice.amount_total_signed
+            s_total_amount_tcc_cdf += invoice.amount_total_signed * self.month_exchange_rates
             s_total_amount_ht_usd += invoice.amount_untaxed_signed
             s_total_amount_ht_cdf += invoice.amount_untaxed_signed * self.month_exchange_rates
             s_vat_usd += invoice.amount_tax_signed
@@ -333,25 +332,27 @@ class DeclarationTVA(models.Model):
                 'designation': invoice.partner_id.commercial_company_name,
                 'date': invoice.invoice_date,
                 'invoice_reference': invoice.name,
-                'montant_ttc_usd' : invoice.amount_tax_signed,
-                'montant_ttc_cdf' : invoice.amount_tax_signed * self.month_exchange_rates,
+                'montant_ttc_usd' : invoice.amount_total_signed,
+                'montant_ttc_cdf' : invoice.amount_total_signed * self.month_exchange_rates,
                 'montant_ht_usd' : invoice.amount_untaxed_signed,
                 'montant_ht_cdf' : invoice.amount_untaxed_signed * self.month_exchange_rates,
                 'vat_usd' : invoice.amount_tax_signed,
                 'vat_cdf' : invoice.amount_tax_signed * self.month_exchange_rates,
 
             }
+
+
             customer_invoices.append(invoice_info)
 
-            self.partner_total_amount_tcc_usd = s_total_amount_tcc_usd
-            self.partner_total_amount_tcc_cdf = s_total_amount_tcc_cdf
-            self.partner_total_amount_ht_usd = s_total_amount_ht_usd
-            self.partner_total_amount_ht_cdf = s_total_amount_ht_cdf
-            self.partner_vat_usd = s_vat_usd
-            self.partner_vat_cdf = s_vat_cdf
+        self.partner_total_amount_tcc_usd = s_total_amount_tcc_usd
+        self.partner_total_amount_tcc_cdf = s_total_amount_tcc_cdf
+        self.partner_total_amount_ht_usd = s_total_amount_ht_usd
+        self.partner_total_amount_ht_cdf = s_total_amount_ht_cdf
+        self.partner_vat_usd = s_vat_usd
+        self.partner_vat_cdf = s_vat_cdf
 
-            self.total_deductible_vat = s_vat_usd
-            self.total_deductible_vat_cdf = s_vat_cdf
+        self.total_deductible_vat = s_vat_usd
+        self.total_deductible_vat_cdf = s_vat_cdf
 
 
         return customer_invoices
