@@ -19,7 +19,7 @@
                     <t t-foreach="docs" t-as="doc">
                         <h2 class="text-center">RECAP DE LA COMPAGNIE <t t-esc="doc.company_id.name"/> - <t t-esc="doc.annee"/></h2>
                         <table class="table" style="white-space: nowrap;">
-							<tr class="border border-dark text-center" style="color : white; background:#544f4f">
+							<tr class="border border-dark text-center" style="color : white; background:#b9b9b9">
 								<th></th>
 								<th class="col" colspan="2">DEDUCTION</th>
 								<th class="col" colspan="2">CA REALISE</th>
@@ -30,7 +30,7 @@
 								<th></th>
 								<th class="col" colspan="2">TAUX</th>
 							</tr>
-							<tr class="border border-dark text-center" style="color : white; background:#544f4f">
+							<tr class="border border-dark text-center" style="color : white; background:#b9b9b9">
 								<th scope="col">Mois</th>
 								<th scope="col">TVA deductible CDF</th>
 								<th scope="col">TVA deductible USD</th>
@@ -48,7 +48,7 @@
 								<th scope="col">Mois</th>
 								<th scope="col">Taux</th>
 							</tr>
-							<t t-foreach="doc.declaration_recap()" t-as="info" >
+							<t t-foreach="doc.declaration_recap()[0]" t-as="info" >
                                     <tr class="border border-dark">
                                         <td><t t-esc="info['mois']"/></td>
                                         <td><t t-esc="info['vat_deductible_cdf']"/></td>
@@ -62,13 +62,33 @@
                                         <td><t t-esc="info['net_vat_cdf']"/></td>
                                         <td><t t-esc="info['net_vat_usd']"/></td>
                                         <td><t t-esc="info['declaration_state']"/></td>
-                                        <td><t t-esc="info['declaration_state']"/></td>
+                                        <t t-if="doc.state == 'appured'">
+                                            <td>FAIT</td>
+                                        </t>
+                                        <t else="">
+                                            <td>EN COURS</td>
+                                        </t>
+
 										<td></td>
                                         <td><t t-esc="info['mois']"/></td>
                                         <td><t t-esc="info['exchange_rate']"/></td>
                                     </tr>
                                 </t>
-
+                            <t t-foreach="doc.declaration_recap()[1]" t-as="info" >
+                                    <tr class="border border border-dark" style="color : white; background:#b9b9b9">
+                                        <td>TOTAL</td>
+                                        <td><t t-esc="info['total_deductible_vat_cdf']"/> Fc</td>
+                                        <td>$ <t t-esc="info['total_deductible_vat_usd']"/></td>
+                                         <td><t t-esc="info['total_ca_realise_cdf']"/> Fc</td>
+                                        <td>$ <t t-esc="info['total_ca_realise_usd']"/></td>
+                                        <td><t t-esc="info['total_ca_imposable_cdf']"/> Fc</td>
+                                        <td>$ <t t-esc="info['total_ca_imposable_usd']"/></td>
+                                        <td><t t-esc="info['total_tva_collecte_cdf']"/> Fc</td>
+                                        <td>$ <t t-esc="info['total_tva_collecte_usd']"/></td>
+                                        <td><t t-esc="info['total_tva_nette_cdf']"/> Fc</td>
+                                        <td>$ <t t-esc="info['total_tva_nette_usd']"/></td>
+                                    </tr>
+                                </t>
                         </table>
                     </t>
                 </t>

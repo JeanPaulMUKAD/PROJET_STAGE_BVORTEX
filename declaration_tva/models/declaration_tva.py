@@ -47,7 +47,7 @@ class DeclarationTVA(models.Model):
 
     collaborator = fields.Many2one('res.users', string="Collaborateur")
     manager = fields.Many2one('res.users', string="Manager", required=True)
-    partner_id = fields.Many2one('res.partner', string="partenaire")
+    partner_id = fields.Many2one('res.partner', string="Partenaire", default=lambda self: self.env.user.partner_id)
     company_id = fields.Many2one('res.company', string="Société", required=True)
 
     state = fields.Selection([('draft', 'Brouillon'), ('confirm', 'Envoyé'), ('validate', 'validé'), ('declared', 'Déclaré'), ('appured', 'Appuré'), ('delivered', 'Remis')], default="draft", string='Status')
@@ -374,17 +374,29 @@ class DeclarationTVA(models.Model):
     @api.model
     def declaration_recap(self):
         result = []
+        total = []
 
         declarations = self.env['declaration_tva'].search([('company_id', '=', self.company_id.id), ('annee', '=', self.annee)])
+        total_deductible_vat_usd = 0
+        total_deductible_vat_cdf = 0
+        total_ca_realise_usd = 0
+        total_ca_realise_cdf = 0
+        total_ca_imposable_usd = 0
+        total_ca_imposable_cdf = 0
+        total_tva_collecte_usd = 0
+        total_tva_collecte_cdf = 0
+        total_tva_nette_usd = 0
+        total_tva_nette_cdf = 0
 
         for declaration in declarations:
 
             total_ca_usd = 0
             total_taxable_ca_usd = 0
 
+
+
             for invoice in declaration.sales_invoices:
                 total_taxable_ca_usd += invoice.amount_total_signed
-
 
             realized_invoices = self.env['account.move'].search([
                 ('company_id', '=', self.company_id.id),
@@ -394,7 +406,6 @@ class DeclarationTVA(models.Model):
             ])
 
             for invoice in realized_invoices:
-
                 total_ca_usd += invoice.amount_total_signed
             self.write({'realize_ca': realized_invoices})
 
@@ -416,8 +427,34 @@ class DeclarationTVA(models.Model):
                 'declaration_state': declaration.state,
             }
 
+            total_deductible_vat_usd += declaration.total_deductible_vat
+            total_deductible_vat_cdf += declaration.total_deductible_vat * declaration.month_exchange_rates
+            total_ca_realise_usd += total_ca_usd
+            total_ca_realise_cdf += total_ca_usd  * declaration.month_exchange_rates
+            total_ca_imposable_usd += total_taxable_ca_usd
+            total_ca_imposable_cdf += total_taxable_ca_usd * declaration.month_exchange_rates
+            total_tva_collecte_usd += declaration.total_vat_collected
+            total_tva_collecte_cdf += declaration.total_vat_collected * declaration.month_exchange_rates
+            total_tva_nette_usd += declaration.vat_payable
+            total_tva_nette_cdf += declaration.vat_payable * declaration.month_exchange_rates
+
             result.append(declaration_info)
-        return result
+
+        total_declaration_info = {
+            'total_deductible_vat_usd':  total_deductible_vat_usd,
+            'total_deductible_vat_cdf': total_deductible_vat_cdf,
+            'total_ca_realise_usd': total_ca_realise_usd,
+            'total_ca_realise_cdf': total_ca_realise_cdf,
+            'total_ca_imposable_usd': total_ca_imposable_usd,
+            'total_ca_imposable_cdf': total_ca_imposable_cdf,
+            'total_tva_collecte_usd': total_tva_collecte_usd,
+            'total_tva_collecte_cdf': total_tva_collecte_cdf,
+            'total_tva_nette_usd': total_tva_nette_usd,
+            'total_tva_nette_cdf': total_tva_nette_cdf,
+        }
+        total.append(total_declaration_info)
+
+        return [result, total]
 
 
 
