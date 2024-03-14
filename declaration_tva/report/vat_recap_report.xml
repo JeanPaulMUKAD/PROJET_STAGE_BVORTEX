@@ -1,148 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<data>
+    <data>
+        <record id="action_report_recap" model="ir.actions.report">
+            <field name="name">Recap</field>
+            <field name="model">declaration_tva</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">declaration_tva.report_recap_tva</field>
+            <field name="report_file">declaration_tva.report_recap_tva</field>
+            <field name="print_report_name">'Recap tva'</field>
+            <field name="binding_model_id" ref="model_declaration_tva"/>
+            <field name="paperformat_id" ref="declaration_tva.document_landscape_model"/>
+            <field name="binding_type">report</field>
+        </record>
 
-	<record id="action_report_recap" model="ir.actions.report">
-        <field name="name">Recap</field>
-        <field name="model">declaration_tva</field>
-        <field name="report_type">qweb-html</field>
-        <field name="report_name">declaration_tva.report_recap_tva</field>
-        <field name="report_file">declaration_tva.report_recap_tva</field>
-        <field name="print_report_name">'Recap tva'</field>
-        <field name="binding_model_id" ref="model_declaration_tva"/>
-        <field name="paperformat_id" ref="declaration_tva.document_landscape_model"/>
-        <field name="binding_type">report</field>
-    </record>
+        <template id="report_recap_tva">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-foreach="docs" t-as="doc">
+                        <h2 class="text-center">RECAP DE LA COMPAGNIE <t t-esc="doc.company_id.name"/> - <t t-esc="doc.annee"/></h2>
+                        <table class="table" style="white-space: nowrap;">
+							<tr class="border border-dark text-center" style="color : white; background:#544f4f">
+								<th></th>
+								<th class="col" colspan="2">DEDUCTION</th>
+								<th class="col" colspan="2">CA REALISE</th>
+								<th class="col" colspan="2">CA IMPOSABLE DECLARE</th>
+								<th class="col" colspan="2">TVA COLLECTEE ET DECLAREE</th>
+								<th class="col" colspan="2">TVA NETTE</th>
+								<th class="col" colspan="2">SUIVI</th>
+								<th></th>
+								<th class="col" colspan="2">TAUX</th>
+							</tr>
+							<tr class="border border-dark text-center" style="color : white; background:#544f4f">
+								<th scope="col">Mois</th>
+								<th scope="col">TVA deductible CDF</th>
+								<th scope="col">TVA deductible USD</th>
+								<th scope="col">CA CDF</th>
+								<th scope="col">CA USD</th>
+								<th scope="col">CA CDF</th>
+								<th scope="col">CA USD</th>
+								<th scope="col">TVA Collectee CDF</th>
+								<th scope="col">TVA Collectee USD</th>
+								<th scope="col">TVA CDF</th>
+								<th scope="col">TVA USD</th>
+								<th scope="col">Declaration</th>
+								<th scope="col">Apurement</th>
+								<th></th>
+								<th scope="col">Mois</th>
+								<th scope="col">Taux</th>
+							</tr>
+							<t t-foreach="doc.declaration_recap()" t-as="info" >
+                                    <tr class="border border-dark">
+                                        <td><t t-esc="info['mois']"/></td>
+                                        <td><t t-esc="info['vat_deductible_cdf']"/></td>
+                                        <td><t t-esc="info['vat_deductible_usd']"/></td>
+                                        <td><t t-esc="info['realized_ca_cdf']"/></td>
+                                        <td><t t-esc="info['realized_ca_usd']"/></td>
+                                        <td><t t-esc="info['taxable_ca_cdf']"/></td>
+                                        <td><t t-esc="info['taxable_ca_usd']"/></td>
+                                        <td><t t-esc="info['collected_vat_cdf']"/></td>
+                                        <td><t t-esc="info['collected_vat_usd']"/></td>
+                                        <td><t t-esc="info['net_vat_cdf']"/></td>
+                                        <td><t t-esc="info['net_vat_usd']"/></td>
+                                        <td><t t-esc="info['declaration_state']"/></td>
+                                        <td><t t-esc="info['declaration_state']"/></td>
+										<td></td>
+                                        <td><t t-esc="info['mois']"/></td>
+                                        <td><t t-esc="info['exchange_rate']"/></td>
+                                    </tr>
+                                </t>
 
-    <template id="report_recap_tva">
-        <t t-call="web.html_container">
-			<t t-foreach="docs" t-as="doc">
-				<h2>RECAP DE LA COMPAGNIE <t t-esc="doc.company_id.name"/> -<t t-esc="doc.annee"/></h2>
-            	<table cellspacing="0" border="0">
-					<colgroup width="40"></colgroup>
-					<colgroup width="86"></colgroup>
-					<colgroup width="162"></colgroup>
-					<colgroup width="150"></colgroup>
-					<colgroup span="4" width="135"></colgroup>
-					<colgroup span="7" width="133"></colgroup>
-					<colgroup span="2" width="86"></colgroup>
-					<tr>
-						<td height="22" align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="center" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000" style="white-space: nowrap;"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-					</tr>
-					<tr>
-						<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="4" height="32" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">DEDUCTION</font></b></td>
-						<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="2" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">CA  REALISE</font></b></td>
-						<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="2" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">CA IMPOSABLE DECLARE</font></b></td>
-						<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="2" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">TVA COLLECTEE &amp; DECLAREE</font></b></td>
-						<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="2" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">TVA NETTE</font></b></td>
-						<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan="2" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">SUIV</font></b></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-					</tr>
-					<tr>
-						<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="46" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">#</font></b></td>
-						<td style="border-bottom: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">Mois</font></b></td>
-						<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA deductible CDF</font></b></td>
-						<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA deductible USD</font></b></td>
-						<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">CA CDF</font></b></td>
-						<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">CA USD</font></b></td>
-						<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">CA CDF</font></b></td>
-						<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">CA USD</font></b></td>
-						<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA Collectee <br/>CDF</font></b></td>
-						<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA Collectee USD</font></b></td>
-						<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA  <br/>CDF</font></b></td>
-						<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">TVA  USD</font></b></td>
-						<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">Declaration</font></b></td>
-						<td style="border-top: 2px solid #000000; border-right: 2px solid #000000" align="center" valign="middle"><b><font face="Comic Sans MS" color="#000000">Apurement</font></b></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-
-						<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">Mois</font></b></td>
-						<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="center" valign="middle" bgcolor="#F2F2F2"><b><font face="Comic Sans MS" color="#000000">Taux </font></b></td>
-					</tr>
-					<t t-foreach="doc.declaration_recap()" t-as="info">
-						<tr>
-							<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" height="22" align="center" valign="bottom" sdval="1" sdnum="1033;"><font face="Comic Sans MS" color="#000000">1</font></td>
-							<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000"><t t-esc="info['mois']"/></font></td>
-							<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/><t t-esc="info['vat_deductible_cdf']"/></font></td>
-							<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/><t t-esc="info['vat_deductible_usd']"/></font></td>
-							<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/><t t-esc="info['realized_ca_cdf']"/></font></td>
-							<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/><t t-esc="info['realized_ca_usd']"/></font></td>
-							<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/><t t-esc="info['taxable_ca_cdf']"/></font></td>
-							<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/><t t-esc="info['taxable_ca_usd']"/></font></td>
-							<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/><t t-esc="info['collected_vat_cdf']"/></font></td>
-							<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/><t t-esc="info['collected_vat_usd']"/></font></td>
-							<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/><t t-esc="info['net_vat_cdf']"/></font></td>
-							<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/></font><t t-esc="info['net_vat_cdf']"/></td>
-							<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/><t t-esc="info['declaration_state']"/></font></td>
-							<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000;   border-bottom: 1px solid #000000;border-right: 2px solid #000000" align="right" valign="bottom" ><font face="Comic Sans MS" color="#000000"><br/><t t-esc="info['declaration_state']"/></font></td>
-							<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-							<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-
-							<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign="bottom"><font face="Comic Sans MS" color="#000000"><t t-esc="info['mois']"/></font></td>
-							<td style="border-top: 1px solid #000000;  border-bottom: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign="bottom" sdval="2030.98" ><font face="Comic Sans MS" color="#000000"><t t-esc="info['exchange_rate']"/></font></td>
-						</tr>
-					</t>
-					<tr>
-						<td height="22" align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-					</tr>
-					<tr>
-						<td height="37" align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-						<td align="left" valign="bottom" bgcolor="#FFFFFF"><font face="Comic Sans MS" color="#000000"><br/></font></td>
-					</tr>
-				</table>
-			</t>
-		</t>
-
-    </template>
-</data>
+                        </table>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
 </odoo>
