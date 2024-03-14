@@ -54,7 +54,8 @@ class DeclarationTVA(models.Model):
     status = fields.Selection([('credit', 'Crédit'), ('payable', 'Payable')])
 
     sales_invoices = fields.Many2many('account.move', 'campaign_id', string="Facture clients")
-    purchases_invoices = fields.Many2many('account.move', string="Facture Fourniseurs")
+    purchases_invoices = fields.Many2many('account.move', 'name', string="Facture Fourniseurs")
+    realize_ca = fields.Many2many('account.move', string="Chiffre d'affaire réalisé")
 
     releve_doc = fields.Binary(string='Relevé', attachment=True, help='Document de relevé', required=True)
 
@@ -155,6 +156,7 @@ class DeclarationTVA(models.Model):
                 ('invoice_date', '<=', end_date),
             ])
             self.sales_invoices = [(6, 0, sales_invoices.ids)]
+
             purchases_invoices = self.env['account.move'].search([
                 ('company_id', '=', self.company_id.id),
                 ('invoice_date', '>=', start_date),
@@ -163,6 +165,16 @@ class DeclarationTVA(models.Model):
                 ('invoice_date', '<=', end_date),
             ])
             self.purchases_invoices = [(6, 0, purchases_invoices.ids)]
+
+
+            realize_ca = self.env['account.move'].search([
+                ('company_id', '=', self.company_id.id),
+                ('move_type', '=', 'out_invoice'),
+                ('invoice_month', '=', self.mois)
+            ])
+            self.realize_ca = [(6, 0, realize_ca.ids)]
+
+
 
     def button_confirm(self):
         self.write({'state': 'confirm'})
@@ -366,21 +378,26 @@ class DeclarationTVA(models.Model):
         declarations = self.env['declaration_tva'].search([('company_id', '=', self.company_id.id), ('annee', '=', self.annee)])
 
         for declaration in declarations:
-            declaration_month = declaration.mois
 
-            realized_sales = self.env['account.move'].search([
-                ('company_id', '=', self.company_id.id),
-                ('move_type', '=', 'out_invoice'),
-                ('invoice_month', '=', declaration_month)
-            ])
             total_ca_usd = 0
             total_taxable_ca_usd = 0
 
-            for invoice in self.sales_invoices:
-                total_taxable_ca_usd += invoice.amount_tax_signed
+            for invoice in declaration.sales_invoices:
+                total_taxable_ca_usd += invoice.amount_total_signed
 
-            for invoice in realized_sales:
-                total_ca_usd += invoice.amount_tax_signed
+
+            realized_invoices = self.env['account.move'].search([
+                ('company_id', '=', self.company_id.id),
+                ('invoice_date', '>=', declaration.start_date),
+                ('move_type', '=', 'out_invoice'),
+                ('invoice_date', '<=', declaration.end_date),
+            ])
+
+            for invoice in realized_invoices:
+
+                total_ca_usd += invoice.amount_total_signed
+            self.write({'realize_ca': realized_invoices})
+
 
             declaration_info = {
                 'company_name' : self.company_id,

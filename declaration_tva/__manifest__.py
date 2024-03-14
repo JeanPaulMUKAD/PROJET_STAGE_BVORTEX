@@ -15,12 +15,12 @@ Long description of module's purpose
     'category': 'Uncategorized',
     'version': '17.0',
 
-    'depends': ['base', 'account_accountant','mail'],
+    'depends': ['base', 'account_accountant', 'sale_management', 'purchase', 'mail'],
 
     'data': [
         'security/ir.model.access.csv',
-        'views/views_declaration_tva.xml',
         'views/new_declaration.xml',
+        'views/views_declaration_tva.xml',
         'views/vat_comptes_views.xml',
         'report/vat_synthese_report.xml',
         'report/vat_recap_report.xml',
