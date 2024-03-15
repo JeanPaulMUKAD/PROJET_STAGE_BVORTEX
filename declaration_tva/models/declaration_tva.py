@@ -463,7 +463,7 @@ class DeclarationTVA(models.Model):
         company_nature = company.company_nature
         ca_marchandise = 0
         ca_service = 0
-        ca_all = 0
+
         vat_collected_marchandise = 0
         vat_collected_services = 0
         vat_collected_all = 0
@@ -472,7 +472,7 @@ class DeclarationTVA(models.Model):
 
         total_vat_external_importation = 0
         total_vat_local_importation = 0
-        total_vat_importation = 0
+
 
 
         lines = self.env['account.move.line'].search([
@@ -500,22 +500,29 @@ class DeclarationTVA(models.Model):
         if company_nature:
             if company_nature == 'marchandise':
                 for line in lines:
-                    if line.product_id.product_tmpl_id.detailed_type == 'consu':
-                        ca_marchandise += line.price_total
-                        vat_collected_marchandise += line.price_total - line.price_subtotal
+                    if line.move_id.payment_state in ['posted', 'paid', 'partial']:
+                        if line.product_id.product_tmpl_id.detailed_type == 'consu':
+                            ca_marchandise += line.price_total
+                            vat_collected_marchandise += line.price_total - line.price_subtotal
+
             elif company_nature == 'services':
                 for line in lines :
-                    if line.product_id.product_tmpl_id.detailed_type == 'service':
-                        ca_service += line.price_total
-                        vat_collected_services += line.price_total - line.price_subtotal
-            elif company_nature == 'all':
+                    if line.move_id.payment_state in ['posted', 'paid', 'partial']:
+                        if line.product_id.product_tmpl_id.detailed_type == 'service':
+                            ca_service += line.price_total
+                            vat_collected_services += line.price_total - line.price_subtotal
+
+            else:
                 for line in lines:
-                    ca_all += line.price_total
-                    vat_collected_all += line.price_total - line.price_subtotal
-        else :
-            for line in lines:
-                ca_all += line.price_total
-                vat_collected_all += line.price_total - line.price_subtotal
+                    if line.move_id.payment_state in ['posted', 'paid', 'partial']:
+                        if line.product_id.product_tmpl_id.detailed_type == 'consu':
+                            ca_marchandise += line.price_total
+                            vat_collected_marchandise += line.price_total - line.price_subtotal
+                        elif line.product_id.product_tmpl_id.detailed_type == 'service':
+                            ca_service += line.price_total
+                            vat_collected_services += line.price_total - line.price_subtotal
+
+
 
 
         for invoice in external_invoices :
@@ -534,13 +541,11 @@ class DeclarationTVA(models.Model):
         declaration_doc_info.append({
             'company_name' : company.name,
             'company_nature' : company_nature,
-            'ca_marchadise' : ca_marchandise,
-            'ca_services' : ca_service,
-            'ca_all' : ca_all,
-            'total_ca' : ca_service + ca_service +  ca_all,
+            'ca_marchandise' : ca_marchandise,
+            'ca_service' : ca_service,
             'vat_collected_service' : vat_collected_services,
             'vat_collected_marchandise' : vat_collected_marchandise,
-            'vat_collected_all' : vat_collected_all,
+            'total_ca': ca_service + ca_marchandise ,
             'vat_total' :  vat_collected_services + vat_collected_marchandise + vat_collected_all,
             'ca_external_invoice'  : ca_external_invoices,
             'vat_external_invoice' : va_external_invoices,
@@ -553,11 +558,8 @@ class DeclarationTVA(models.Model):
             'total_vat_payable' : self.vat_payable,
             'vat_credit' : self.vat_credit,
             'amount_payable' : self.vat_payable,
-
-
         })
 
-        print()
         return  declaration_doc_info
 
 
