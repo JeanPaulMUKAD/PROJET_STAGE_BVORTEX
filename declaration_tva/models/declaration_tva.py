@@ -456,6 +456,109 @@ class DeclarationTVA(models.Model):
 
         return [result, total]
 
+    def declaration_infos(self):
+        declaration_doc_info = []
+
+        company = self.company_id
+        company_nature = company.company_nature
+        ca_marchandise = 0
+        ca_service = 0
+        ca_all = 0
+        vat_collected_marchandise = 0
+        vat_collected_services = 0
+        vat_collected_all = 0
+        ca_external_invoices = 0
+        va_external_invoices = 0
+
+        total_vat_external_importation = 0
+        total_vat_local_importation = 0
+        total_vat_importation = 0
+
+
+        lines = self.env['account.move.line'].search([
+            ('company_id', '=', self.company_id.id),
+            ('invoice_date', '>=', self.start_date),
+            ('move_type', '=', 'out_invoice'),
+            ('invoice_date', '<=', self.end_date)])
+
+        external_invoices = self.env['account.move'].search([
+            ('company_id', '=', self.company_id.id),
+            ('invoice_date', '>=', self.start_date),
+            ('move_type', '=', 'out_invoice'),
+            ('payment_state', 'in', ['posted', 'paid', 'partial']),
+            ('invoice_date', '<=', self.end_date)])
+
+        importation_invoices = self.env['account.move'].search([
+            ('company_id', '=', self.company_id.id),
+            ('invoice_date', '>=', self.start_date),
+            ('move_type', '=', 'in_invoice'),
+            ('payment_state', 'in', ['posted', 'paid', 'partial']),
+            ('invoice_date', '<=', self.end_date)])
+
+
+
+        if company_nature:
+            if company_nature == 'marchandise':
+                for line in lines:
+                    if line.product_id.product_tmpl_id.detailed_type == 'consu':
+                        ca_marchandise += line.price_total
+                        vat_collected_marchandise += line.price_total - line.price_subtotal
+            elif company_nature == 'services':
+                for line in lines :
+                    if line.product_id.product_tmpl_id.detailed_type == 'service':
+                        ca_service += line.price_total
+                        vat_collected_services += line.price_total - line.price_subtotal
+            elif company_nature == 'all':
+                for line in lines:
+                    ca_all += line.price_total
+                    vat_collected_all += line.price_total - line.price_subtotal
+        else :
+            for line in lines:
+                ca_all += line.price_total
+                vat_collected_all += line.price_total - line.price_subtotal
+
+
+        for invoice in external_invoices :
+            if invoice.partner_id.country_id != company.country_id:
+                ca_external_invoices += invoice.amount_total_signed
+                va_external_invoices += invoice.amount_tax_signed
+
+        for invoice in importation_invoices:
+            if invoice.partner_id.country_id != company.country_id:
+                total_vat_external_importation += invoice.amount_tax_signed
+            else:
+                total_vat_local_importation += invoice.amount_tax_signed
+
+        total_vat_importation = total_vat_local_importation + total_vat_local_importation
+
+        declaration_doc_info.append({
+            'company_name' : company.name,
+            'company_nature' : company_nature,
+            'ca_marchadise' : ca_marchandise,
+            'ca_services' : ca_service,
+            'ca_all' : ca_all,
+            'total_ca' : ca_service + ca_service +  ca_all,
+            'vat_collected_service' : vat_collected_services,
+            'vat_collected_marchandise' : vat_collected_marchandise,
+            'vat_collected_all' : vat_collected_all,
+            'vat_total' :  vat_collected_services + vat_collected_marchandise + vat_collected_all,
+            'ca_external_invoice'  : ca_external_invoices,
+            'vat_external_invoice' : va_external_invoices,
+            'total_vat_external_importation' : total_vat_external_importation,
+            'total_vat_local_importation' : total_vat_local_importation,
+            'total_vat_importation' : total_vat_importation,
+            'total_deductible_vat' : total_vat_importation,
+            'report_preced_credi' : self.last_declaration.vat_credit,
+            'total_deductible_bat' : self.total_deductible_vat,
+            'total_vat_payable' : self.vat_payable,
+            'vat_credit' : self.vat_credit,
+            'amount_payable' : self.vat_payable,
+
+
+        })
+
+        print()
+        return  declaration_doc_info
 
 
 
