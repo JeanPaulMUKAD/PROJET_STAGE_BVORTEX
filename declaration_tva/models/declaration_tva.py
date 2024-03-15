@@ -152,7 +152,7 @@ class DeclarationTVA(models.Model):
                 ('company_id', '=', self.company_id.id),
                 ('invoice_date', '>=', start_date),
                 ('move_type', '=', 'out_invoice'),
-                ('payment_state', 'in', ['posted', 'paid', 'partial']),
+                ('payment_state', 'in', ['posted', 'paid', 'partial', 'in_payment']),
                 ('invoice_date', '<=', end_date),
             ])
             self.sales_invoices = [(6, 0, sales_invoices.ids)]
@@ -161,7 +161,7 @@ class DeclarationTVA(models.Model):
                 ('company_id', '=', self.company_id.id),
                 ('invoice_date', '>=', start_date),
                 ('move_type', '=', 'in_invoice'),
-                ('payment_state', 'in', ['posted', 'paid', 'partial']),
+                ('payment_state', 'in', ['posted', 'paid', 'partial', 'in_payment']),
                 ('invoice_date', '<=', end_date),
             ])
             self.purchases_invoices = [(6, 0, purchases_invoices.ids)]
@@ -484,15 +484,15 @@ class DeclarationTVA(models.Model):
         external_invoices = self.env['account.move'].search([
             ('company_id', '=', self.company_id.id),
             ('invoice_date', '>=', self.start_date),
-            ('move_type', '=', 'out_invoice'),
-            ('payment_state', 'in', ['posted', 'paid', 'partial']),
+            ('move_type', '=', 'in_invoice'),
+            ('payment_state', 'in', ['posted', 'paid', 'partial', 'in_payment']),
             ('invoice_date', '<=', self.end_date)])
 
         importation_invoices = self.env['account.move'].search([
             ('company_id', '=', self.company_id.id),
             ('invoice_date', '>=', self.start_date),
             ('move_type', '=', 'in_invoice'),
-            ('payment_state', 'in', ['posted', 'paid', 'partial']),
+            ('payment_state', 'in', ['posted', 'paid', 'partial', 'in_payment']),
             ('invoice_date', '<=', self.end_date)])
 
 
@@ -500,21 +500,21 @@ class DeclarationTVA(models.Model):
         if company_nature:
             if company_nature == 'marchandise':
                 for line in lines:
-                    if line.move_id.payment_state in ['posted', 'paid', 'partial']:
+                    if line.move_id.payment_state in ['posted', 'paid', 'partial', 'in_payment']:
                         if line.product_id.product_tmpl_id.detailed_type == 'consu':
                             ca_marchandise += line.price_total
                             vat_collected_marchandise += line.price_total - line.price_subtotal
 
             elif company_nature == 'services':
                 for line in lines :
-                    if line.move_id.payment_state in ['posted', 'paid', 'partial']:
+                    if line.move_id.payment_state in ['posted', 'paid', 'partial', 'in_payment']:
                         if line.product_id.product_tmpl_id.detailed_type == 'service':
                             ca_service += line.price_total
                             vat_collected_services += line.price_total - line.price_subtotal
 
             else:
                 for line in lines:
-                    if line.move_id.payment_state in ['posted', 'paid', 'partial']:
+                    if line.move_id.payment_state in ['posted', 'paid', 'partial', 'in_payment']:
                         if line.product_id.product_tmpl_id.detailed_type == 'consu':
                             ca_marchandise += line.price_total
                             vat_collected_marchandise += line.price_total - line.price_subtotal
@@ -530,11 +530,15 @@ class DeclarationTVA(models.Model):
                 ca_external_invoices += invoice.amount_total_signed
                 va_external_invoices += invoice.amount_tax_signed
 
+        ca_external_importation = 0
+        ca_local_importation = 0
         for invoice in importation_invoices:
             if invoice.partner_id.country_id != company.country_id:
                 total_vat_external_importation += invoice.amount_tax_signed
+                ca_external_importation += invoice.amount_total_signed
             else:
                 total_vat_local_importation += invoice.amount_tax_signed
+                ca_local_importation += invoice.amount_total_signed
 
         total_vat_importation = total_vat_local_importation + total_vat_local_importation
 
@@ -549,8 +553,11 @@ class DeclarationTVA(models.Model):
             'vat_total' :  vat_collected_services + vat_collected_marchandise + vat_collected_all,
             'ca_external_invoice'  : ca_external_invoices,
             'vat_external_invoice' : va_external_invoices,
+            'ca_local_importation' : ca_local_importation,
+            'ca_external_importation' : ca_external_importation,
             'total_vat_external_importation' : total_vat_external_importation,
             'total_vat_local_importation' : total_vat_local_importation,
+
             'total_vat_importation' : total_vat_importation,
             'total_deductible_vat' : total_vat_importation,
             'report_preced_credi' : self.last_declaration.vat_credit,
