@@ -57,7 +57,6 @@ class DeclarationTVA(models.Model):
     purchases_invoices = fields.Many2many('account.move', 'name', string="Facture Fourniseurs")
     realize_ca = fields.Many2many('account.move', string="Chiffre d'affaire réalisé")
 
-    releve_doc = fields.Binary(string='Relevé', attachment=True, help='Document de relevé', required=True)
 
     customer_total_amount_tcc_usd = fields.Float(string="Total des factures des clients en USD", default=0)
     customer_total_amount_tcc_cdf = fields.Float(string="Total des factures des clients en CDF", default=0)

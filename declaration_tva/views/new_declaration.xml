@@ -74,7 +74,7 @@
                     </header>
                     <br/>
                     <sheet>
-                        <widget name="web_ribbon" title="Déclaré" bg_color="text-bg-danger" invisible="state in ['validate', 'confirm', 'draft']"/>
+                        <widget name="web_ribbon" title="Déclaré" bg_color="text-bg-success" invisible="state in ['validate', 'confirm', 'draft']"/>
 
                         <group>
                             <group id="left_column" class="col-6">
@@ -112,9 +112,7 @@
                                <field name="purchases_invoices" readonly=" state in ['declared', 'appured', 'delivered']"/>
                             </page>
 
-                            <page string="RELEVES">
-                                <field name="releve_doc" readonly=" state in ['declared', 'appured', 'delivered']"/>
-                            </page>
+
 
                         </notebook>
                     </sheet>
