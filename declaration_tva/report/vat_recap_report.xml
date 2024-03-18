@@ -51,16 +51,16 @@
 							<t t-foreach="doc.declaration_recap()[0]" t-as="info" >
                                     <tr class="border border-dark">
                                         <td><t t-esc="info['mois']"/></td>
-                                        <td><t t-esc="info['vat_deductible_cdf']"/></td>
-                                        <td><t t-esc="info['vat_deductible_usd']"/></td>
-                                        <td><t t-esc="info['realized_ca_cdf']"/></td>
-                                        <td><t t-esc="info['realized_ca_usd']"/></td>
-                                        <td><t t-esc="info['taxable_ca_cdf']"/></td>
-                                        <td><t t-esc="info['taxable_ca_usd']"/></td>
-                                        <td><t t-esc="info['collected_vat_cdf']"/></td>
-                                        <td><t t-esc="info['collected_vat_usd']"/></td>
-                                        <td><t t-esc="info['net_vat_cdf']"/></td>
-                                        <td><t t-esc="info['net_vat_usd']"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(float(info['vat_deductible_cdf'])).replace(',', ' ')"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(float(info['vat_deductible_usd'])).replace(',', ' ')"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(float(info['realized_ca_cdf'])).replace(',', ' ')"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(float(info['realized_ca_usd'])).replace(',', ' ')"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(float(info['taxable_ca_cdf'])).replace(',', ' ')"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(float(info['taxable_ca_usd'])).replace(',', ' ')"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(float(info['collected_vat_cdf'])).replace(',', ' ')"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(float(info['collected_vat_usd'])).replace(',', ' ')"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(float(info['net_vat_cdf'])).replace(',', ' ')"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(float(info['net_vat_usd'])).replace(',', ' ')"/></td>
                                         <td><t t-esc="info['declaration_state']"/></td>
                                         <t t-if="doc.state == 'appured'">
                                             <td>FAIT</td>
@@ -71,22 +71,22 @@
 
 										<td></td>
                                         <td><t t-esc="info['mois']"/></td>
-                                        <td><t t-esc="info['exchange_rate']"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(float(info['exchange_rate'])).replace(',', ' ')"/></td>
                                     </tr>
                                 </t>
                             <t t-foreach="doc.declaration_recap()[1]" t-as="info" >
                                     <tr class="border border border-dark" style="color : white; background:#b9b9b9">
                                         <td>TOTAL</td>
-                                        <td><t t-esc="info['total_deductible_vat_cdf']"/> Fc</td>
-                                        <td>$ <t t-esc="info['total_deductible_vat_usd']"/></td>
-                                         <td><t t-esc="info['total_ca_realise_cdf']"/> Fc</td>
-                                        <td>$ <t t-esc="info['total_ca_realise_usd']"/></td>
-                                        <td><t t-esc="info['total_ca_imposable_cdf']"/> Fc</td>
-                                        <td>$ <t t-esc="info['total_ca_imposable_usd']"/></td>
-                                        <td><t t-esc="info['total_tva_collecte_cdf']"/> Fc</td>
-                                        <td>$ <t t-esc="info['total_tva_collecte_usd']"/></td>
-                                        <td><t t-esc="info['total_tva_nette_cdf']"/> Fc</td>
-                                        <td>$ <t t-esc="info['total_tva_nette_usd']"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(float(info['total_deductible_vat_cdf'])).replace(',', ' ')"/> Fc</td>
+                                        <td>$ <t t-esc="'{:,.2f}'.format(float(info['total_deductible_vat_usd'])).replace(',', ' ')"/></td>
+                                         <td><t t-esc="'{:,.2f}'.format(float(info['total_ca_realise_cdf'])).replace(',', ' ')"/> Fc</td>
+                                        <td>$ <t t-esc="'{:,.2f}'.format(float(info['total_ca_realise_usd'])).replace(',', ' ')"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(float(info['total_ca_imposable_cdf'])).replace(',', ' ')"/> Fc</td>
+                                        <td>$ <t t-esc="'{:,.2f}'.format(float(info['total_ca_imposable_usd'])).replace(',', ' ')"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(float(info['total_tva_collecte_cdf'])).replace(',', ' ')"/> Fc</td>
+                                        <td>$ <t t-esc="'{:,.2f}'.format(float(info['total_tva_collecte_usd'])).replace(',', ' ')"/></td>
+                                        <td><t t-esc="'{:,.2f}'.format(float(info['total_tva_nette_cdf'])).replace(',', ' ')"/> Fc</td>
+                                        <td>$ <t t-esc="'{:,.2f}'.format(float(info['total_tva_nette_usd'])).replace(',', ' ')"/></td>
                                     </tr>
                                 </t>
                         </table>
