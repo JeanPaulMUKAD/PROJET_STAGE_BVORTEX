@@ -1,6 +1,8 @@
 from odoo import models, fields, api
 from datetime import date, timedelta, datetime
 import random
+from odoo.exceptions import UserError
+
 
 
 
@@ -179,7 +181,8 @@ class DeclarationTVA(models.Model):
         self.write({'state': 'confirm'})
         self.generate_reference()
 
-        # Envoie de la notification au manager
+
+
         manager_user = self.manager
         declaration_view_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url') + \
                                '/web#id=%s&view_type=form&model=declaration_tva' % self.id
@@ -195,6 +198,18 @@ class DeclarationTVA(models.Model):
         })
 
         return True
+
+    def check_attachments(self):
+        chatter_div = driver.find_element_by_class_name(
+            "oe_chatter")  # Remplace "driver" par l'objet WebDriver que tu utilises pour accéder à la page Odoo
+        attachment_icon = chatter_div.find_element_by_xpath(".//i[contains(@class, 'fa fa-paperclip')]")
+
+        if attachment_icon.is_displayed():
+            print("Un document est attaché.")
+        else:
+            print("Aucun document attaché.")
+            raise UserError("Aucune pièce jointe trouvée dans le chatter.")
+
 
     def button_edit(self):
         self.write({'state': 'draft'})
@@ -345,7 +360,7 @@ class DeclarationTVA(models.Model):
                 'designation': invoice.partner_id.commercial_company_name,
                 'date': invoice.invoice_date,
                 'invoice_reference': invoice.name,
-                'montant_ttc_usd' : '{:,.3f}'.format(invoice.amount_total_signed).replace(',', ' '),
+                'montant_ttc_usd' : invoice.amount_total_signed,
                 'montant_ttc_cdf' : invoice.amount_total_signed * self.month_exchange_rates,
                 'montant_ht_usd' : invoice.amount_untaxed_signed,
                 'montant_ht_cdf' : invoice.amount_untaxed_signed * self.month_exchange_rates,

@@ -116,13 +116,11 @@
 
                         </notebook>
                     </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" options="{'post_refresh':True}" groups="base.group_user"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
+                    <div class="oe_chatter">
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
                 </form>
-
             </field>
         </record>
 
