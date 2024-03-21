@@ -75,7 +75,7 @@ class DeclarationTVA(models.Model):
 
     month_exchange_rates = fields.Float("Taux de change de la déclaration", store=True, default=1,  tracking=True)
 
-    liquidation_statement_reference = fields.Many2one("bulletin_liquidation", "Bulletin de liquidation", requiered=True)
+    liquidation_statement = fields.Many2many("bulletin_liquidation", requiered=True)
 
 
 
@@ -583,12 +583,12 @@ class DeclarationTVA(models.Model):
 
     def write_invoice_state(self):
 
-        sales_invoices = self.sales_invoices
-        purchases_invoices = self.purchases_invoices
-        foreign_supplier_invoices = self.foreign_supplier_invoices
-        transport_invoices = self.transport_invoices
-        insurance_invoices = self.insurance_invoices
-        other_invoices = self.other_invoices
+        sales_invoices = self.liquidation_statement.sales_invoices
+        purchases_invoices = self.liquidation_statement.purchases_invoices
+        foreign_supplier_invoices = self.liquidation_statement.foreign_supplier_invoices
+        transport_invoices = self.liquidation_statement.transport_invoices
+        insurance_invoices = self.liquidation_statement.insurance_invoices
+        other_invoices = self.liquidation_statement.other_invoices
 
         if sales_invoices:
             for invoice in sales_invoices:
@@ -616,7 +616,7 @@ class DeclarationTVA(models.Model):
 
 
     def change_invoice_state(self, invoice):
-        invoice.write({'declaration_month': self.mois, 'declaration_state': True, 'liquidation_statement_reference' : self.liquidation_statement_reference})
+        invoice.write({'declaration_month': self.mois, 'declaration_state': True})
 
 
 

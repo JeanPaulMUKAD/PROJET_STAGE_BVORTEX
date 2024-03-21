@@ -89,7 +89,6 @@
                                 <field name="end_date"/>
                                 <field name="collaborator" readonly=" state in ['declared', 'appured', 'delivered']"/>
                                 <field name="month_exchange_rates" readonly=" state in ['declared', 'appured', 'delivered']"/>
-                                <field name="liquidation_statement_reference" readonly=" state in ['declared', 'appured', 'delivered']"/>
 
                             </group>
                         </group>
@@ -109,9 +108,11 @@
                             <page string="Factures des ventes">
                                 <field name="sales_invoices" readonly=" state in ['declared', 'appured', 'delivered']"/>
                             </page>
-
                             <page string="Factures des achats">
                                <field name="purchases_invoices" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                            </page>
+                            <page string="Bulletins de liquidation">
+                                <field name="liquidation_statement" readonly=" state in ['declared', 'appured', 'delivered']"/>
                             </page>
                         </notebook>
                     </sheet>

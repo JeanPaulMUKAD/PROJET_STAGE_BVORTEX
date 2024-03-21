@@ -12,10 +12,11 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="liquidation_statement_reference"/>
-                    <field name="date"/>
-                    <field name="state"/>
-                    <field name="collaborator"/>
-
+                    <field name="company_id"/>
+                    <field name="total_amount_invoice"/>
+                    <field name="total_vat"/>
+                    <field name="date" optional="hide"/>
+                    <field name="state" optional="hide"/>
                 </tree>
 
             </field>
@@ -29,8 +30,8 @@
                     <header>
 
                         <button name="button_confirm" string="Sauver" type="object" class="btn-primary"  invisible = "state == 'done'"/>
-                        <button name="button_edit" string="Editer" type="object" nvisible ="state == 'done'"/>
-                        <button name="button_done" string="Marquer comme fait" type="object" />
+                        <button name="button_edit" string="Editer" type="object" invisible ="state == 'done'"/>
+                        <button name="button_done" string="Marquer comme fait" type="object" invisible ="state == 'done'" />
                         <field name="state" widget="statusbar"/>
 
                     </header>
