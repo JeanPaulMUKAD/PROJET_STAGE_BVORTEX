@@ -25,6 +25,7 @@ Long description of module's purpose
         'report/vat_synthese_report.xml',
         'report/vat_recap_report.xml',
         'report/declaration_report.xml',
+        'views/account_move_declaration.xml',
 
     ],
     'images': ['static/description/icon.png'],

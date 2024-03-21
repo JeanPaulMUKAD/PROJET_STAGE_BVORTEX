@@ -589,6 +589,8 @@ class DeclarationTVA(models.Model):
 class AcountMove(models.Model):
     _inherit = 'account.move'
     invoice_month = fields.Char("Mois de la facture", compute="_compute_month")
+    declaration_month = fields.Char("Mois de la déclaration")
+    declaration_state = fields.Boolean("Est Liée à une declaration", default=False)
 
     @api.depends('invoice_date')
     def _compute_month(self):
