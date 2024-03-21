@@ -28,6 +28,27 @@ class BulletinLiquidation(models.Model):
 
     def button_done(self):
         self.write({'state': 'done'})
+        foreign_supplier_invoices = self.foreign_supplier_invoices
+        transport_invoices = self.transport_invoices
+        insurance_invoices = self.insurance_invoices
+        other_invoices = self.other_invoices
+
+        if foreign_supplier_invoices:
+            for invoice in foreign_supplier_invoices:
+                self.change_invoice_state(invoice)
+
+        if transport_invoices:
+            for invoice in transport_invoices:
+                self.change_invoice_state(invoice)
+
+        if insurance_invoices:
+            for invoice in insurance_invoices:
+                self.change_invoice_state(invoice)
+
+        if other_invoices:
+            for invoice in other_invoices:
+                self.change_invoice_state(invoice)
+
         return {
             'effect': {
                 'fadeout': 'slow',
@@ -38,9 +59,7 @@ class BulletinLiquidation(models.Model):
 
     @api.onchange('foreign_supplier_invoices', 'transport_invoices', 'insurance_invoices', 'other_invoices')
     def compute_total_amount_invoice(self):
-
         tolal_amount_invoice = 0
-
 
         foreign_supplier_invoices = self.foreign_supplier_invoices
         transport_invoices = self.transport_invoices
@@ -49,22 +68,18 @@ class BulletinLiquidation(models.Model):
 
         if foreign_supplier_invoices:
             for invoice in foreign_supplier_invoices:
-                self.change_invoice_state(invoice)
                 tolal_amount_invoice += invoice.amount_total_signed
 
         if transport_invoices:
             for invoice in transport_invoices:
-                self.change_invoice_state(invoice)
                 tolal_amount_invoice += invoice.amount_total_signed
 
         if insurance_invoices:
             for invoice in insurance_invoices:
-                self.change_invoice_state(invoice)
                 tolal_amount_invoice += invoice.amount_total_signed
 
         if other_invoices:
             for invoice in other_invoices:
-                self.change_invoice_state(invoice)
                 tolal_amount_invoice += invoice.amount_total_signed
 
 

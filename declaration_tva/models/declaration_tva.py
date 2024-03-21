@@ -585,8 +585,8 @@ class DeclarationTVA(models.Model):
 
     def write_invoice_state(self):
 
-        sales_invoices = self.liquidation_statement.sales_invoices
-        purchases_invoices = self.liquidation_statement.purchases_invoices
+        sales_invoices = self.sales_invoices
+        purchases_invoices = self.purchases_invoices
         foreign_supplier_invoices = self.liquidation_statement.foreign_supplier_invoices
         transport_invoices = self.liquidation_statement.transport_invoices
         insurance_invoices = self.liquidation_statement.insurance_invoices
