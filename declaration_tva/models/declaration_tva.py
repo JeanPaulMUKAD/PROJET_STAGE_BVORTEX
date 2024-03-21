@@ -1,7 +1,7 @@
 from odoo import models, fields, api
-from datetime import date, timedelta, datetime
+from datetime import date, timedelta
 import random
-from odoo.exceptions import UserError
+
 
 
 
@@ -45,8 +45,6 @@ class DeclarationTVA(models.Model):
     vat_credit = fields.Float(string="Crédit TVA")
     vat_credit_cdf = fields.Float(string="Crédit TVA en Fc")
 
-
-
     collaborator = fields.Many2one('res.users', string="Collaborateur")
     manager = fields.Many2one('res.users', string="Manager", required=True)
     partner_id = fields.Many2one('res.partner', string="Partenaire", default=lambda self: self.env.user.partner_id)
@@ -57,8 +55,12 @@ class DeclarationTVA(models.Model):
 
     sales_invoices = fields.Many2many('account.move', 'campaign_id', string="Facture clients")
     purchases_invoices = fields.Many2many('account.move', 'name', string="Facture Fourniseurs")
-    realize_ca = fields.Many2many('account.move', string="Chiffre d'affaire réalisé")
+    realize_ca = fields.Many2many('account.move', 'activity_ids', string="Chiffre d'affaire réalisé")
 
+    foreign_supplier_invoices = fields.Many2many('account.move', 'amount_paid', string="Factures fournisseur Etranger")
+    transport_invoices = fields.Many2many('account.move', 'display_name', string="Factures de transport")
+    insurance_invoices = fields.Many2many('account.move', 'delivery_date', string="Factures assurance")
+    other_invoices = fields.Many2many('account.move', string="Autres factures")
 
     customer_total_amount_tcc_usd = fields.Float(string="Total des factures des clients en USD", default=0)
     customer_total_amount_tcc_cdf = fields.Float(string="Total des factures des clients en CDF", default=0)
@@ -75,6 +77,8 @@ class DeclarationTVA(models.Model):
     partner_vat_cdf = fields.Float(string="TVA des factures des fourniseurs en CDF", default=0)
 
     month_exchange_rates = fields.Float("Taux de change de la déclaration", store=True, default=1,  tracking=True)
+
+
 
     @api.depends('mois')
     def _compute_dates(self):
@@ -199,16 +203,6 @@ class DeclarationTVA(models.Model):
 
         return True
 
-    def check_attachments(self):
-        chatter_div = driver.find_element_by_class_name(
-            "oe_chatter")  # Remplace "driver" par l'objet WebDriver que tu utilises pour accéder à la page Odoo
-        attachment_icon = chatter_div.find_element_by_xpath(".//i[contains(@class, 'fa fa-paperclip')]")
-
-        if attachment_icon.is_displayed():
-            print("Un document est attaché.")
-        else:
-            print("Aucun document attaché.")
-            raise UserError("Aucune pièce jointe trouvée dans le chatter.")
 
 
     def button_edit(self):
@@ -221,6 +215,7 @@ class DeclarationTVA(models.Model):
 
     def button_declare(self):
         self.write({'state': 'declared'})
+        self.write_invoice_state()
         return {
             'effect': {
                 'fadeout': 'slow',
@@ -470,6 +465,9 @@ class DeclarationTVA(models.Model):
 
         return [result, total]
 
+
+
+
     def declaration_infos(self):
         declaration_doc_info = []
 
@@ -584,13 +582,50 @@ class DeclarationTVA(models.Model):
         return  declaration_doc_info
 
 
+    def write_invoice_state(self):
+
+        sales_invoices = self.sales_invoices
+        purchases_invoices = self.purchases_invoices
+        foreign_supplier_invoices = self.foreign_supplier_invoices
+        transport_invoices = self.transport_invoices
+        insurance_invoices = self.insurance_invoices
+        other_invoices = self.other_invoices
+
+        if sales_invoices:
+            for invoice in sales_invoices:
+                self.change_invoice_state(invoice)
+
+        if purchases_invoices:
+            for invoice in purchases_invoices:
+                self.change_invoice_state(invoice)
+
+        if foreign_supplier_invoices:
+            for invoice in foreign_supplier_invoices:
+                self.change_invoice_state(invoice)
+
+        if transport_invoices:
+            for invoice in transport_invoices:
+                self.change_invoice_state(invoice)
+
+        if insurance_invoices:
+            for invoice in insurance_invoices:
+                self.change_invoice_state(invoice)
+
+        if other_invoices:
+            for invoice in other_invoices:
+                self.change_invoice_state(invoice)
+
+
+    def change_invoice_state(self, invoice):
+        invoice.write({'declaration_month': self.mois, 'declaration_state': True})
+
 
 
 class AcountMove(models.Model):
     _inherit = 'account.move'
     invoice_month = fields.Char("Mois de la facture", compute="_compute_month")
     declaration_month = fields.Char("Mois de la déclaration")
-    declaration_state = fields.Boolean("Est Liée à une declaration", default=False)
+    declaration_state = fields.Boolean("Est liée à une déclaration", default=False)
 
     @api.depends('invoice_date')
     def _compute_month(self):

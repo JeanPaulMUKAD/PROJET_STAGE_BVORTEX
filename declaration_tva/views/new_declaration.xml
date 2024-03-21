@@ -104,16 +104,27 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="FACTURES VENTES">
+                            <page string="Factures des ventes">
                                 <field name="sales_invoices" readonly=" state in ['declared', 'appured', 'delivered']"/>
                             </page>
 
-                            <page string="FACTURES ACHATS ">
+                            <page string="Factures des achats">
                                <field name="purchases_invoices" readonly=" state in ['declared', 'appured', 'delivered']"/>
                             </page>
-
-
-
+                            <page string="Bulletin de liquidation">
+                                <group>
+                                    <field name="foreign_supplier_invoices" string="Factures Fournisseur Étranger" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                </group>
+                                <group>
+                                    <field name="transport_invoices" string="Factures de Transport" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                </group>
+                                <group>
+                                    <field name="insurance_invoices" string="Factures d'Assurance" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                </group>
+                                <group>
+                                    <field name="other_invoices" string="Autres Factures" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                </group>
+                            </page>
                         </notebook>
                     </sheet>
                     <div class="oe_chatter">

@@ -22,5 +22,16 @@
                 </tree>
             </field>
         </record>
+        <record id="view_account_move_declaration_tree" model="ir.ui.view">
+            <field name="name">account.move.out.tree</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_in_invoice_bill_tree"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="declaration_month" optional="hide"/>
+                    <field name="declaration_state" optional="hide"/>
+                </tree>
+            </field>
+        </record>
 
 </odoo>
