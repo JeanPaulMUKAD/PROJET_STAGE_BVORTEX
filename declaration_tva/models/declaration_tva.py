@@ -3,9 +3,6 @@ from datetime import date, timedelta
 import random
 
 
-
-
-
 class DeclarationTVA(models.Model):
     _name = "declaration_tva"
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -47,7 +44,7 @@ class DeclarationTVA(models.Model):
 
     collaborator = fields.Many2one('res.users', string="Collaborateur")
     manager = fields.Many2one('res.users', string="Manager", required=True)
-    partner_id = fields.Many2one('res.partner', string="Partenaire", default=lambda self: self.env.user.partner_id)
+    partner_id = fields.Many2one('res.partner', string="Partenaire")
     company_id = fields.Many2one('res.company', string="Société", required=True)
 
     state = fields.Selection([('draft', 'Brouillon'), ('confirm', 'Envoyé'), ('validate', 'validé'), ('declared', 'Déclaré'), ('appured', 'Appuré'), ('delivered', 'Remis')], default="draft", string='Status')
@@ -170,7 +167,6 @@ class DeclarationTVA(models.Model):
             ])
             self.purchases_invoices = [(6, 0, purchases_invoices.ids)]
 
-
             realize_ca = self.env['account.move'].search([
                 ('company_id', '=', self.company_id.id),
                 ('move_type', '=', 'out_invoice'),
@@ -178,7 +174,13 @@ class DeclarationTVA(models.Model):
             ])
             self.realize_ca = [(6, 0, realize_ca.ids)]
 
-
+            bulletin_liquidation = self.env['bulletin_liquidation'].search([
+                ('company_id', '=', self.company_id.id),
+                ('date', '>=', start_date),
+                ('state', '=', 'done'),
+                ('date', '<=', end_date),
+            ])
+            self.liquidation_statement = [(6, 0, bulletin_liquidation.ids)]
 
     def button_confirm(self):
         self.write({'state': 'confirm'})
