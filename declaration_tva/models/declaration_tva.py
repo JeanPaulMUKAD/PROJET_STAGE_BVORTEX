@@ -57,10 +57,7 @@ class DeclarationTVA(models.Model):
     purchases_invoices = fields.Many2many('account.move', 'name', string="Facture Fourniseurs")
     realize_ca = fields.Many2many('account.move', 'activity_ids', string="Chiffre d'affaire réalisé")
 
-    foreign_supplier_invoices = fields.Many2many('account.move', 'amount_paid', string="Factures fournisseur Etranger")
-    transport_invoices = fields.Many2many('account.move', 'display_name', string="Factures de transport")
-    insurance_invoices = fields.Many2many('account.move', 'delivery_date', string="Factures assurance")
-    other_invoices = fields.Many2many('account.move', string="Autres factures")
+
 
     customer_total_amount_tcc_usd = fields.Float(string="Total des factures des clients en USD", default=0)
     customer_total_amount_tcc_cdf = fields.Float(string="Total des factures des clients en CDF", default=0)
@@ -78,7 +75,7 @@ class DeclarationTVA(models.Model):
 
     month_exchange_rates = fields.Float("Taux de change de la déclaration", store=True, default=1,  tracking=True)
 
-    liquidation_statement_reference = fields.Char("Référence du bulletin de liquidation", requiered=True)
+    liquidation_statement_reference = fields.Many2one("bulletin_liquidation", "Bulletin de liquidation", requiered=True)
 
 
 
@@ -628,7 +625,7 @@ class AcountMove(models.Model):
     invoice_month = fields.Char("Mois de la facture", compute="_compute_month")
     declaration_month = fields.Char("Mois de la déclaration")
     declaration_state = fields.Boolean("Est liée à une déclaration", default=False)
-    liquidation_statement_reference  = fields.Char('Bulletin de liquidation')
+    liquidation_statement_reference = fields.Char('Bulletin de liquidation')
 
     @api.depends('invoice_date')
     def _compute_month(self):

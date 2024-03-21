@@ -89,6 +89,8 @@
                                 <field name="end_date"/>
                                 <field name="collaborator" readonly=" state in ['declared', 'appured', 'delivered']"/>
                                 <field name="month_exchange_rates" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="liquidation_statement_reference" readonly=" state in ['declared', 'appured', 'delivered']"/>
+
                             </group>
                         </group>
                         <hr/>
@@ -110,23 +112,6 @@
 
                             <page string="Factures des achats">
                                <field name="purchases_invoices" readonly=" state in ['declared', 'appured', 'delivered']"/>
-                            </page>
-                            <page string="Bulletin de liquidation">
-                                <group>
-                                    <field name="liquidation_statement_reference" readonly=" state in ['declared', 'appured', 'delivered']"></field>
-                                </group>
-                                <group>
-                                    <field name="foreign_supplier_invoices" string="Factures Fournisseur Étranger" readonly=" state in ['declared', 'appured', 'delivered']"/>
-                                </group>
-                                <group>
-                                    <field name="transport_invoices" string="Factures de Transport" readonly=" state in ['declared', 'appured', 'delivered']"/>
-                                </group>
-                                <group>
-                                    <field name="insurance_invoices" string="Factures d'Assurance" readonly=" state in ['declared', 'appured', 'delivered']"/>
-                                </group>
-                                <group>
-                                    <field name="other_invoices" string="Autres Factures" readonly=" state in ['declared', 'appured', 'delivered']"/>
-                                </group>
                             </page>
                         </notebook>
                     </sheet>
