@@ -8,6 +8,8 @@
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="declaration_month"/>
                     <field name="declaration_state"/>
+                    <field name="liquidation_statement_reference"/>
+
                 </xpath>
             </field>
         </record>
@@ -19,6 +21,8 @@
                 <tree>
                     <field name="declaration_month" optional="hide"/>
                     <field name="declaration_state" optional="hide"/>
+                    <field name="liquidation_statement_reference" optional="hide"/>
+
                 </tree>
             </field>
         </record>
@@ -30,6 +34,7 @@
                 <tree>
                     <field name="declaration_month" optional="hide"/>
                     <field name="declaration_state" optional="hide"/>
+                    <field name="liquidation_statement_reference" optional="hide"/>
                 </tree>
             </field>
         </record>

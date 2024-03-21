@@ -113,6 +113,9 @@
                             </page>
                             <page string="Bulletin de liquidation">
                                 <group>
+                                    <field name="liquidation_statement_reference" readonly=" state in ['declared', 'appured', 'delivered']"></field>
+                                </group>
+                                <group>
                                     <field name="foreign_supplier_invoices" string="Factures Fournisseur Étranger" readonly=" state in ['declared', 'appured', 'delivered']"/>
                                 </group>
                                 <group>

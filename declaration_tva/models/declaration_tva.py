@@ -78,6 +78,8 @@ class DeclarationTVA(models.Model):
 
     month_exchange_rates = fields.Float("Taux de change de la déclaration", store=True, default=1,  tracking=True)
 
+    liquidation_statement_reference = fields.Char("Référence du bulletin de liquidation", requiered=True)
+
 
 
     @api.depends('mois')
@@ -617,7 +619,7 @@ class DeclarationTVA(models.Model):
 
 
     def change_invoice_state(self, invoice):
-        invoice.write({'declaration_month': self.mois, 'declaration_state': True})
+        invoice.write({'declaration_month': self.mois, 'declaration_state': True, 'liquidation_statement_reference' : self.liquidation_statement_reference})
 
 
 
@@ -626,6 +628,7 @@ class AcountMove(models.Model):
     invoice_month = fields.Char("Mois de la facture", compute="_compute_month")
     declaration_month = fields.Char("Mois de la déclaration")
     declaration_state = fields.Boolean("Est liée à une déclaration", default=False)
+    liquidation_statement_reference  = fields.Char('Bulletin de liquidation')
 
     @api.depends('invoice_date')
     def _compute_month(self):
