@@ -41,7 +41,7 @@
                         <group>
                             <group id="left_column" class="col-6">
                                 <field name="liquidation_statement_reference" readonly = "state =='done'"/>
-                                <field name="company_id" readonly = "state =='done'"/>
+                                <field name="company_id" readonly = "state =='done'"  invisible="1"/>
                                 <field name="date" readonly = "state =='done'"/>
                             </group>
                             <group id="right_column" class="col-6">

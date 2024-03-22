@@ -8,7 +8,8 @@ class BulletinLiquidation(models.Model):
     date = fields.Date("Date d'émission", required=True)
 
     collaborator = fields.Many2one('res.users', string="Collaborateur", required=True)
-    company_id = fields.Many2one('res.company', string="Société", required=True)
+    company_id = fields.Many2one('res.company', string='Société', required=True,
+                                 default=lambda self: self.env.company)
     state = fields.Selection([('draft', 'Brouillon'), ('save', 'Sauver'), ('done', 'Fait')], default="draft", string='Status')
 
 
