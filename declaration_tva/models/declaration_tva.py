@@ -633,3 +633,6 @@ class AcountMove(models.Model):
     def _compute_month(self):
         month = self.invoice_date.strftime('%B')
         return month
+
+
+
