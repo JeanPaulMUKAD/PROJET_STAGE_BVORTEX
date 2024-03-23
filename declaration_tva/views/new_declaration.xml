@@ -6,32 +6,30 @@
             <field name="view_mode">kanban,list,form</field>
         </record>
 
-        <record id="view_declaration_tva_kanban" model="ir.ui.view">
-            <field name="name">declaration_tva.kanban</field>
-            <field name="model">declaration_tva</field>
-            <field name="arch" type="xml">
-                <kanban class="o_res_partner_kanban" js_class="website_pages_kanban" type="object" sample="1">
-                    <field name="company_id" widget="label"/>
-                    <t t-name="kanban-box">
-                        <templates>
-                            <t t-name="kanban-box">
-                                <div class="oe_kanban_global_click d-flex flex-column" t-attf-style="border: 2px solid #{record.state.color};">
-                                    <div>
-                                        <field name="mois"/>
-                                    </div>
-                                    <div class="border-top mt-2 pt-2">
-                                        <field name="state"/>
-                                    </div>
-                                    <field name="reference" widget="label"/>
-                                    <field name="company_id" widget="label"/>
-                                </div>
-                            </t>
-                        </templates>
-                    </t>
-                </kanban>
+<record id="view_declaration_tva_pipeline" model="ir.ui.view">
+    <field name="name">declaration_tva.pipeline</field>
+    <field name="model">declaration_tva</field>
+    <field name="arch" type="xml">
+        <kanban class="o_res_partner_kanban" js_class="website_pages_kanban" type="pipeline">
+            <!-- Champ pour représenter l'étape dans le pipeline -->
+            <field name="state"/>
+            <!-- Modèle de template pour afficher chaque élément dans le pipeline -->
+            <templates>
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_global_click">
+                        <!-- Affichage du nom de la tâche -->
+                        <field name="collaborator"/>
+                    </div>
+                </t>
+            </templates>
+            <!-- Barre d'état pour changer l'étape dans le pipeline -->
+            <kanban-dropdown>
+                <field name="state" widget="statusbar"/>
+            </kanban-dropdown>
+        </kanban>
+    </field>
+</record>
 
-            </field>
-        </record>
 
 
         <record id="view_declaration_tva_list" model="ir.ui.view">

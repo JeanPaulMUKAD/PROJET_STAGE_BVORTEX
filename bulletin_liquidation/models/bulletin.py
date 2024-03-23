@@ -15,6 +15,14 @@ class BulletinLiquidation(models.Model):
 
     total_amount_invoice = fields.Float("Monntant total")
     total_vat = fields.Float("TVA totale")
+    cif = fields.Float("Montant CIF")
+    state_cif = fields.Boolean("Sif supérieur au total amount", default=False)
+
+    other_dec_e = fields.Float("Autres D.E")
+    journal_id = fields.Many2one('account.journal', string='Journal')
+
+
+
 
     foreign_supplier_invoices = fields.Many2many('account.move', 'has_message', string="Factures fournisseur Etranger", required=True)
     transport_invoices = fields.Many2many('account.move', 'always_tax_exigible', string="Factures de transport", required=True)
@@ -97,3 +105,16 @@ class BulletinLiquidation(models.Model):
 
     def change_invoice_state(self, invoice):
         invoice.write({'liquidation_statement_reference': self.liquidation_statement_reference})
+
+
+    @api.onchange('cif')
+    def on_change_cif(self):
+        if abs(self.cif) > abs(self.total_amount_invoice):
+            self.write({'state_cif' : True})
+        else:
+            self.write({'state_cif' : False})
+
+
+    @api.model
+    def button_accounting(self):
+        return 1

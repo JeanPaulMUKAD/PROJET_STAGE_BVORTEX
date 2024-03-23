@@ -46,10 +46,31 @@
                             </group>
                             <group id="right_column" class="col-6">
                                 <field name="collaborator" readonly = "state =='done'"/>
-                                <field name="total_amount_invoice" readonly = "state =='done'"/>
-                                <field name="total_vat" readonly = "state =='done'"/>
+                                <field name="total_amount_invoice" readonly = "1"/>
+                                <field name="total_vat" readonly = "1"/>
+                                <field name="cif" readonly = "state =='done'" />
+                                <field name="state_cif" invisible="1" />
                             </group>
                         </group>
+                        <group>
+                            <group id="left_column" class="col-6">
+                                <field name="other_dec_e" readonly = "state =='done'" invisible ="state_cif == False"/>
+                            </group>
+                             <group id="right_column" class="col-6">
+                                    <field name="journal_id" readonly = "state =='done'" invisible ="state_cif == False"/>
+                             </group>
+                            <div class="row justify-content-right">
+                                <group id="right_column" class="col-6">
+                                    <button type="button" class="btn btn-primary" name="button_accounting" invisible="state_cif == False" style="padding: 5px;">
+                                        <i class="fa fa-book" style="margin-right: 5px;"/>Comptabilité
+                                    </button>
+                                </group>
+                            </div>
+
+
+
+                        </group>
+
                         <notebook>
                             <page string="Factures fournisseur étranger">
                                  <field name="foreign_supplier_invoices" readonly = "state =='done'" domain="[('move_type', '=', 'in_invoice')]"/>
