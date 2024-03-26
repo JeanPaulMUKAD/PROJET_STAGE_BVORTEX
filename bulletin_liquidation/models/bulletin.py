@@ -58,6 +58,11 @@ class BulletinLiquidation(models.Model):
             for invoice in other_invoices:
                 self.change_invoice_state(invoice)
 
+        self.write({'total_amount_invoice': abs(self.total_amount_invoice)})
+        self.write({'total_vat': abs(self.total_vat)})
+
+
+
         return {
             'effect': {
                 'fadeout': 'slow',
@@ -65,6 +70,8 @@ class BulletinLiquidation(models.Model):
                 'type': 'rainbow_man',
             }
         }
+
+
 
     @api.onchange('foreign_supplier_invoices', 'transport_invoices', 'insurance_invoices', 'other_invoices')
     def compute_total_amount_invoice(self):
@@ -80,25 +87,25 @@ class BulletinLiquidation(models.Model):
 
         if foreign_supplier_invoices:
             for invoice in foreign_supplier_invoices:
-                tolal_amount_invoice += invoice.amount_total_signed
-                total_vat += invoice.amount_tax_signed
+                tolal_amount_invoice += invoice.amount_untaxed_signed
+
 
 
         if transport_invoices:
             for invoice in transport_invoices:
-                tolal_amount_invoice += invoice.amount_total_signed
-                total_vat += invoice.amount_tax_signed
+                tolal_amount_invoice += invoice.amount_untaxed_signed
+
 
         if insurance_invoices:
             for invoice in insurance_invoices:
-                tolal_amount_invoice += invoice.amount_total_signed
+                tolal_amount_invoice += invoice.amount_untaxed_signed
                 total_vat += invoice.amount_tax_signed
 
         if other_invoices:
             for invoice in other_invoices:
-                tolal_amount_invoice += invoice.amount_total_signed
-                total_vat += invoice.amount_tax_signed
+                tolal_amount_invoice += invoice.amount_untaxed_signed
 
+        total_vat = tolal_amount_invoice * 0.16
 
 
         self.write({'total_amount_invoice': abs(tolal_amount_invoice), 'total_vat' : abs(total_vat)})

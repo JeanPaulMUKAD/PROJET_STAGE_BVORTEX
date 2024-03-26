@@ -46,8 +46,8 @@
                             </group>
                             <group id="right_column" class="col-6">
                                 <field name="collaborator" readonly = "state =='done'"/>
-                                <field name="total_amount_invoice" readonly = "1"/>
-                                <field name="total_vat" readonly = "1"/>
+                                <field name="total_amount_invoice" />
+                                <field name="total_vat" />
                                 <field name="cif" readonly = "state =='done'" />
                                 <field name="state_cif" invisible="1" />
                             </group>
@@ -66,9 +66,6 @@
                                     </button>
                                 </group>
                             </div>
-
-
-
                         </group>
 
                         <notebook>

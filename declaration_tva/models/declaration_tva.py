@@ -213,18 +213,72 @@ class DeclarationTVA(models.Model):
     def button_validate(self):
         self.write({'state': 'validate'})
 
+    from odoo import fields
 
     def button_declare(self):
+        # Mettre à jour l'état de la déclaration
         self.write({'state': 'declared'})
         self.write_invoice_state()
-        return {
-            'effect': {
-                'fadeout': 'slow',
-                'message': 'Déclaration faite avec succès...',
-                'type': 'rainbow_man',
-            }
-        }
 
+        for declaration in self:
+            # Obtenir le journal par défaut pour les déclarations de TVA
+            default_journal = self.env['account.journal'].search([('type', '=', 'general')], limit=1)
+
+            # Obtenir les comptes TVA configurés dans la société
+            total_collected_vat_account = declaration.company_id.total_collected_vat_account
+            total_deductible_vat_account = declaration.company_id.total_deductible_vat_account
+            credit_vat_account = declaration.company_id.credit_vat_account
+            vat_payable_account = declaration.company_id.vat_payable_account
+
+            # Vérifier si la TVA est créditrice ou payable
+            if declaration.vat_credit > 0:
+                # Passer les écritures pour le crédit de TVA
+                move_vals = {
+                    'journal_id': default_journal.id,
+                    'date': fields.Date.today(),
+                    'ref': 'Ecriture pour crédit de TVA',
+                    'line_ids': [
+                        (0, 0, {
+                            'account_id': total_deductible_vat_account.id,
+                            'name': 'TVA déductible',
+                            'debit': 0.0,
+                            'credit': declaration.vat_credit,
+                        }),
+                        (0, 0, {
+                            'account_id': credit_vat_account.id,
+                            'name': 'Crédit TVA',
+                            'debit': declaration.vat_credit,
+                            'credit': 0.0,
+                        }),
+                    ],
+                }
+            else:
+                # Passer les écritures pour la TVA payable
+                move_vals = {
+                    'journal_id': default_journal.id,
+                    'date': fields.Date.today(),
+                    'ref': 'Ecriture pour TVA payable',
+                    'line_ids': [
+                        (0, 0, {
+                            'account_id': total_collected_vat_account.id,
+                            'name': 'TVA collectée',
+                            'debit': declaration.vat_payable,
+                            'credit': 0.0,
+                        }),
+                        (0, 0, {
+                            'account_id': vat_payable_account.id,
+                            'name': 'TVA payable',
+                            'debit': 0.0,
+                            'credit': declaration.vat_payable,
+                        }),
+                    ],
+                }
+
+            # Créer l'écriture comptable
+            move_id = self.env['account.move'].create(move_vals)
+
+            # Valider l'écriture comptable
+            move_id.action_post()
 
     def button_approve(self):
         self.write({'state': 'appured'})
