@@ -213,8 +213,6 @@ class DeclarationTVA(models.Model):
     def button_validate(self):
         self.write({'state': 'validate'})
 
-    from odoo import fields
-
     def button_declare(self):
         # Mettre à jour l'état de la déclaration
         self.write({'state': 'declared'})

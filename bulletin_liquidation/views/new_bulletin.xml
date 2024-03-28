@@ -46,8 +46,8 @@
                             </group>
                             <group id="right_column" class="col-6">
                                 <field name="collaborator" readonly = "state =='done'"/>
-                                <field name="total_amount_invoice" />
-                                <field name="total_vat" />
+                                <field name="total_amount_invoice" readonly = "state =='done'"/>
+                                <field name="total_vat" readonly = "state =='done'"/>
                                 <field name="cif" readonly = "state =='done'" />
                                 <field name="state_cif" invisible="1" />
                             </group>
@@ -58,14 +58,14 @@
                             </group>
                              <group id="right_column" class="col-6">
                                     <field name="journal_id" readonly = "state =='done'" invisible ="state_cif == False"/>
+                                    <field name="supplier_account_id" readonly = "state =='done'" invisible ="state_cif == False"/>
+
                              </group>
-                            <div class="row justify-content-right">
-                                <group id="right_column" class="col-6">
-                                    <button type="button" class="btn btn-primary" name="button_accounting" invisible="state_cif == False" style="padding: 5px;">
-                                        <i class="fa fa-book" style="margin-right: 5px;"/>Comptabilité
-                                    </button>
-                                </group>
-                            </div>
+
+                            <group id="right_column" class="col-6">
+                                <button class="fa fa-book btn-primary" name="button_accounting" type="object" string="comptabilité" invisible="state_cif == False"/>
+                            </group>
+
                         </group>
 
                         <notebook>

@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import UserError
 
 class BulletinLiquidation(models.Model):
     _name = "bulletin_liquidation"
@@ -13,22 +14,15 @@ class BulletinLiquidation(models.Model):
     state = fields.Selection([('draft', 'Brouillon'), ('save', 'Sauver'), ('done', 'Fait')], default="draft", string='Status')
 
 
-    total_amount_invoice = fields.Float("Monntant total")
-    total_vat = fields.Float("TVA totale")
-    cif = fields.Float("Montant CIF")
-    state_cif = fields.Boolean("Sif supérieur au total amount", default=False)
+    total_amount_invoice = fields.Float("Monntant total", store=True)
+    total_vat = fields.Float("TVA totale", store=True)
+    cif = fields.Float("Montant CIF", store=True)
+    state_cif = fields.Boolean("cif supérieur au total amount", default=False)
 
-    other_dec_e = fields.Float("Autres droits à l'importation")
+    other_dec_e = fields.Float("Autres droits à l'importation", store=True)
     journal_id = fields.Many2one('account.journal', string='Journal')
 
-    store_total_amount_invoice = fields.Float()
-    store_total_vat= fields.Float()
-    store_cif = fields.Float()
-    store_other_dec = fields.Float()
-    
-
-
-
+    supplier_account_id = fields.Many2one('account.account', string="Compte du cif")
 
     foreign_supplier_invoices = fields.Many2many('account.move', 'has_message', string="Factures fournisseur Etranger", required=True)
     transport_invoices = fields.Many2many('account.move', 'always_tax_exigible', string="Factures de transport", required=True)
@@ -74,7 +68,6 @@ class BulletinLiquidation(models.Model):
         }
 
 
-
     @api.onchange('foreign_supplier_invoices', 'transport_invoices', 'insurance_invoices', 'other_invoices')
     def compute_total_amount_invoice(self):
         total_amount_invoice = 0
@@ -89,12 +82,9 @@ class BulletinLiquidation(models.Model):
             for invoice in foreign_supplier_invoices:
                 total_amount_invoice += invoice.amount_untaxed_signed
 
-
-
         if transport_invoices:
             for invoice in transport_invoices:
                 total_amount_invoice += invoice.amount_untaxed_signed
-
 
         if insurance_invoices:
             for invoice in insurance_invoices:
@@ -107,12 +97,8 @@ class BulletinLiquidation(models.Model):
 
         total_vat = total_amount_invoice * 0.16
 
-
-        self.write({'store_total_amount_invoice': abs(total_amount_invoice), 'store_total_vat' : abs(total_vat)})
         self.write({'total_amount_invoice': abs(total_amount_invoice), 'total_vat' : abs(total_vat)})
 
-        print(self.store_total_amount_invoice)
-        print(self.store_total_vat)
 
     def change_invoice_state(self, invoice):
         invoice.write({'liquidation_statement_reference': self.liquidation_statement_reference})
@@ -125,20 +111,38 @@ class BulletinLiquidation(models.Model):
             self.other_dec_e = self.cif - self.total_amount_invoice
         else:
             self.write({'state_cif' : False})
-        self.write({'store_cif': abs(self.store_cif), 'other_dec_e': abs(self.other_dec_e)})
-        print(self.store_cif)
-        print(self.other_dec_e)
 
-    @api.model
     def button_accounting(self):
-        return 1
-    
-    @api.onchange('total_amount_invoice', 'total_vat', 'cif', 'other_dec_e')
-    def on_change_value(self):
-        self.write({
-            'total_amount_invoice': self.store_total_amount_invoice,
-            'total_vat': self.store_total_vat,
-            'cif': self.store_cif,
-            'other_dec_e': self.store_other_dec
-        })
-        
+        journal_id = self.journal_id.id
+        charge_account = self.env['account.account'].search([('code', '=', '4011')], limit=1)
+        if not charge_account:
+
+            charge_account = self.env['account.account'].search([('name', 'ilike', 'charge')], limit=1)
+
+        if charge_account:
+            if abs(self.cif) > abs(self.total_amount_invoice):
+
+                bulletin_vals = {
+                    'journal_id': journal_id,
+                    'date': fields.Date.today(),
+                    'ref': 'Ecriture cif bulletin de liquidation',
+                    'line_ids': [
+                        (0, 0, {
+                            'account_id': charge_account.id,
+                            'name': 'Débit bulletin de liquidation',
+                            'debit': abs(self.cif),
+                            'credit': 0.0,
+                        }),
+                        (0, 0, {
+                            'account_id': self.supplier_account_id.id,
+                            'name': 'Crédit bulletin de liquidation',
+                            'debit': 0.0,
+                            'credit': abs(self.cif),
+                        }),
+                    ],
+                }
+                return True
+        else:
+            raise UserError(
+                "Aucun compte de charge configuré ! Veuillez configurer un compte de charge pour passer les écritures.")
+
