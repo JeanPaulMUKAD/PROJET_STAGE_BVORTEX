@@ -1,0 +1,131 @@
+<odoo>
+    <data>
+        <record id="action_declaration_tva" model="ir.actions.act_window">
+            <field name="name">Déclarations TVA</field>
+            <field name="res_model">declaration_tva</field>
+            <field name="view_mode">kanban,list,form</field>
+        </record>
+
+<record id="view_declaration_tva_pipeline" model="ir.ui.view">
+    <field name="name">declaration_tva.pipeline</field>
+    <field name="model">declaration_tva</field>
+    <field name="arch" type="xml">
+        <kanban class="o_res_partner_kanban" js_class="website_pages_kanban" type="pipeline">
+            <!-- Champ pour représenter l'étape dans le pipeline -->
+            <field name="state"/>
+            <!-- Modèle de template pour afficher chaque élément dans le pipeline -->
+            <templates>
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_global_click">
+                        <!-- Affichage du nom de la tâche -->
+                        <field name="collaborator"/>
+                    </div>
+                </t>
+            </templates>
+            <!-- Barre d'état pour changer l'étape dans le pipeline -->
+            <kanban-dropdown>
+                <field name="state" widget="statusbar"/>
+            </kanban-dropdown>
+        </kanban>
+    </field>
+</record>
+
+
+
+        <record id="view_declaration_tva_list" model="ir.ui.view">
+            <field name="name">declaration_tva.list</field>
+            <field name="model">declaration_tva</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="company_id"/>
+                    <field name="company_id"/>
+                    <field name="annee"/>
+                    <field name="mois"/>
+                    <field name="state"/>
+                    <field name="total_vat_collected"/>
+                    <field name="total_deductible_vat"/>
+                    <field name="vat_payable"/>
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="view_declaration_tva_form" model="ir.ui.view">
+            <field name="name">declaration_tva.form</field>
+            <field name="model">declaration_tva</field>
+            <field name="arch" type="xml">
+                <form class="oe_stat_button oe_highlight">
+                    <header>
+
+                        <button name="save" string="Sauver" type="object" class="btn-primary"  invisible ="state in ['validate','declared','appured', 'delivered']"/>
+                        <button name="button_confirm" string="Envoyer au manager" type="object" invisible ="state in ['confirm', 'validate','declared','appured', 'delivered']"/>
+                        <button name="button_edit" string="Editer" type="object" invisible ="state in ['validate','declared','appured', 'delivered']"/>
+
+                        <button name="button_validate" string="Valider" type="object" invisible ="state in ['validate','declared','appured', 'delivered']"/>
+                        <button name="button_declare" string="Déclarer" type="object" invisible ="state in ['declared','appured', 'delivered']"/>
+                        <button name="button_approve" string="Appuré" type="object" invisible ="state in ['appured', 'delivered']"/>
+                        <button name="button_deliver" string="Remettre" type="object" invisible ="state =='delivered'"/>
+                        <field name="state" widget="statusbar"/>
+
+                    </header>
+                    <br/>
+                    <sheet>
+                        <widget name="web_ribbon" title="Déclaré" bg_color="text-bg-success" invisible="state in ['validate', 'confirm', 'draft']"/>
+
+                        <group>
+                            <group id="left_column" class="col-6">
+                                <field name="reference"  readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="company_id" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="mois" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="last_declaration" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="manager" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                            </group>
+                            <group id="right_column" class="col-6">
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="collaborator" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="month_exchange_rates" readonly=" state in ['declared', 'appured', 'delivered']"/>
+
+                            </group>
+                        </group>
+                        <hr/>
+                        <group>
+                            <group id="left_column" class="col-6">
+                                <field name="total_vat_collected" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="total_deductible_vat" readonly=" state in ['declared', 'appured', 'delivered']"/>
+
+                            </group>
+                            <group id="right_column" class="col-6">
+                                <field name="vat_payable" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="vat_credit" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Factures des ventes">
+                                <field name="sales_invoices" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                            </page>
+                            <page string="Factures des achats">
+                               <field name="purchases_invoices" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                            </page>
+                            <page string="Bulletins de liquidation">
+                                <field name="liquidation_statement" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>
+
+
+
+
+

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <menuitem id="bulletin_liquidation_action_menu"
+                  action="action_bulletin_liquidation"
+                  parent="account.menu_finance_payables"
+                  name="Bulletin de liquidation"
+                  sequence="300"
+        />
+
+    </data>
+</odoo>
