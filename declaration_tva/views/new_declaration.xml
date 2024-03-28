@@ -11,18 +11,24 @@
     <field name="model">declaration_tva</field>
     <field name="arch" type="xml">
         <kanban class="o_res_partner_kanban" js_class="website_pages_kanban" type="pipeline">
-            <!-- Champ pour représenter l'étape dans le pipeline -->
             <field name="state"/>
-            <!-- Modèle de template pour afficher chaque élément dans le pipeline -->
             <templates>
                 <t t-name="kanban-box">
-                    <div class="oe_kanban_global_click">
-                        <!-- Affichage du nom de la tâche -->
-                        <field name="collaborator"/>
+                    <div class="oe_kanban_card oe_kanban_global_click">
+                        <div class="kanban-header">
+                            <field name="company_id"/>
+                        </div>
+                        <div class="kanban-body">
+                            <field name="annee"/>
+                            <field name="mois"/>
+                            <field name="state"/>
+                            <field name="total_vat_collected"/>
+                            <field name="total_deductible_vat"/>
+                            <field name="vat_payable"/>
+                        </div>
                     </div>
                 </t>
             </templates>
-            <!-- Barre d'état pour changer l'étape dans le pipeline -->
             <kanban-dropdown>
                 <field name="state" widget="statusbar"/>
             </kanban-dropdown>
