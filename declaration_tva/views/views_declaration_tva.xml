@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+
+        <menuitem id="declaration_tva_action_menu"
+                  action="action_declaration_tva"
+                  name="Declaration TVA"
+                  sequence="400"
+        />
+
+
+    </data>
+</odoo>

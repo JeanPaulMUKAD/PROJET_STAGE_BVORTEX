@@ -1,0 +1,99 @@
+<odoo>
+    <data>
+        <record id="action_bulletin_liquidation" model="ir.actions.act_window">
+            <field name="name">Bulletin de liquidation</field>
+            <field name="res_model">bulletin_liquidation</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <record id="view_bulletin_liquidation_list" model="ir.ui.view">
+            <field name="name">bulletin_liquidation.list</field>
+            <field name="model">bulletin_liquidation</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="liquidation_statement_reference"/>
+                    <field name="company_id"/>
+                    <field name="total_amount_invoice"/>
+                    <field name="total_vat"/>
+                    <field name="date" optional="hide"/>
+                    <field name="state" optional="hide"/>
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="view_bulletin_liquidation_form" model="ir.ui.view">
+            <field name="name">bulletin_liquidation.form</field>
+            <field name="model">bulletin_liquidation</field>
+            <field name="arch" type="xml">
+                <form class="oe_stat_button oe_highlight">
+                    <header>
+
+                        <button name="button_confirm" string="Sauver" type="object" class="btn-primary"  invisible = "state == 'done'"/>
+                        <button name="button_edit" string="Editer" type="object" invisible ="state == 'done'"/>
+                        <button name="button_done" string="Marquer comme fait" type="object" invisible ="state == 'done'" />
+                        <field name="state" widget="statusbar"/>
+
+                    </header>
+                    <br/>
+                    <sheet>
+                        <widget name="web_ribbon" title="Fait" bg_color="text-bg-success" invisible="state in ['draft', 'save']"/>
+                        <group>
+                            <group id="left_column" class="col-6">
+                                <field name="liquidation_statement_reference" readonly = "state =='done'"/>
+                                <field name="company_id" readonly = "state =='done'"  invisible="1"/>
+                                <field name="date" readonly = "state =='done'"/>
+                            </group>
+                            <group id="right_column" class="col-6">
+                                <field name="collaborator" readonly = "state =='done'"/>
+                                <field name="total_amount_invoice" />
+                                <field name="total_vat" />
+                                <field name="cif" readonly = "state =='done'" />
+                                <field name="state_cif" invisible="1" />
+                            </group>
+                        </group>
+                        <group>
+                            <group id="left_column" class="col-6">
+                                <field name="other_dec_e" readonly = "state =='done'" invisible ="state_cif == False"/>
+                            </group>
+                             <group id="right_column" class="col-6">
+                                    <field name="journal_id" readonly = "state =='done'" invisible ="state_cif == False"/>
+                             </group>
+                            <div class="row justify-content-right">
+                                <group id="right_column" class="col-6">
+                                    <button type="button" class="btn btn-primary" name="button_accounting" invisible="state_cif == False" style="padding: 5px;">
+                                        <i class="fa fa-book" style="margin-right: 5px;"/>Comptabilité
+                                    </button>
+                                </group>
+                            </div>
+                        </group>
+
+                        <notebook>
+                            <page string="Factures fournisseur étranger">
+                                 <field name="foreign_supplier_invoices" readonly = "state =='done'" domain="[('move_type', '=', 'in_invoice')]"/>
+                            </page>
+                            <page string="Factures de transport">
+                                 <field name="transport_invoices" readonly = "state =='done'" domain="[('move_type', '=', 'in_invoice')]"/>
+                            </page>
+                            <page string="Factures assurance">
+                                 <field name="insurance_invoices" readonly = "state =='done'" domain="[('move_type', '=', 'in_invoice')]"/>
+                            </page>
+                            <page string="Autres Factures">
+                                 <field name="other_invoices" readonly = "state =='done'" domain="[('move_type', '=', 'in_invoice')]"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+
+
+
+
