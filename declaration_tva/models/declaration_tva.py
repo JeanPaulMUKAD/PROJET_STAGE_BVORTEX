@@ -335,7 +335,7 @@ class DeclarationTVA(models.Model):
 
         self.write({
             'total_vat_collected': total_vat_collected,
-            'total_deductible_vat': total_deductible_vat,
+            'total_deductible_vat': total_deductible_vat - total_bulletin_liquidation ,
             'vat_credit': vat_credit,
             'vat_payable': vat_payable,
             'vat_payable_cdf' : vat_payable * self.month_exchange_rates,
@@ -433,11 +433,13 @@ class DeclarationTVA(models.Model):
         self.partner_vat_usd = s_vat_usd
         self.partner_vat_cdf = s_vat_cdf
 
-        self.total_deductible_vat = s_vat_usd
-        self.total_deductible_vat_cdf = s_vat_cdf
+        self.total_deductible_vat = s_vat_usd - self.total_vat_bulletin_usd
+        self.total_deductible_vat_cdf = s_vat_cdf - self.total_vat_bulletin_cdf
 
 
         return partner_invoices
+
+
 
 
     @api.model
@@ -677,14 +679,16 @@ class DeclarationTVA(models.Model):
         invoice.write({'declaration_month': self.mois, 'declaration_state': True})
 
 
-    def bulletin_liquidation_infos(self):
+    def get_bulletin_liquidation_infos(self):
 
         bulletins_infos = []
 
         total_bulletin_ht_usd = 0
         total_bulletin_ht_cdf = 0 
         total_vat_bulletin_usd = 0 
-        total_vat_bulletin_cdf = 0 
+        total_vat_bulletin_cdf = 0
+
+
         
         for bulletin in self.liquidation_statement :
             bulletin_data = {
@@ -699,11 +703,11 @@ class DeclarationTVA(models.Model):
             total_bulletin_ht_usd += bulletin.total_amount_invoice
             total_bulletin_ht_cdf += bulletin.total_amount_invoice * self.month_exchange_rates
             total_vat_bulletin_usd += bulletin.total_vat
-            total_vat_bulletin_cdf += bulletin.total_vat * self.month_exchange_rates,
+            total_vat_bulletin_cdf += bulletin.total_vat * self.month_exchange_rates
 
-        bulletins_infos.append(bulletin_data)
+            bulletins_infos.append(bulletin_data)
         
-        self.total_vat_bulletin_usd = total_bulletin_ht_usd
+        self.total_vat_bulletin_usd = total_vat_bulletin_usd
         self.total_vat_bulletin_cdf = total_vat_bulletin_cdf
         self.total_bulletin_ht_usd = total_bulletin_ht_usd
         self.total_bulletin_ht_cdf = total_bulletin_ht_cdf
