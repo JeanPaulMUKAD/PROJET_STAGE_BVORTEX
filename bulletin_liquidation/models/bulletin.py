@@ -18,8 +18,14 @@ class BulletinLiquidation(models.Model):
     cif = fields.Float("Montant CIF")
     state_cif = fields.Boolean("Sif supérieur au total amount", default=False)
 
-    other_dec_e = fields.Float("Autres D.E")
+    other_dec_e = fields.Float("Autres droits à l'importation")
     journal_id = fields.Many2one('account.journal', string='Journal')
+
+    store_total_amount_invoice = fields.Float()
+    store_total_vat= fields.Float()
+    store_cif = fields.Float()
+    store_other_dec = fields.Float()
+    
 
 
 
@@ -58,10 +64,6 @@ class BulletinLiquidation(models.Model):
             for invoice in other_invoices:
                 self.change_invoice_state(invoice)
 
-        self.write({'total_amount_invoice': abs(self.total_amount_invoice)})
-        self.write({'total_vat': abs(self.total_vat)})
-
-
 
         return {
             'effect': {
@@ -75,10 +77,8 @@ class BulletinLiquidation(models.Model):
 
     @api.onchange('foreign_supplier_invoices', 'transport_invoices', 'insurance_invoices', 'other_invoices')
     def compute_total_amount_invoice(self):
-        tolal_amount_invoice = 0
+        total_amount_invoice = 0
         total_vat = 0
-
-
 
         foreign_supplier_invoices = self.foreign_supplier_invoices
         transport_invoices = self.transport_invoices
@@ -87,28 +87,32 @@ class BulletinLiquidation(models.Model):
 
         if foreign_supplier_invoices:
             for invoice in foreign_supplier_invoices:
-                tolal_amount_invoice += invoice.amount_untaxed_signed
+                total_amount_invoice += invoice.amount_untaxed_signed
 
 
 
         if transport_invoices:
             for invoice in transport_invoices:
-                tolal_amount_invoice += invoice.amount_untaxed_signed
+                total_amount_invoice += invoice.amount_untaxed_signed
 
 
         if insurance_invoices:
             for invoice in insurance_invoices:
-                tolal_amount_invoice += invoice.amount_untaxed_signed
+                total_amount_invoice += invoice.amount_untaxed_signed
                 total_vat += invoice.amount_tax_signed
 
         if other_invoices:
             for invoice in other_invoices:
-                tolal_amount_invoice += invoice.amount_untaxed_signed
+                total_amount_invoice += invoice.amount_untaxed_signed
 
-        total_vat = tolal_amount_invoice * 0.16
+        total_vat = total_amount_invoice * 0.16
 
 
-        self.write({'total_amount_invoice': abs(tolal_amount_invoice), 'total_vat' : abs(total_vat)})
+        self.write({'store_total_amount_invoice': abs(total_amount_invoice), 'store_total_vat' : abs(total_vat)})
+        self.write({'total_amount_invoice': abs(total_amount_invoice), 'total_vat' : abs(total_vat)})
+
+        print(self.store_total_amount_invoice)
+        print(self.store_total_vat)
 
     def change_invoice_state(self, invoice):
         invoice.write({'liquidation_statement_reference': self.liquidation_statement_reference})
@@ -118,10 +122,23 @@ class BulletinLiquidation(models.Model):
     def on_change_cif(self):
         if abs(self.cif) > abs(self.total_amount_invoice):
             self.write({'state_cif' : True})
+            self.other_dec_e = self.cif - self.total_amount_invoice
         else:
             self.write({'state_cif' : False})
-
+        self.write({'store_cif': abs(self.store_cif), 'other_dec_e': abs(self.other_dec_e)})
+        print(self.store_cif)
+        print(self.other_dec_e)
 
     @api.model
     def button_accounting(self):
         return 1
+    
+    @api.onchange('total_amount_invoice', 'total_vat', 'cif', 'other_dec_e')
+    def on_change_value(self):
+        self.write({
+            'total_amount_invoice': self.store_total_amount_invoice,
+            'total_vat': self.store_total_vat,
+            'cif': self.store_cif,
+            'other_dec_e': self.store_other_dec
+        })
+        
