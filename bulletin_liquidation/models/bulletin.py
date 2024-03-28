@@ -16,10 +16,11 @@ class BulletinLiquidation(models.Model):
     total_amount_invoice = fields.Float("Monntant total")
     total_vat = fields.Float("TVA totale")
     cif = fields.Float("Montant CIF")
-    state_cif = fields.Boolean("Sif supérieur au total amount", default=False)
+    state_cif = fields.Boolean("cif supérieur au total amount", default=False)
 
     other_dec_e = fields.Float("Autres droits à l'importation")
     journal_id = fields.Many2one('account.journal', string='Journal')
+
 
     store_total_amount_invoice = fields.Float()
     store_total_vat= fields.Float()
@@ -108,11 +109,8 @@ class BulletinLiquidation(models.Model):
         total_vat = total_amount_invoice * 0.16
 
 
-        self.write({'store_total_amount_invoice': abs(total_amount_invoice), 'store_total_vat' : abs(total_vat)})
         self.write({'total_amount_invoice': abs(total_amount_invoice), 'total_vat' : abs(total_vat)})
 
-        print(self.store_total_amount_invoice)
-        print(self.store_total_vat)
 
     def change_invoice_state(self, invoice):
         invoice.write({'liquidation_statement_reference': self.liquidation_statement_reference})
@@ -125,20 +123,7 @@ class BulletinLiquidation(models.Model):
             self.other_dec_e = self.cif - self.total_amount_invoice
         else:
             self.write({'state_cif' : False})
-        self.write({'store_cif': abs(self.store_cif), 'other_dec_e': abs(self.other_dec_e)})
-        print(self.store_cif)
-        print(self.other_dec_e)
 
     @api.model
     def button_accounting(self):
         return 1
-    
-    @api.onchange('total_amount_invoice', 'total_vat', 'cif', 'other_dec_e')
-    def on_change_value(self):
-        self.write({
-            'total_amount_invoice': self.store_total_amount_invoice,
-            'total_vat': self.store_total_vat,
-            'cif': self.store_cif,
-            'other_dec_e': self.store_other_dec
-        })
-        
