@@ -65,8 +65,8 @@
                                         <t t-if="doc.state == 'appured'">
                                             <td>FAIT</td>
                                         </t>
-                                       <td></td>
-
+                                        <td></td>
+                                        <td></td>
                                         <td><t t-esc="info['mois']"/></td>
                                         <td><t t-esc="'{:,.2f}'.format(float(info['exchange_rate'])).replace(',', ' ')"/></td>
                                     </tr>
