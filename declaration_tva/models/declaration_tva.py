@@ -73,7 +73,11 @@ class DeclarationTVA(models.Model):
     month_exchange_rates = fields.Float("Taux de change de la déclaration", store=True, default=1,  tracking=True)
 
     liquidation_statement = fields.Many2many("bulletin_liquidation", requiered=True)
-
+    
+    total_bulletin_ht_usd = fields.Float(string="Total Hors tax des bulletins de liquidation en USD", default=0)
+    total_bulletin_ht_cdf = fields.Float(string="Total Hors tax des bulletins de liquidation en CDF", default=0)
+    total_vat_bulletin_usd = fields.Float(string="Total de la TVA des bulletins de liquidation en USD", default=0)
+    total_vat_bulletin_cdf = fields.Float(string="Total de la TVA des bulletins de liquidation en CDF", default=0)
 
 
     @api.depends('mois')
@@ -300,16 +304,17 @@ class DeclarationTVA(models.Model):
             self.write({'reference': self.reference})
 
 
-    @api.onchange('sales_invoices', 'purchases_invoices', 'last_declaration')
+    @api.onchange('sales_invoices', 'purchases_invoices', 'last_declaration', 'liquidation_statement')
     def _onchange_invoices(self):
         total_vat_collected = sum(invoice.amount_tax_signed for invoice in self.sales_invoices)
         total_deductible_vat = sum(invoice.amount_tax_signed for invoice in self.purchases_invoices)
+        total_bulletin_liquidation = sum(bulletin.total_vat for bulletin in self.liquidation_statement)
 
         vat_credit = 0
         declaration_tva = self.last_declaration
 
         if declaration_tva:
-            vat_payable = total_vat_collected + total_deductible_vat + declaration_tva.vat_credit
+            vat_payable = total_vat_collected + total_deductible_vat - total_bulletin_liquidation + declaration_tva.vat_credit
             if vat_payable < 0:
                 vat_credit = vat_payable
                 vat_payable = 0
@@ -318,7 +323,7 @@ class DeclarationTVA(models.Model):
             self.vat_credit = vat_credit
             self.vat_credit_cdf = vat_credit * self.month_exchange_rates
         else:
-            vat_payable = total_vat_collected + total_deductible_vat
+            vat_payable = total_vat_collected + total_deductible_vat - total_bulletin_liquidation
             if vat_payable < 0:
                 vat_credit = vat_payable
                 vat_payable = 0
@@ -330,10 +335,12 @@ class DeclarationTVA(models.Model):
 
         self.write({
             'total_vat_collected': total_vat_collected,
-            'total_deductible_vat': total_deductible_vat,
+            'total_deductible_vat': total_deductible_vat - total_bulletin_liquidation ,
             'vat_credit': vat_credit,
             'vat_payable': vat_payable,
-            'vat_payable_cdf' : vat_payable * self.month_exchange_rates
+            'vat_payable_cdf' : vat_payable * self.month_exchange_rates,
+            'total_bulletin_ht_usd': total_bulletin_liquidation,
+            'total_bulletin_ht_cdf': total_bulletin_liquidation * self.month_exchange_rates,
         })
 
 
@@ -426,11 +433,13 @@ class DeclarationTVA(models.Model):
         self.partner_vat_usd = s_vat_usd
         self.partner_vat_cdf = s_vat_cdf
 
-        self.total_deductible_vat = s_vat_usd
-        self.total_deductible_vat_cdf = s_vat_cdf
+        self.total_deductible_vat = s_vat_usd - self.total_vat_bulletin_usd
+        self.total_deductible_vat_cdf = s_vat_cdf - self.total_vat_bulletin_cdf
 
 
         return partner_invoices
+
+
 
 
     @api.model
@@ -454,7 +463,6 @@ class DeclarationTVA(models.Model):
 
             total_ca_usd = 0
             total_taxable_ca_usd = 0
-
 
 
             for invoice in declaration.sales_invoices:
@@ -589,7 +597,6 @@ class DeclarationTVA(models.Model):
 
 
 
-
         for invoice in external_invoices :
             if invoice.partner_id.country_id != company.country_id:
                 ca_external_invoices += invoice.amount_total_signed
@@ -622,7 +629,6 @@ class DeclarationTVA(models.Model):
             'ca_external_importation' : ca_external_importation,
             'total_vat_external_importation' : total_vat_external_importation,
             'total_vat_local_importation' : total_vat_local_importation,
-
             'total_vat_importation' : total_vat_importation,
             'total_deductible_vat' : total_vat_importation,
             'report_preced_credi' : self.last_declaration.vat_credit,
@@ -671,6 +677,43 @@ class DeclarationTVA(models.Model):
 
     def change_invoice_state(self, invoice):
         invoice.write({'declaration_month': self.mois, 'declaration_state': True})
+
+
+    def get_bulletin_liquidation_infos(self):
+
+        bulletins_infos = []
+
+        total_bulletin_ht_usd = 0
+        total_bulletin_ht_cdf = 0 
+        total_vat_bulletin_usd = 0 
+        total_vat_bulletin_cdf = 0
+
+
+        
+        for bulletin in self.liquidation_statement :
+            bulletin_data = {
+                'reference': bulletin.liquidation_statement_reference,
+                'date': bulletin.date,
+                'montant_ht_usd': bulletin.total_amount_invoice,
+                'montant_ht_cdf': bulletin.total_amount_invoice * self.month_exchange_rates,
+                'total_tva_usd': bulletin.total_vat,
+                'total_tva_ccdf': bulletin.total_vat * self.month_exchange_rates,
+            }
+
+            total_bulletin_ht_usd += bulletin.total_amount_invoice
+            total_bulletin_ht_cdf += bulletin.total_amount_invoice * self.month_exchange_rates
+            total_vat_bulletin_usd += bulletin.total_vat
+            total_vat_bulletin_cdf += bulletin.total_vat * self.month_exchange_rates
+
+            bulletins_infos.append(bulletin_data)
+        
+        self.total_vat_bulletin_usd = total_vat_bulletin_usd
+        self.total_vat_bulletin_cdf = total_vat_bulletin_cdf
+        self.total_bulletin_ht_usd = total_bulletin_ht_usd
+        self.total_bulletin_ht_cdf = total_bulletin_ht_cdf
+
+        return bulletins_infos
+
 
 
 

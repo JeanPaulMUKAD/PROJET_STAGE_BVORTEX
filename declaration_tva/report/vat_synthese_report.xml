@@ -79,7 +79,7 @@
                         </tbody>
                          <t t-foreach="doc.get_customer_invoices()" t-as="invoice">
                             <tr class="border-bottom">
-                                <td class="border text-left" height="19" valign="middle" align="right" ><font face="Times New Roman" color="#000000"><t t-esc="invoice['partner']"/></font></td>
+                                <td class="border text-left" height="19" valign="middle" align="left" ><font face="Times New Roman" color="#000000"><t t-esc="invoice['partner']"/></font></td>
                                 <td class="border text-left" valign="bottom" align="right"><b><i><font face="Times New Roman" color="#000000"><t t-esc="invoice['tax_number']"/></font></i></b></td>
 
                                 <td class="border text-right" valign="bottom" align="right"><font face="Times New Roman" color="#000000"><t t-esc="invoice['date']"/></font></td>
@@ -154,53 +154,104 @@
                             <td class="border-left border-bottom border-top border-right" align="right" valign="bottom" colspan="2"><b><i><font face="Times New Roman" color="#000000"><t t-esc="'{:,.2f}'.format(float(doc.partner_vat_usd * -1)).replace(',', ' ')"/></font></i></b></td>
                             <td class="border-left border-bottom border-top border-right" align="right" valign="bottom" colspan="3"><b><i><font face="Times New Roman" color="#000000"><t t-esc="'{:,.2f}'.format(float(doc.partner_vat_cdf * -1)).replace(',', ' ')"/></font></i></b></td>
                         </tr>
-
                         <tr class="border-bottom">
                             <td class="border" colspan="13"></td>
                         </tr>
-                        <tr style="border-top: 1px solid #000000; background-color:#D9D9D9;">
-                            <td class="border-left border-bottom border-top border-right" colspan="5" align="center" valign="bottom"><b><font face="Georgia" color="#000000">SYNTHESE CALCUL TVA MOIS DE <t t-esc="doc.mois.upper()"/> <t t-esc="doc.start_date.strftime('%Y')"/></font></b></td>
-                            <td class="border-left border-bottom border-top border-right" colspan="3" align="center" valign="bottom"><b><font face="Georgia" color="#000000">Validé</font></b></td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" class="border-left border-bottom border-top border-right" align="left" valign="bottom"><font face="Georgia" color="#000000">Total Collected VAT</font></td>
-                            <td class="border-left border-bottom border-top border-right" align="right" valign="bottom"><font face="Georgia" color="#000000">$ <t t-esc="'{:,.2f}'.format(float(doc.total_vat_collected)).replace(',', ' ')"/> </font></td>
-                            <td colspan="2" class="border-left border-bottom border-top border-right" align="right" valign="bottom"><font face="Georgia" color="#000000"><t t-esc="'{:,.2f}'.format(float(doc.total_vat_collected_cdf )).replace(',', ' ')"/> FC</font></td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" class="border-left border-bottom border-top border-right" align="left" valign="bottom"><font face="Georgia" color="#000000">Total Deductible VAT</font></td>
-                            <td class="border-left border-bottom border-top border-right" align="right" valign="bottom"><font face="Georgia" color="#000000">$ <t t-esc="'{:,.2f}'.format(float(doc.total_deductible_vat * -1)).replace(',', ' ')"/></font></td>
-                            <td colspan="2" class="border-left border-bottom border-top border-right" align="right" valign="bottom"><font face="Georgia" color="#000000"><t t-esc="'{:,.2f}'.format(float(doc.total_deductible_vat_cdf * -1)).replace(',', ' ')"/> FC</font></td>
-                        </tr>
 
-                        <t>
-                            <t t-if="doc.vat_payable &gt; 0">
-                                <tr>
-                                    <td colspan="5" class="border-left border-bottom border-top border-right" align="left" valign="bottom"><font face="Georgia" color="#000000">Credit Vat</font></td>
-                                    <td class="border-left border-bottom border-top border-right" align="right" valign="bottom"><font face="Georgia" color="#000000">$ <t t-esc="'{:,.2f}'.format(float(doc.vat_credit)).replace(',', ' ')"/> </font></td>
-                                    <td colspan="2" class="border-left border-bottom border-top border-right" align="right" valign="bottom"><font face="Georgia" color="#000000"><t t-esc="'{:,.2f}'.format(float(doc.vat_credit * doc.month_exchange_rates)).replace(',', ' ')"/> Fc</font></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5" class="border-left border-bottom border-top border-right" style="background-color : green;" align="left" valign="bottom" bgcolor="#00B050"><b><font face="Georgia" style="color : white;">Vat Payable</font></b></td>
-                                    <td class="border-left border-bottom border-top border-right" style="background-color : green;" align="right" valign="bottom" bgcolor="#00B050"><b><font face="Georgia" style="color : white;">$ <t t-esc="'{:,.2f}'.format(float(doc.vat_payable)).replace(',', ' ')"/></font></b></td>
-                                    <td colspan="2" class="border-left border-bottom border-top border-right" style="background-color : green;" align="right" valign="bottom" bgcolor="#00B050"><b><font face="Georgia" style="color : white;"><t t-esc="'{:,.2f}'.format(float(doc.vat_payable * doc.month_exchange_rates)).replace(',', ' ')"/> Fc</font></b></td>
-                                </tr>
-                            </t>
-                            <t t-else="">
-                                <tr>
-                                    <td colspan="5" class="border-left border-bottom border-top border-right"  style="background-color : red;" align="left" valign="bottom" ><font face="Georgia" style="color : white;"><strong>Credit Vat</strong></font></td>
-                                    <td class="border-left border-bottom border-top border-right" align="right" style="background-color : red;" valign="bottom"><font face="Georgia"  style="color : white;"><strong>$ <t t-esc="'{:,.2f}'.format(float(doc.vat_credit)).replace(',', ' ')"/></strong></font></td>
-                                    <td colspan="2" class="border-left border-bottom border-top border-right" style="background-color : red;" align="right" valign="bottom"><font face="Georgia"  style="color : white;"><strong><t t-esc="'{:,.2f}'.format(float(doc.vat_credit * doc.month_exchange_rates)).replace(',', ' ')"/> Fc</strong></font></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5" class="border-left border-bottom border-top border-right" align="left" valign="bottom"><font face="Georgia" color="#000000">Vat Payable</font></td>
-                                    <td class="border-left border-bottom border-top border-right" align="right" valign="bottom"><font face="Georgia" color="#000000">$ 0.0 </font></td>
-                                    <td colspan="2" class="border-left border-bottom border-top border-right"  align="right" valign="bottom"><font face="Georgia" color="#000000">0.0 Fc</font></td>
-                                </tr>
 
-                            </t>
+                        <tr class="border-left border-bottom border-top border-right" style="background-color:#D9D9D9; font-size: smaller;">
+                            <td class="text-center" height="25"><b><font face="Times New Roman" color="#000000">REFERENCE</font></b></td>
+                            <td class="text-center"><b><font face="Times New Roman" color="#000000">DATE</font></b></td>
+                            <td class="text-center" colspan="2"><b><font face="Times New Roman" color="#000000">MONTANT HT</font></b></td>
+                            <td class="text-center" colspan="2"><b><font face="Times New Roman" color="#000000">TVA</font></b></td>
+                        </tr>
+                        <tr class="border-left border-bottom border-top border-right" style="background-color:#D9D9D9;font-size: smaller;">
+                            <td class="text-center" height="19"><b><font face="Times New Roman" color="#000000"><br/></font></b></td>
+                            <td class="text-center"><b><font face="Times New Roman" color="#000000"><br/></font></b></td>
+                            <td class="text-center"><b><font face="Times New Roman" color="#000000">USD</font></b></td>
+                            <td class="text-center"><b><font face="Times New Roman" color="#000000">CDF</font></b></td>
+                            <td class="text-center"><b><font face="Times New Roman" color="#000000">USD</font></b></td>
+                            <td class="text-center"><b><font face="Times New Roman" color="#000000">CDF</font></b></td>
+                        </tr>
+                        <t t-foreach="doc.get_bulletin_liquidation_infos()" t-as="bulletin">
+                            <tr class="border-bottom">
+                                <td class="border-left border-bottom border-top border-right" height="19" align="left" valign="middle"><font face="Times New Roman" color="#000000"><t t-esc="bulletin['reference']"/></font></td>
+                                <td class="border-left border-bottom border-top border-right" align="left" valign="bottom"><b><i><font face="Times New Roman" color="#000000"><t t-esc="bulletin['date']"/></font></i></b></td>
+                                <td class="border-left border-bottom border-top border-right" align="right" valign="bottom" ><b><i><font face="Times New Roman" color="#000000"><t t-esc="'{:,.2f}'.format(float(bulletin['montant_ht_usd'])).replace(',', ' ')"/></font></i></b></td>
+                                <td class="border-left border-bottom border-top border-right" align="right" valign="bottom" ><i><font face="Times New Roman" color="#000000"><t t-esc="'{:,.2f}'.format(float(bulletin['montant_ht_cdf'])).replace(',', ' ')"/></font></i></td>
+                                <td class="border-left border-bottom border-top border-right" align="right" valign="bottom"><i><font face="Times New Roman" color="#000000"><t t-esc="'{:,.2f}'.format(float(bulletin['total_tva_usd'])).replace(',', ' ')"/></font></i></td>
+                                <td class="border-left border-bottom border-top border-right" align="right" valign="bottom"><i><font face="Times New Roman" color="#000000"><t t-esc="'{:,.2f}'.format(float(bulletin['total_tva_ccdf'])).replace(',', ' ')"/></font></i></td>
+                            </tr>
                         </t>
+                        <tr class="border-bottom">
+                            <td class="border-left border-bottom border-top border-right" height="19" align="left" valign="middle" style="background-color:#D9D9D9;" colspan="2"><b><font face="Times New Roman" color="#000000">TOTAL DES IMPORTATIONS</font></b></td>
+                            <td class="border-left border-bottom border-top border-right" align="right" valign="bottom"><i><font face="Times New Roman" color="#000000"><b><t t-esc="'{:,.2f}'.format(float(doc.total_bulletin_ht_usd * -1)).replace(',', ' ')"/></b></font></i></td>
+                            <td class="border-left border-bottom border-top border-right" align="right" valign="bottom"><i><font face="Times New Roman" color="#000000"><b><t t-esc="'{:,.2f}'.format(float(doc.total_bulletin_ht_cdf * -1)).replace(',', ' ')"/></b></font></i></td>
+                            <td class="border-left border-bottom border-top border-right" align="right" valign="bottom" ><b><i><font face="Times New Roman" color="#000000"><b><t t-esc="'{:,.2f}'.format(float(doc.total_vat_bulletin_usd)).replace(',', ' ')"/></b></font></i></b></td>
+                            <td class="border-left border-bottom border-top border-right" align="right" valign="bottom" ><i><font face="Times New Roman" color="#000000"><b><t t-esc="'{:,.2f}'.format(float(doc.total_vat_bulletin_cdf)).replace(',', ' ')"/></b></font></i></td>
+                        </tr>
+                        <tr class="border-bottom">
+                            <td class="border" colspan="13"></td>
+                        </tr>
                     </table>
+                    <table class="table table-bordered table-container" style="white-space: nowrap;">
+                        <colgroup width="356"></colgroup>
+                        <colgroup span="2" width="86"></colgroup>
+                        <colgroup width="121"></colgroup>
+                        <colgroup width="91"></colgroup>
+                        <colgroup width="142"></colgroup>
+                        <colgroup width="128"></colgroup>
+                        <colgroup width="142"></colgroup>
+                        <colgroup width="99"></colgroup>
+                        <colgroup width="125"></colgroup>
+                        <colgroup width="122"></colgroup>
+                        <colgroup width="125"></colgroup>
+                        <colgroup width="138"></colgroup>
+                        <div style="page-break-after: always;">
+                            <tr style="border-top: 1px solid #000000; background-color:#D9D9D9;">
+                                <td class="border-left border-bottom border-top border-right" colspan="4" align="center" valign="bottom"><b><font face="Georgia" color="#000000">SYNTHESE CALCUL TVA MOIS DE <t t-esc="doc.mois.upper()"/> <t t-esc="doc.start_date.strftime('%Y')"/></font></b></td>
+                                <td class="border-left border-bottom border-top border-right" colspan="2" align="center" valign="bottom"><b><font face="Georgia" color="#000000">Validé</font></b></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="border-left border-bottom border-top border-right" align="left" valign="bottom"><font face="Georgia" color="#000000">Total TVA collectee</font></td>
+                                <td class="border-left border-bottom border-top border-right" align="right" valign="bottom"><font face="Georgia" color="#000000">$ <t t-esc="'{:,.2f}'.format(float(doc.total_vat_collected)).replace(',', ' ')"/> </font></td>
+                                <td class="border-left border-bottom border-top border-right" align="right" valign="bottom"><font face="Georgia" color="#000000"><t t-esc="'{:,.2f}'.format(float(doc.total_vat_collected_cdf )).replace(',', ' ')"/> FC</font></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="border-left border-bottom border-top border-right" align="left" valign="bottom"><font face="Georgia" color="#000000">Total TVA deductible</font></td>
+                                <td class="border-left border-bottom border-top border-right" align="right" valign="bottom"><font face="Georgia" color="#000000">$ <t t-esc="'{:,.2f}'.format(float(doc.total_deductible_vat * -1)).replace(',', ' ')"/></font></td>
+                                <td  class="border-left border-bottom border-top border-right" align="right" valign="bottom"><font face="Georgia" color="#000000"><t t-esc="'{:,.2f}'.format(float(doc.total_deductible_vat_cdf * -1)).replace(',', ' ')"/> FC</font></td>
+                            </tr>
+                            <t>
+                                <t t-if="doc.vat_payable &gt; 0">
+                                    <tr>
+                                        <td colspan="4" class="border-left border-bottom border-top border-right" align="left" valign="bottom"><font face="Georgia" color="#000000">Credit TVA</font></td>
+                                        <td class="border-left border-bottom border-top border-right" align="right" valign="bottom"><font face="Georgia" color="#000000">$ <t t-esc="'{:,.2f}'.format(float(doc.vat_credit)).replace(',', ' ')"/> </font></td>
+                                        <td class="border-left border-bottom border-top border-right" align="right" valign="bottom"><font face="Georgia" color="#000000"><t t-esc="'{:,.2f}'.format(float(doc.vat_credit * doc.month_exchange_rates)).replace(',', ' ')"/> Fc</font></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="border-left border-bottom border-top border-right" style="background-color : green;" align="left" valign="bottom" bgcolor="#00B050"><b><font face="Georgia" style="color : white;">TVA Payable</font></b></td>
+                                        <td class="border-left border-bottom border-top border-right" style="background-color : green;" align="right" valign="bottom" bgcolor="#00B050"><b><font face="Georgia" style="color : white;">$ <t t-esc="'{:,.2f}'.format(float(doc.vat_payable)).replace(',', ' ')"/></font></b></td>
+                                        <td class="border-left border-bottom border-top border-right" style="background-color : green;" align="right" valign="bottom" bgcolor="#00B050"><b><font face="Georgia" style="color : white;"><t t-esc="'{:,.2f}'.format(float(doc.vat_payable * doc.month_exchange_rates)).replace(',', ' ')"/> Fc</font></b></td>
+                                    </tr>
+                                </t>
+                                <t t-else="">
+                                    <tr>
+                                        <td colspan="4" class="border-left border-bottom border-top border-right"  style="background-color : red;" align="left" valign="bottom" ><font face="Georgia" style="color : white;"><strong>Credit TVA</strong></font></td>
+                                        <td class="border-left border-bottom border-top border-right" align="right" style="background-color : red;" valign="bottom"><font face="Georgia"  style="color : white;"><strong>$ <t t-esc="'{:,.2f}'.format(float(doc.vat_credit)).replace(',', ' ')"/></strong></font></td>
+                                        <td  class="border-left border-bottom border-top border-right" style="background-color : red;" align="right" valign="bottom"><font face="Georgia"  style="color : white;"><strong><t t-esc="'{:,.2f}'.format(float(doc.vat_credit * doc.month_exchange_rates)).replace(',', ' ')"/> Fc</strong></font></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="border-left border-bottom border-top border-right" align="left" valign="bottom"><font face="Georgia" color="#000000">TVA Payable</font></td>
+                                        <td class="border-left border-bottom border-top border-right" align="right" valign="bottom"><font face="Georgia" color="#000000">$ 0.0 </font></td>
+                                        <td class="border-left border-bottom border-top border-right"  align="right" valign="bottom"><font face="Georgia" color="#000000">0.0 Fc</font></td>
+                                    </tr>
+
+                                </t>
+                            </t>
+                        </div>
+                    </table>
+
 
                 </t>
             </t>
