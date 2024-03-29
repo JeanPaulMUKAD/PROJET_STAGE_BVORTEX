@@ -108,13 +108,13 @@
                         </group>
                         <notebook>
                             <page string="Factures des ventes">
-                                <field name="sales_invoices" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="sales_invoices" domain="[('move_type', '=', 'out_invoice')]" readonly=" state in ['declared', 'appured', 'delivered']"/>
                             </page>
                             <page string="Factures des achats">
-                               <field name="purchases_invoices" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                               <field name="purchases_invoices" domain="[('move_type', '=', 'in_invoice')]" readonly=" state in ['declared', 'appured', 'delivered']"/>
                             </page>
                             <page string="Bulletins de liquidation">
-                                <field name="liquidation_statement" readonly=" state in ['declared', 'appured', 'delivered']"/>
+                                <field name="liquidation_statement" domain="[('state', '=', 'done')]" readonly=" state in ['declared', 'appured', 'delivered']"/>
                             </page>
                         </notebook>
                     </sheet>
