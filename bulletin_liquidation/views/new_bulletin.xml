@@ -58,7 +58,6 @@
                             </group>
                              <group id="right_column" class="col-6">
                                     <field name="journal_id" readonly = "state =='done'" invisible ="state_cif == False"/>
-                                    <field name="supplier_account_id" readonly = "state =='done'" invisible ="state_cif == False"/>
 
                              </group>
 

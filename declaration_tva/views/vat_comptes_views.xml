@@ -11,6 +11,7 @@
                          <group>
                             <field name="total_collected_vat_account"/>
                             <field name="total_deductible_vat_account"/>
+                            <field name="other_import_rights"/>
                         </group>
                         <group>
                             <field name="credit_vat_account"/>

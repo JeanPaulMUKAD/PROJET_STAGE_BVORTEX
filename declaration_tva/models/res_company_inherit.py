@@ -9,6 +9,9 @@ class Company(models.Model):
     total_deductible_vat_account = fields.Many2one('account.account', string="Compte total TVA déductibles")
     credit_vat_account = fields.Many2one('account.account', string="Compte crédit TVA")
     vat_payable_account = fields.Many2one('account.account', string="Compte TVA payable")
+    other_import_rights = fields.Many2one('account.account', string="Autres droits à l'importation")
+
+
     company_nature = fields.Selection([
         ('marchandise', 'Livraisons de biens'),
         ('services', 'Prestations de services'),

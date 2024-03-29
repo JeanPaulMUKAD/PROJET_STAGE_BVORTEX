@@ -22,7 +22,7 @@ class BulletinLiquidation(models.Model):
     other_dec_e = fields.Float("Autres droits à l'importation", store=True)
     journal_id = fields.Many2one('account.journal', string='Journal')
 
-    supplier_account_id = fields.Many2one('account.account', string="Compte du cif")
+
 
     foreign_supplier_invoices = fields.Many2many('account.move', 'has_message', string="Factures fournisseur Etranger", required=True)
     transport_invoices = fields.Many2many('account.move', 'always_tax_exigible', string="Factures de transport", required=True)
@@ -116,8 +116,13 @@ class BulletinLiquidation(models.Model):
         journal_id = self.journal_id.id
         charge_account = self.env['account.account'].search([('code', '=', '4011')], limit=1)
         if not charge_account:
-
             charge_account = self.env['account.account'].search([('name', 'ilike', 'charge')], limit=1)
+
+        supplier_account_id = self.company_id.other_import_rights
+
+        if not supplier_account_id:
+            raise UserError(
+                "Aucun compte de charge configuré ! Veuillez configurer un compte ou contacter l'administrateur")
 
         if charge_account:
             if abs(self.cif) > abs(self.total_amount_invoice):
@@ -134,7 +139,7 @@ class BulletinLiquidation(models.Model):
                             'credit': 0.0,
                         }),
                         (0, 0, {
-                            'account_id': self.supplier_account_id.id,
+                            'account_id':supplier_account_id.id,
                             'name': 'Crédit bulletin de liquidation',
                             'debit': 0.0,
                             'credit': abs(self.cif),

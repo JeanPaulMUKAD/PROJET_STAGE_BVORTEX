@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import UserError
 from datetime import date, timedelta
 import random
 
@@ -227,6 +228,14 @@ class DeclarationTVA(models.Model):
             total_deductible_vat_account = declaration.company_id.total_deductible_vat_account
             credit_vat_account = declaration.company_id.credit_vat_account
             vat_payable_account = declaration.company_id.vat_payable_account
+            company_nature = declaration.company_id.company_nature
+
+
+            if not total_collected_vat_account or not total_collected_vat_account or not total_deductible_vat_account or not credit_vat_account:
+                raise UserError("Aucun compte de de TVA configuré ! Pensez à en configurer au niveau des paramètres ou contactez l'administrateur.")
+            elif not  company_nature :
+                raise UserError("Le champs type de la société n'est pas configuré, pensez à le faire.")
+
 
             # Vérifier si la TVA est créditrice ou payable
             if declaration.vat_credit > 0:
