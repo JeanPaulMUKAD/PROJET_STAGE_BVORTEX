@@ -56,6 +56,9 @@
                                             string="Cancel Control" class="oe_highlight btn-danger"/>
                         <button name="action_done" type="object" invisible="state not in ['in_progress']" groups="bvortex_controls.group_fiscal_manager"
                                             string="Conclude Control" class="oe_highlight btn-primary"/>
+
+                        <button name="action_draft" type="object" invisible="state not in ['done', 'cancel']" groups="bvortex_controls.group_fiscal_manager"
+                                            string="Reset Control" class="oe_highlight btn-primary"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,in_progress,cancel,done" statusbar_colors='{"invoice_except":"red","waiting_date":"blue"}'/>
                     </header>
 
