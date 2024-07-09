@@ -1,99 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <record id="regularisation_code_minister" model="control.nature">
+        <record id="regularisation_code_nature" model="control.nature">
             <field name="name">Regularisation TVA</field>
             <field name="color">7</field>
         </record>
-        <record id="degrevement_amrs_code_minister" model="control.nature">
+        <record id="degrevement_amrs_code_nature" model="control.nature">
             <field name="name">Dégrevement Amrs</field>
             <field name="color">1</field>
         </record>
-        <record id="reception_adm_fiscale_code_minister" model="control.nature">
+        <record id="reception_adm_fiscale_code_nature" model="control.nature">
             <field name="name">Accusé Reception Adm Fiscale</field>
             <field name="color">2</field>
         </record>
-        <record id="amrs_code_minister" model="control.nature">
+        <record id="amrs_code_nature" model="control.nature">
             <field name="name">Amrs</field>
             <field name="color">3</field>
         </record>
-        <record id="contrainte_code_minister" model="control.nature">
+        <record id="contrainte_code_nature" model="control.nature">
             <field name="name">Contrainte</field>
             <field name="color">4</field>
         </record>
-        <record id="avis_verification_fiscale_code_minister" model="control.nature">
+        <record id="avis_verification_fiscale_code_nature" model="control.nature">
             <field name="name">Avis Vérification fiscale</field>
             <field name="color">5</field>
         </record>
-        <record id="regularisation_tva_ibp_14_code_minister" model="control.nature">
+        <record id="regularisation_tva_ibp_14_code_nature" model="control.nature">
             <field name="name">Regularisation TVA &amp; IBP 14%</field>
             <field name="color">6</field>
         </record>
-        <record id="controle_fiscal_annuel_code_minister" model="control.nature">
+        <record id="controle_fiscal_annuel_code_nature" model="control.nature">
             <field name="name">Contrôle Fiscal annuel</field>
             <field name="color">7</field>
         </record>
-        <record id="industrie_code_minister" model="control.nature">
+        <record id="industrie_code_nature" model="control.nature">
             <field name="name">Industrie</field>
             <field name="color">8</field>
         </record>
-        <record id="avis_taxation_office_code_minister" model="control.nature">
+        <record id="avis_taxation_office_code_nature" model="control.nature">
             <field name="name">Avis De Taxation D'office</field>
             <field name="color">9</field>
         </record>
-        <record id="mise_demeure_declarer_code_minister" model="control.nature">
+        <record id="mise_demeure_declarer_code_nature" model="control.nature">
             <field name="name">Mise en demeure de déclarer</field>
             <field name="color">10</field>
         </record>
-        <record id="atd_code_minister" model="control.nature">
+        <record id="atd_code_nature" model="control.nature">
             <field name="name">ATD</field>
             <field name="color">6</field>
         </record>
-        <record id="enquette_economique_code_minister" model="control.nature">
+        <record id="enquette_economique_code_nature" model="control.nature">
             <field name="name">Enquette économique</field>
             <field name="color">1</field>
         </record>
-        <record id="controle_environnemental_code_minister" model="control.nature">
+        <record id="controle_environnemental_code_nature" model="control.nature">
             <field name="name">Contrôle environnemental</field>
             <field name="color">2</field>
         </record>
-        <record id="avis_texation_office_code_minister" model="control.nature">
+        <record id="avis_texation_office_code_nature" model="control.nature">
             <field name="name">Avis de texation d'office</field>
             <field name="color">3</field>
         </record>
-        <record id="avis_passage_code_minister" model="control.nature">
+        <record id="avis_passage_code_nature" model="control.nature">
             <field name="name">Avis de passage</field>
             <field name="color">4</field>
         </record>
-        <record id="avis_verification_code_minister" model="control.nature">
+        <record id="avis_verification_code_nature" model="control.nature">
             <field name="name">Avis De Verification</field>
             <field name="color">5</field>
         </record>
-        <record id="demande_justification_code_minister" model="control.nature">
+        <record id="demande_justification_code_nature" model="control.nature">
             <field name="name">Demande De Justification</field>
             <field name="color">6</field>
         </record>
-        <record id="trimestriel_inspection_travail_code_minister" model="control.nature">
+        <record id="trimestriel_inspection_travail_code_nature" model="control.nature">
             <field name="name">Contrôle Trimestriel inspection du travail</field>
             <field name="color">7</field>
         </record>
-        <record id="contrainte_commandement_code_minister" model="control.nature">
+        <record id="contrainte_commandement_code_nature" model="control.nature">
             <field name="name">Contrainte Et Commandement</field>
             <field name="color">8</field>
         </record>
-        <record id="controle_pmea_code_minister" model="control.nature">
+        <record id="controle_pmea_code_nature" model="control.nature">
             <field name="name">Contrôle PMEA</field>
             <field name="color">9</field>
         </record>
-        <record id="invitation_service_code_minister" model="control.nature">
+        <record id="invitation_service_code_nature" model="control.nature">
             <field name="name">Invitation De Service</field>
             <field name="color">10</field>
         </record>
-        <record id="notification_penalites_code_minister" model="control.nature">
+        <record id="notification_penalites_code_nature" model="control.nature">
             <field name="name">Notification de pénalités</field>
             <field name="color">3</field>
         </record>
-        <record id="controle_cnss_annuel_code_minister" model="control.nature">
+        <record id="controle_cnss_annuel_code_nature" model="control.nature">
             <field name="name">Contrôle Cnss Annuel</field>
             <field name="color">4</field>
         </record>
