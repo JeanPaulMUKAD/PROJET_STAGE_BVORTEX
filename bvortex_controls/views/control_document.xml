@@ -23,7 +23,21 @@
                   <field name="partner_id" />
                   <field name="reception_date" />
                   <field name="deadline" />
-                  <field name="state"/>
+                  <field name="category"
+                         select="True"
+                         widget="badge"
+                         decoration-warning = " category == 'spontanne' "
+                         decoration-info = " category == 'fiscal' "
+                         decoration-success = " category == 'parafiscal' "
+                  />
+                  <field name="state"
+                         select="True"
+                         widget="badge"
+                         decoration-danger = " state == 'cancel' "
+                         decoration-info = " state == 'confirmed' "
+                         decoration-warning = " state == 'in_progress' "
+                         decoration-success = " state == 'done' "
+                  />
               </tree>
             </field>
           </record>
