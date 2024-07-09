@@ -55,7 +55,7 @@ class control_document(models.Model):
     def deadline_compute_count(self):
         for record in self:
             if record.deadline:
-                difference = datetime.date.today() - record.deadline
+                difference = record.deadline - datetime.date.today()
                 record.day_count = difference.days
             else:
                 record.day_count = 0

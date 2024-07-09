@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="project_view_task_form2_inherit">
+        <field name="name">project.view_task_form2.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="before">
+                <field name="document_id" invisible="1" />
+                <field name="category" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
