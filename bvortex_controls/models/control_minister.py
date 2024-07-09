@@ -6,6 +6,7 @@ class control_minister(models.Model):
     code = fields.Char('Code', readonly=True)
     name = fields.Char('Name')
     color = fields.Char('Color')
+    deadline = fields.Integer('Deadline', default=5)
     tag_id = fields.Many2one('project.tags')
 
     @api.model_create_multi

@@ -47,17 +47,15 @@
             <field name="arch" type="xml">
                 <form string="Control Document Form">
                     <header>
-<!--                        groups="bvortex_controls.group_receptionist"-->
+
                         <button name="action_confirmed" type="object" invisible="state not in ['draft']"
-                                            string="Confirm Control" class="oe_highlight"/>
-                        <button name="action_in_progress" type="object" invisible="state not in ['confirmed']"
+                                            string="Confirm Control" class="oe_highlight" groups="bvortex_controls.group_receptionist"/>
+                        <button name="action_in_progress" type="object"  groups="bvortex_controls.group_receptionist"
                                             string="Validate Control" class="oe_highlight btn-success"/>
-                        <button name="action_cancel" type="object" invisible="state not in ['confirmed']"
+                        <button name="action_cancel" type="object" invisible="state not in ['confirmed']" groups="bvortex_controls.group_fiscal_manager"
                                             string="Cancel Control" class="oe_highlight btn-danger"/>
-                        <button name="action_done" type="object" invisible="state not in ['in_progress']"
+                        <button name="action_done" type="object" invisible="state not in ['in_progress']" groups="bvortex_controls.group_fiscal_manager"
                                             string="Conclude Control" class="oe_highlight btn-primary"/>
-
-
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,in_progress,cancel,done" statusbar_colors='{"invoice_except":"red","waiting_date":"blue"}'/>
                     </header>
 

@@ -1,6 +1,6 @@
 import datetime
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models, exceptions, _
 
 class control_document(models.Model):
     _name = 'control.document'
@@ -72,14 +72,129 @@ class control_document(models.Model):
 
     def action_confirmed(self):
         for rec in self:
+            users = self.env['res.groups'].search([('id', '=', self.env.ref('bvortex_controls.group_fiscal_manager').id)]).users
+            if not users:
+                raise exceptions.UserError(
+                    _("No users in the group Fiscal Manager !!"))
+
+            activity_type = self.env.ref('bvortex_controls.mail_act_document')
+
+            for user in users:
+                self.activity_schedule(activity_type_id=activity_type.id, user_id=user.id,
+                                       note=f'Please check this document for the customer {self.partner_id.name}')
             rec.state = 'confirmed'
+            message = _(f'Confirmed Document !!')
+            user = rec.env.user.sudo()
+
+            return {
+                'effect': {
+                    'fadeout': 'slow',
+                    'message': message,
+                    'img_url': '/web/image/%s/%s/image_1024' % (
+                        user._name, user.id) if user.image_1024 else '/web/static/img/smile.svg',
+                    'type': 'rainbow_man',
+                }
+            }
 
     def action_in_progress(self):
         for rec in self:
+            activity_id = self.env['mail.activity'].search(
+                [('res_id', '=', rec.id), ('user_id', '=', rec.env.user.id),
+                 ('activity_type_id', '=', rec.env.ref('bvortex_controls.mail_act_document').id)]
+            )
+            activity_id.action_feedback(feedback="Control Document validated")
+            other_activity_ids = rec.env['mail.activity'].search(
+                [('res_id', '=', rec.id),
+                 ('activity_type_id', '=', rec.env.ref('bvortex_controls.mail_act_document').id)]
+            )
+            other_activity_ids.unlink()
+
+            deadline = datetime.timedelta(days=rec.minister_id.deadline)
+            rec.deadline = datetime.date.today() + deadline
+
+            users = rec.env['res.groups'].search(
+                [('id', '=', rec.env.ref('bvortex_controls.group_fiscal_manager').id)]).users
+
+            project_id = rec.env['project.project'].search([('partner_id', '=', rec.partner_id.id), ('is_fiscal_project', '=', True)])
+
+            if not project_id:
+                vals = {
+                    'name': f'{str(rec.partner_id.name).upper()}-[DOSSIER]',
+                    'user_id': users[0].id if users else False,
+                    'partner_id': rec.partner_id.id,
+                    'is_fiscal_project': True,
+                }
+
+                project_id = rec.env['project.project'].create(vals)
+
+                project_id.write({
+                    'type_ids': [(4, rec.env.ref('bvortex_controls.draft_stage').id)],
+                })
+
+                project_id.write({
+                    'type_ids': [(4, rec.env.ref('bvortex_controls.in_progress_stage').id)],
+                })
+
+                project_id.write({
+                    'type_ids': [(4, rec.env.ref('bvortex_controls.concluded_stage').id)],
+                })
+
+                project_id.write({
+                    'type_ids': [(4, rec.env.ref('bvortex_controls.cancelled_stage').id)],
+                })
+
+
+            for i in range(len(rec.action_ids)):
+                vals = {
+                    'name': f'{rec.action_ids[i].name}-{rec.name}',
+                    'project_id': project_id.id,
+                    'partner_id': rec.partner_id.id,
+                    'user_ids': [(6, 0, [rec.user_ids[i].id])],
+                    'document_id': rec.id,
+                    'date_deadline': rec.deadline,
+                }
+
+                task_id = rec.env['project.task'].create(vals)
+
+                task_id.write(
+                    {
+                        "tag_ids": [(4, rec.minister_id.tag_id.id)],
+                    }
+                )
+
+                rec.task_ids.write(
+                    {
+                        "tag_ids": [(4, rec.nature_id.tag_id.id)],
+                    }
+                )
+
             rec.state = 'in_progress'
+
+            message = _(f'Validated Document !!')
+            user = rec.env.user.sudo()
+
+            return {
+                'effect': {
+                    'fadeout': 'slow',
+                    'message': message,
+                    'img_url': '/web/image/%s/%s/image_1024' % (
+                        user._name, user.id) if user.image_1024 else '/web/static/img/smile.svg',
+                    'type': 'rainbow_man',
+                }
+            }
 
     def action_cancel(self):
         for rec in self:
+            activity_id = self.env['mail.activity'].search(
+                [('res_id', '=', self.id), ('user_id', '=', self.env.user.id),
+                 ('activity_type_id', '=', self.env.ref('bvortex_controls.mail_act_document').id)]
+            )
+            activity_id.action_feedback(feedback="Control Document cancelled")
+            other_activity_ids = self.env['mail.activity'].search(
+                [('res_id', '=', self.id),
+                 ('activity_type_id', '=', self.env.ref('bvortex_controls.mail_act_document').id)]
+            )
+            other_activity_ids.unlink()
             rec.state = 'cancel'
 
     def action_done(self):

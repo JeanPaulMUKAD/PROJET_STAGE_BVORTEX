@@ -20,6 +20,7 @@
     'data': [
         'security/ir.model.access.csv',
         'security/fiscal_groups.xml',
+        'security/ir_rules.xml',
         'data/ir_sequence_data.xml',
         'data/ir_minister_data.xml',
         'data/ir_nature_data.xml',

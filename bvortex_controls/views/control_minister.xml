@@ -21,6 +21,7 @@
               <tree string="Control Minister Structure">
                   <field name="code" />
                   <field name="name" />
+                  <field name="deadline" />
                   <field name="color"/>
               </tree>
             </field>
@@ -38,6 +39,7 @@
                                 <field name="name" />
                             </group>
                             <group>
+                                <field name="deadline" />
                                 <field name="color" />
                             </group>
                         </group>
