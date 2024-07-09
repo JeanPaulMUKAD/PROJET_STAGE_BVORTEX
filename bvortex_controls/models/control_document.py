@@ -6,7 +6,7 @@ class control_document(models.Model):
 
     code = fields.Char('Code', readonly=True)
     name = fields.Char('Name')
-    partner_id = fields.Many2one('res.partner', string="Customer")
+    partner_id = fields.Many2one('res.partner', string="Customer", domain=[('is_company', '=', True)])
     reception_date = fields.Date('Reception Date')
     deadline = fields.Date('Deadline')
     minister_id = fields.Many2one('control.minister', string="Minister")

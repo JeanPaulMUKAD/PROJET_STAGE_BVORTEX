@@ -28,6 +28,7 @@
         'views/control_nature.xml',
         'views/control_minister.xml',
         'views/control_document.xml',
+        'views/control_action.xml',
     ],
     'images': ['static/description/icon.png'],
     'application': True,
