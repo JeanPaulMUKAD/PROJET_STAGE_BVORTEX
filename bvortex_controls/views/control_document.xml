@@ -49,18 +49,12 @@
 
                             <sheet>
                                 <div class="oe_button_box" name="button_box">
-<!--                                    <button class="oe_stat_button" type="object" name="get_inpatient" icon="fa-bed" groups="basic_hms.bi_group_doctor">-->
-<!--                                        <field string="Inpatients" name="inpatient_count" widget="statinfo"/>-->
-<!--                                    </button>-->
-<!--                                    <button class="oe_stat_button" type="object" name="get_test" icon="fa-flask" groups="basic_hms.bi_group_doctor">-->
-<!--                                        <field string="Tests" name="test_count" widget="statinfo"/>-->
-<!--                                    </button>-->
-<!--                                    <button class="oe_stat_button" type="object" name="get_results" icon="fa-envelope-o" groups="basic_hms.bi_group_doctor">-->
-<!--                                        <field string="Results" name="result_count" widget="statinfo"/>-->
-<!--                                    </button>-->
-<!--                                    <button class="oe_stat_button" type="object" name="get_prescription" icon="fa-file-text-o" groups="basic_hms.bi_group_doctor">-->
-<!--                                        <field string="Prescriptions" name="prescription_count" widget="statinfo"/>-->
-<!--                                    </button>-->
+                                    <button class="oe_stat_button" icon="fa-hourglass-end">
+                                        <field string="Day(s) left" name="day_count" widget="statinfo"/>
+                                    </button>
+                                    <button class="oe_stat_button" type="object" name="get_tasks" icon="fa-tasks">
+                                        <field string="Tasks" name="task_count" widget="statinfo"/>
+                                    </button>
                                 </div>
                                 <widget name="web_ribbon" text="Done" bg_color="bg-success" invisible="state not in ['cancel']"/>
                                 <widget name="web_ribbon" text="Close" bg_color="bg-danger" invisible="state not in ['cancel']"/>
@@ -76,6 +70,7 @@
                                         <field name="partner_id"/>
                                         <field name="deadline" readonly="1"/>
                                         <field name="nature_id" />
+                                        <field name="category" />
                                     </group>
                                 </group>
                                 <group string="Tasks Info">

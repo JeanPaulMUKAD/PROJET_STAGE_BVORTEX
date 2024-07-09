@@ -1,3 +1,5 @@
+import datetime
+
 from odoo import api, fields, models, _
 
 class control_document(models.Model):
@@ -13,9 +15,14 @@ class control_document(models.Model):
     project_id = fields.Many2one('project.project', string="Project")
     nature_id = fields.Many2one('control.nature', string="Nature")
     reference = fields.Char('Reference')
-    task_ids = fields.Many2many('project.task', string="Tasks")
+    task_ids = fields.One2many('project.task', 'document_id', string="Tasks")
     action_ids = fields.Many2many('control.action', string="Actions")
     user_ids = fields.Many2many('res.users', string="Assignees")
+    category = fields.Selection(selection=[
+        ('spontanne', 'Contrôle Spontanné'),
+        ('fiscal', 'Contrôle Fiscal'),
+        ('parafiscal', 'Parafiscalité'),
+    ], string='Category', required=True, default='spontanne')
     state = fields.Selection(selection=[
         ('draft', 'Draft'),
         ('confirmed', 'Confirmed'),
@@ -24,6 +31,34 @@ class control_document(models.Model):
         ('done', 'Done'),
     ], string='Status', required=True, readonly=True, copy=False,
         tracking=True, default='draft')
+    task_count = fields.Integer(compute='task_compute_count')
+    day_count = fields.Integer(compute='deadline_compute_count')
+
+    def get_tasks(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Tasks',
+            'view_mode': 'tree,form',
+            'res_model': 'project.task',
+            'domain': [('id', '=', self.task_ids.ids)],
+            'context': {
+                'create': False,
+                'default_partner_id': self.partner_id.id,
+                'default_document_id': self.id,
+            }
+        }
+    def task_compute_count(self):
+        for record in self:
+            record.task_count = self.env['project.task'].search_count([('id', '=', self.task_ids.ids)])
+
+    def deadline_compute_count(self):
+        for record in self:
+            if record.deadline:
+                difference = datetime.date.today() - record.deadline
+                record.day_count = difference.days
+            else:
+                record.day_count = 0
 
     @api.model_create_multi
     def create(self, vals_list):
