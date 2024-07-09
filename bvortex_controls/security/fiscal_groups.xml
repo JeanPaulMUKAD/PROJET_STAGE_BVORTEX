@@ -5,6 +5,10 @@
             <field name="name">Fiscal Manager Group</field>
             <field name="comment">the user will have access to his own data in the Manager Group.</field>
         </record>
+        <record id="group_department_head" model="res.groups">
+            <field name="name">Department Head Group</field>
+            <field name="comment">the user will have access to his own data in the Department Head Group.</field>
+        </record>
         <record id="group_receptionist" model="res.groups">
             <field name="name">Receptionist Group</field>
             <field name="comment">the user will have access to his own data in the Receptionist.</field>
