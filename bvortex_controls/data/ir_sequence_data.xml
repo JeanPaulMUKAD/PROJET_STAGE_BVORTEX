@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="document_code_sequence" model="ir.sequence">
+            <field name="name">Control Document</field>
+            <field name="code">control.document</field>
+            <field name="prefix">DOC</field>
+            <field name="padding">6</field>
+        </record>
+        <record id="minister_code_sequence" model="ir.sequence">
+            <field name="name">Control Minister</field>
+            <field name="code">control.minister</field>
+            <field name="prefix">MIN</field>
+            <field name="padding">6</field>
+        </record>
+        <record id="nature_code_sequence" model="ir.sequence">
+            <field name="name">Control Nature</field>
+            <field name="code">control.nature</field>
+            <field name="prefix">NAT</field>
+            <field name="padding">6</field>
+        </record>
+        <record id="action_code_sequence" model="ir.sequence">
+            <field name="name">Control Action</field>
+            <field name="code">control.action</field>
+            <field name="prefix">ACT</field>
+            <field name="padding">6</field>
+        </record>
+    </data>
+</odoo>

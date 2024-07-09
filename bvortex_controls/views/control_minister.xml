@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_control_minister" model="ir.actions.act_window">
+        <field name="name">Control Minister</field>
+        <field name="res_model">control.minister</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Record Found
+                </p>
+                <p>
+                    Click to add a Minister. />
+                </p>
+        </field>
+    </record>
+
+    <record id="view_control_minister_tree" model="ir.ui.view">
+            <field name="name">control.minister.tree</field>
+            <field name="model">control.minister</field>
+            <field name="arch" type="xml">
+              <tree string="Control Minister Structure">
+                  <field name="code" />
+                  <field name="name" />
+                  <field name="color"/>
+              </tree>
+            </field>
+    </record>
+
+    <record id="view_control_minister_form" model="ir.ui.view">
+            <field name="name">control.minister.form</field>
+            <field name="model">control.minister</field>
+            <field name="arch" type="xml">
+                <form string="Control Minister Form">
+                    <sheet>
+                        <h1><field name="code" /></h1>
+                        <group>
+                            <group>
+                                <field name="name" />
+                            </group>
+                            <group>
+                                <field name="color" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+    </record>
+
+    <menuitem name="Ministers"
+              id="control_minister_menu"
+              parent="bvortex_controls.control_configuration"
+              action="bvortex_controls.action_control_minister"
+              sequence="15"/>
+
+</odoo>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+         <record id="action_control_document" model="ir.actions.act_window">
+            <field name="name">Control Document</field>
+            <field name="res_model">control.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Record Found
+                </p>
+                <p>
+                    Click to add a Control Document. />
+                </p>
+            </field>
+         </record>
+          <record id="view_control_document_tree" model="ir.ui.view">
+            <field name="name">control.document.tree</field>
+            <field name="model">control.document</field>
+            <field name="arch" type="xml">
+              <tree string="Control Document Structure">
+                  <field name="code" />
+                  <field name="name" />
+                  <field name="partner_id" />
+                  <field name="reception_date" />
+                  <field name="deadline" />
+                  <field name="state"/>
+              </tree>
+            </field>
+          </record>
+          <record id="view_control_document_form" model="ir.ui.view">
+            <field name="name">control.document.form</field>
+            <field name="model">control.document</field>
+            <field name="arch" type="xml">
+                <form string="Control Document Form">
+                    <header>
+<!--                        groups="bvortex_controls.group_receptionist"-->
+                        <button name="action_confirmed" type="object" invisible="state not in ['draft']"
+                                            string="Confirm Control" class="oe_highlight"/>
+                        <button name="action_in_progress" type="object" invisible="state not in ['confirmed']"
+                                            string="Validate Control" class="oe_highlight btn-success"/>
+                        <button name="action_cancel" type="object" invisible="state not in ['confirmed']"
+                                            string="Cancel Control" class="oe_highlight btn-danger"/>
+                        <button name="action_done" type="object" invisible="state not in ['in_progress']"
+                                            string="Conclude Control" class="oe_highlight btn-primary"/>
+
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,in_progress,cancel,done" statusbar_colors='{"invoice_except":"red","waiting_date":"blue"}'/>
+                    </header>
+
+                            <sheet>
+                                <div class="oe_button_box" name="button_box">
+<!--                                    <button class="oe_stat_button" type="object" name="get_inpatient" icon="fa-bed" groups="basic_hms.bi_group_doctor">-->
+<!--                                        <field string="Inpatients" name="inpatient_count" widget="statinfo"/>-->
+<!--                                    </button>-->
+<!--                                    <button class="oe_stat_button" type="object" name="get_test" icon="fa-flask" groups="basic_hms.bi_group_doctor">-->
+<!--                                        <field string="Tests" name="test_count" widget="statinfo"/>-->
+<!--                                    </button>-->
+<!--                                    <button class="oe_stat_button" type="object" name="get_results" icon="fa-envelope-o" groups="basic_hms.bi_group_doctor">-->
+<!--                                        <field string="Results" name="result_count" widget="statinfo"/>-->
+<!--                                    </button>-->
+<!--                                    <button class="oe_stat_button" type="object" name="get_prescription" icon="fa-file-text-o" groups="basic_hms.bi_group_doctor">-->
+<!--                                        <field string="Prescriptions" name="prescription_count" widget="statinfo"/>-->
+<!--                                    </button>-->
+                                </div>
+                                <widget name="web_ribbon" text="Done" bg_color="bg-success" invisible="state not in ['cancel']"/>
+                                <widget name="web_ribbon" text="Close" bg_color="bg-danger" invisible="state not in ['cancel']"/>
+                                <h1><field name="code" /></h1>
+                                <group string="Document Infos">
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="reception_date"/>
+                                        <field name="minister_id" />
+                                        <field name="reference" />
+                                    </group>
+                                    <group>
+                                        <field name="partner_id"/>
+                                        <field name="deadline" readonly="1"/>
+                                        <field name="nature_id" />
+                                    </group>
+                                </group>
+                                <group string="Tasks Info">
+                                    <field name="action_ids" widget="many2many_tags" />
+                                    <field name="user_ids" widget="many2many_avatar_user"/>
+                                </group>
+                            </sheet>
+                            <div class="oe_chatter">
+                                <field name="message_follower_ids" widget="mail_followers"/>
+                                <field name="message_ids" widget="mail_thread"/>
+                            </div>
+                        </form>
+                    </field>
+          </record>
+        <menuitem id="control_document" name="Documents" parent="bvortex_controls.main_menu_control_management" action="bvortex_controls.action_control_document" sequence="20"/>
+</odoo>
