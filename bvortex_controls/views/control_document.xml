@@ -68,8 +68,13 @@
                                         <field string="Tasks" name="task_count" widget="statinfo"/>
                                     </button>
                                 </div>
-                                <widget name="web_ribbon" text="Done" bg_color="bg-success" invisible="state not in ['cancel']"/>
-                                <widget name="web_ribbon" text="Close" bg_color="bg-danger" invisible="state not in ['cancel']"/>
+                                <field name="compute_situation" invisible="1" />
+                                <field name="out_of_time" invisible="1" />
+                                <field name="on_time" invisible="1" />
+                                <widget name="web_ribbon" text="out of time" bg_color="bg-warning" invisible="out_of_time == False"/>
+                                <widget name="web_ribbon" text="on time" bg_color="bg-info" invisible="on_time == False"/>
+                                <widget name="web_ribbon" text="Concluded" bg_color="bg-success" invisible="state not in ['done']"/>
+                                <widget name="web_ribbon" text="Cancelled" bg_color="bg-danger" invisible="state not in ['cancel']"/>
                                 <h1><field name="code" /></h1>
                                 <group string="Document Infos">
                                     <group>

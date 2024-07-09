@@ -18,6 +18,8 @@ class control_document(models.Model):
     task_ids = fields.One2many('project.task', 'document_id', string="Tasks")
     action_ids = fields.Many2many('control.action', string="Actions")
     user_ids = fields.Many2many('res.users', string="Assignees")
+    out_of_time = fields.Boolean(default=False)
+    on_time = fields.Boolean(default=False)
     category = fields.Selection(selection=[
         ('spontanne', 'Contrôle Spontanné'),
         ('fiscal', 'Contrôle Fiscal'),
@@ -33,6 +35,7 @@ class control_document(models.Model):
         tracking=True, default='draft')
     task_count = fields.Integer(compute='task_compute_count')
     day_count = fields.Integer(compute='deadline_compute_count')
+    compute_situation = fields.Boolean(compute='_compute_situation')
 
     def get_tasks(self):
         self.ensure_one()
@@ -51,6 +54,20 @@ class control_document(models.Model):
     def task_compute_count(self):
         for record in self:
             record.task_count = self.env['project.task'].search_count([('id', '=', self.task_ids.ids)])
+
+    def _compute_situation(self):
+        for rec in self:
+            if rec.deadline:
+                if rec.state == 'in_progress':
+                    if rec.deadline >= datetime.date.today():
+                        rec.out_of_time = False
+                        rec.on_time = True
+                    elif datetime.date.today() > rec.deadline:
+                        rec.out_of_time = True
+                        rec.on_time = False
+
+                rec.compute_situation = True
+
 
     def deadline_compute_count(self):
         for record in self:
@@ -195,12 +212,30 @@ class control_document(models.Model):
                  ('activity_type_id', '=', self.env.ref('bvortex_controls.mail_act_document').id)]
             )
             other_activity_ids.unlink()
+            rec.out_of_time = False
+            rec.on_time = False
             rec.state = 'cancel'
 
     def action_done(self):
         for rec in self:
+            rec.out_of_time = False
+            rec.on_time = False
             rec.state = 'done'
+            message = _(f'Concluded Document !!')
+            user = rec.env.user.sudo()
+
+            return {
+                'effect': {
+                    'fadeout': 'slow',
+                    'message': message,
+                    'img_url': '/web/image/%s/%s/image_1024' % (
+                        user._name, user.id) if user.image_1024 else '/web/static/img/smile.svg',
+                    'type': 'rainbow_man',
+                }
+            }
 
     def action_draft(self):
         for rec in self:
+            rec.out_of_time = False
+            rec.on_time = False
             rec.state = 'draft'
