@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="email_template_document" model="mail.template">
+            <field name="name">Contrôle: Envoyé par email</field>
+            <field name="model_id" ref="bvortex_controls.model_control_document"/>
+            <field name="email_from">${(object.user_id.email) |safe}</field>
+            <field name="email_to">${(object.get_fiscal_manager_user().email) |safe}</field>
+            <field name="email_cc">${(object.get_emails_for_department_head()) |safe}</field>
+            <field name="subject">${object.env.company.name} Contrôle: (Ref ${object.name or 'n/a'})</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Bonjour <b>Mr ${object.get_fiscal_manager_user().name}</b>,<br/>
+                        Chers collaborateurs en copie<br/><br/>
+                        Je vous prie de trouver en annexe le document sur le : <b>${object.nature_id.name}</b> issu du <b>${object.minister_id.name}</b><br/>
+                        pour un montant de <b>${object.currency_id.name}</b> <b>${object.amount}</b> dans le cadre du <b>${object.category}</b> pour compte du client <b>${object.partner_id.name}</b><br/>
+                        dont l'échéance de traitement est de <b>${object.day_count} jours</b><br/>
+                        <br/>
+                        <br/>
+                        Merci pour votre diligence quant au traitement  dans le traitement de ce dossier
+                        <br/>Cordialement,<br></br>
+                        <i><b>${object.env.user.name}</b></i>
+                    </p>
+                </div>
+            </field>
+            <field name="lang">${object.env.user.partner_id.lang}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+    </data>
+</odoo>

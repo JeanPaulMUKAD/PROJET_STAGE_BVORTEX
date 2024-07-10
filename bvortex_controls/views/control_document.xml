@@ -56,6 +56,9 @@
                                             string="Cancel Control" class="oe_highlight btn-danger"/>
                         <button name="action_done" type="object" invisible="state not in ['in_progress']" groups="bvortex_controls.group_fiscal_manager"
                                             string="Conclude Control" class="oe_highlight btn-primary"/>
+
+                        <button name="action_draft" type="object" invisible="state not in ['done', 'cancel']" groups="bvortex_controls.group_fiscal_manager"
+                                            string="Reset Control" class="oe_highlight btn-primary"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,in_progress,cancel,done" statusbar_colors='{"invoice_except":"red","waiting_date":"blue"}'/>
                     </header>
 
@@ -68,8 +71,13 @@
                                         <field string="Tasks" name="task_count" widget="statinfo"/>
                                     </button>
                                 </div>
-                                <widget name="web_ribbon" text="Done" bg_color="bg-success" invisible="state not in ['cancel']"/>
-                                <widget name="web_ribbon" text="Close" bg_color="bg-danger" invisible="state not in ['cancel']"/>
+                                <field name="compute_situation" invisible="1" />
+                                <field name="out_of_time" invisible="1" />
+                                <field name="on_time" invisible="1" />
+                                <widget name="web_ribbon" text="out of time" bg_color="bg-warning" invisible="out_of_time == False"/>
+                                <widget name="web_ribbon" text="on time" bg_color="bg-info" invisible="on_time == False"/>
+                                <widget name="web_ribbon" text="Concluded" bg_color="bg-success" invisible="state not in ['done']"/>
+                                <widget name="web_ribbon" text="Cancelled" bg_color="bg-danger" invisible="state not in ['cancel']"/>
                                 <h1><field name="code" /></h1>
                                 <group string="Document Infos">
                                     <group>
@@ -77,15 +85,17 @@
                                         <field name="reception_date"/>
                                         <field name="minister_id" />
                                         <field name="reference" />
+                                        <field name="amount" />
                                     </group>
                                     <group>
                                         <field name="partner_id"/>
                                         <field name="deadline" readonly="1"/>
                                         <field name="nature_id" />
                                         <field name="category" />
+                                        <field name="currency_id" />
                                     </group>
                                 </group>
-                                <group string="Tasks Info">
+                                <group string="Tasks Info" groups="bvortex_controls.group_fiscal_manager">
                                     <field name="action_ids" widget="many2many_tags" />
                                     <field name="user_ids" widget="many2many_avatar_user"/>
                                 </group>
