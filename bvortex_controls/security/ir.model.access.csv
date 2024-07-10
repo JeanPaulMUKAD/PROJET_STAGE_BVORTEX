@@ -3,3 +3,4 @@ bvortex_controls.access_control_minister,access_control_minister,bvortex_control
 bvortex_controls.access_control_nature,access_control_nature,bvortex_controls.model_control_nature,base.group_user,1,1,1,1
 bvortex_controls.access_control_document,access_control_document,bvortex_controls.model_control_document,base.group_user,1,1,1,1
 bvortex_controls.access_control_action,access_control_action,bvortex_controls.model_control_action,base.group_user,1,1,1,1
+bvortex_controls.access_control_document_dashboard,access_control_document_dashboard,bvortex_controls.model_control_document_dashboard,base.group_user,1,1,1,1

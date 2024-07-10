@@ -5,3 +5,4 @@ from . import control_action
 from . import control_document
 from . import project_task
 from . import project_project
+from . import control_document_dashboard

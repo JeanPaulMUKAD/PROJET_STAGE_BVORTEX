@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="bvortex_controls.ControlDocumentDashboard">
+        <div class="row main-section" style="margin: 120px">
+            <!-- Section FISCALITE -->
+            <div class="col-4" style="border: 1px solid black; padding: 20px;">
+                <div style="background-color: #FFA500; text-align: center; padding: 10px;">
+                    <h3>FISCALITE</h3>
+                </div>
+                <br/>
+                <div>
+                    <p>ATD <span style="float: right;"><div id="atd"/></span></p>
+                    <p>AVIS DE VERIFICATION <span style="float: right;"><div id="avis_de_verification"/></span></p>
+                    <p>CONTRAINTES <span style="float: right;"><div id="contrainte"/></span></p>
+                    <p>NOTIFICATION DE PENAL <span style="float: right;"><div id="notification_penal"/></span></p>
+                    <p>AMRS <span style="float: right;"><div id="amrs"/></span></p>
+                    <p>MED <span style="float: right;"><div id="med"/></span></p>
+                    <p>AVIS DE TAXATION <span style="float: right;"><div id="avis_taxation"/></span></p>
+                    <p>INVITATION DE SERV <span style="float: right;"><div id="invitation_serv"/></span></p>
+                    <p>AVIS DE REGULARISATION <span style="float: right;"><div id="avis_regulation"/></span></p>
+                    <p>DEMANDE RENSEIGN <span style="float: right;"><div id="demande_renseign"/></span></p>
+                </div>
+            </div>
+
+            <!-- Section PARAFISCALITE -->
+            <div class="col-4" style="border: 1px solid black; padding: 20px;">
+                <div style="background-color: #FFA500; text-align: center; padding: 10px;">
+                    <h3>PARAFISCALITE</h3>
+                </div>
+                <br/>
+                <div>
+                    <p>DGRAD <span style="float: right;"><div id="dgrad"/></span></p>
+                    <p>ECONOMIE <span style="float: right;"><div id="economie"/></span></p>
+                    <p>ENVIRONNEMENT <span style="float: right;"><div id="environement"/></span></p>
+                    <p>INSPECTION DU TRAVAIL <span style="float: right;"><div id="inspection_travail"/></span></p>
+                    <p>COTISATION SOC ET AUTRES <span style="float: right;"><div id="cotisation_soc_autres"/></span></p>
+                </div>
+            </div>
+
+            <!-- Section DILIGENCES INTERNE -->
+            <div class="col-4" style="border: 1px solid black; padding: 20px;">
+                <div style="background-color: #FFA500; text-align: center; padding: 10px;">
+                    <h3>DILIGENCES INTERNE</h3>
+                </div>
+                <br/>
+                <div>
+                    <p>DECLARATIONS <span style="float: right;"><div id="declarations"/></span></p>
+                    <p>DESCENTE SUR TERRAIN <span style="float: right;"><div id="descente_terrain"/></span></p>
+                    <p>RDV PROSPECTION <span style="float: right;"><div id="rdv_prospection"/></span></p>
+                    <p>AVIS TECHNIQUE <span style="float: right;"><div id="avis_technique"/></span></p>
+                    <p>TACHES EN COURS <span style="float: right;"><div id="tache_en_cours"/></span></p>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

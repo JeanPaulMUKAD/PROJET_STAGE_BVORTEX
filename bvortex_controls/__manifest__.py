@@ -11,11 +11,10 @@
     'author': "Bvortex",
     'website': "https://www.yourcompany.com",
 
-
     'category': 'Uncategorized',
     'version': '17.0',
 
-    'depends': ['base', 'mail', 'project'],
+    'depends': ['base', 'mail', 'project', 'web'],
 
     'data': [
         'security/ir.model.access.csv',
@@ -33,8 +32,13 @@
         'views/control_action.xml',
         'views/project_task.xml',
     ],
-    'images': ['static/description/icon.png'],
+    'images': ['bvortex_controls/static/description/icon.png'],
+    'assets': {
+        'web.assets_backend': [
+            'bvortex_controls/static/src/js/dashboard.js',
+            'bvortex_controls/static/src/xml/dashboard.xml',
+        ],
+    },
     'application': True,
     'installable': True,
 }
-
