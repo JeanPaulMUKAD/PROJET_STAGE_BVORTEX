@@ -85,15 +85,17 @@
                                         <field name="reception_date"/>
                                         <field name="minister_id" />
                                         <field name="reference" />
+                                        <field name="amount" />
                                     </group>
                                     <group>
                                         <field name="partner_id"/>
                                         <field name="deadline" readonly="1"/>
                                         <field name="nature_id" />
                                         <field name="category" />
+                                        <field name="currency_id" />
                                     </group>
                                 </group>
-                                <group string="Tasks Info">
+                                <group string="Tasks Info" groups="bvortex_controls.group_fiscal_manager">
                                     <field name="action_ids" widget="many2many_tags" />
                                     <field name="user_ids" widget="many2many_avatar_user"/>
                                 </group>

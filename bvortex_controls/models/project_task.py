@@ -6,4 +6,8 @@ class project_task(models.Model):
     _inherit = "project.task"
 
     document_id = fields.Many2one('control.document', string="Document")
-    category = fields.Selection(string='Category', related='document_id.category')
+    category = fields.Selection(selection=[
+        ('spontanne', 'Contrôle Spontanné'),
+        ('fiscal', 'Contrôle Fiscal'),
+        ('parafiscal', 'Parafiscalité'),
+    ], string='Category', required=True, default='spontanne')
