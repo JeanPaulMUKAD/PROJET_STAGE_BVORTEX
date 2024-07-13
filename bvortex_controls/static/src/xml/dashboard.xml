@@ -1,56 +1,265 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="bvortex_controls.ControlDocumentDashboard">
-        <div class="row main-section" style="margin: 120px">
+        <style>
+            .main-section {
+            display: flex;
+            justify-content: space-between;
+            overflow-y: auto;
+            max-height: 100vh;
+            padding: 120px;
+            }
+            .section {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-y: auto;
+            width: 30%;
+            background-color: #f9f9f9;
+            }
+            .section:hover {
+            transform: translateY(-10px);
+            overflow-y: auto;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+
+            .background-section-header {
+            background-color: #ffffff;
+            position: -webkit-sticky; /* For Safari */
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            }
+
+            .background-section-header .section-header {
+            background-color: rgba(113, 99, 158, 0.86);
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px 8px 8px 8px;
+            }
+
+            .section-header h3 {
+            color: #ffffff;
+            }
+            .section-content {
+            margin-top: 15px;
+            overflow-y: auto;
+            }
+
+            .section-content a {
+
+            }
+
+            .section-content a:hover {
+            background-color: #ccc;
+            }
+
+            .float-right {
+            float: right;
+            }
+            p {
+            margin: 10px 0;
+            font-weight: bold;
+            }
+        </style>
+        <div class="main-section">
             <!-- Section FISCALITE -->
-            <div class="col-4" style="border: 1px solid black; padding: 20px;">
-                <div style="background-color: #FFA500; text-align: center; padding: 10px;">
-                    <h3>FISCALITE</h3>
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3>FISCALITE</h3>
+                    </div>
                 </div>
-                <br/>
-                <div>
-                    <p>ATD <span style="float: right;"><div id="atd"/></span></p>
-                    <p>AVIS DE VERIFICATION <span style="float: right;"><div id="avis_de_verification"/></span></p>
-                    <p>CONTRAINTES <span style="float: right;"><div id="contrainte"/></span></p>
-                    <p>NOTIFICATION DE PENAL <span style="float: right;"><div id="notification_penal"/></span></p>
-                    <p>AMRS <span style="float: right;"><div id="amrs"/></span></p>
-                    <p>MED <span style="float: right;"><div id="med"/></span></p>
-                    <p>AVIS DE TAXATION <span style="float: right;"><div id="avis_taxation"/></span></p>
-                    <p>INVITATION DE SERV <span style="float: right;"><div id="invitation_serv"/></span></p>
-                    <p>AVIS DE REGULARISATION <span style="float: right;"><div id="avis_regulation"/></span></p>
-                    <p>DEMANDE RENSEIGN <span style="float: right;"><div id="demande_renseign"/></span></p>
+                <div class="section-content">
+                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                        <p id="atd_click">ATD
+                            <span class="float-right">
+                                <div id="atd"/>
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                        <p id="avis_de_verification_click">AVIS DE VERIFICATION
+                            <span class="float-right">
+                                <div id="avis_de_verification"/>
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                        <p id="contrainte_click">CONTRAINTES
+                            <span class="float-right">
+                                <div id="contrainte"/>
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                        <p id="notification_penal_click">NOTIFICATION DE PENAL
+                            <span class="float-right">
+                                <div id="notification_penal"/>
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                        <p id="amrs_click">AMRS
+                            <span class="float-right">
+                                <div id="amrs"/>
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                        <p id="med_click">MED
+                            <span class="float-right">
+                                <div id="med"/>
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                        <p id="avis_taxation_click">AVIS DE TAXATION
+                            <span class="float-right">
+                                <div id="avis_taxation"/>
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                        <p id="invitation_serv_click">INVITATION DE SERV
+                            <span class="float-right">
+                                <div id="invitation_serv"/>
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                        <p id="avis_regulation_click">AVIS DE REGULARISATION
+                            <span class="float-right">
+                                <div id="avis_regulation"/>
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="">
+                        <p id="demande_renseign_click">DEMANDE RENSEIGN
+                            <span class="float-right">
+                                <div id="demande_renseign"/>
+                            </span>
+                        </p>
+                    </a>
                 </div>
             </div>
 
             <!-- Section PARAFISCALITE -->
-            <div class="col-4" style="border: 1px solid black; padding: 20px;">
-                <div style="background-color: #FFA500; text-align: center; padding: 10px;">
-                    <h3>PARAFISCALITE</h3>
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3>PARAFISCALITE</h3>
+                    </div>
                 </div>
-                <br/>
-                <div>
-                    <p>DGRAD <span style="float: right;"><div id="dgrad"/></span></p>
-                    <p>ECONOMIE <span style="float: right;"><div id="economie"/></span></p>
-                    <p>ENVIRONNEMENT <span style="float: right;"><div id="environement"/></span></p>
-                    <p>INSPECTION DU TRAVAIL <span style="float: right;"><div id="inspection_travail"/></span></p>
-                    <p>COTISATION SOC ET AUTRES <span style="float: right;"><div id="cotisation_soc_autres"/></span></p>
+                <div class="section-content">
+                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                        <p id="dgrad_click">DGRAD
+                            <span class="float-right">
+                                <div id="dgrad"/>
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                        <p id="economie_click">ECONOMIE
+                            <span class="float-right">
+                                <div id="economie"/>
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                        <p id="environement_click">ENVIRONNEMENT
+                            <span class="float-right">
+                                <div id="environement"/>
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                        <p id="inspection_travail_click">INSPECTION DU TRAVAIL
+                            <span class="float-right">
+                                <div id="inspection_travail"/>
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                        <p id="cotisation_soc_autres_click">COTISATION SOC ET AUTRES
+                            <span class="float-right">
+                                <div id="cotisation_soc_autres"/>
+                            </span>
+                        </p>
+                    </a>
                 </div>
             </div>
 
             <!-- Section DILIGENCES INTERNE -->
-            <div class="col-4" style="border: 1px solid black; padding: 20px;">
-                <div style="background-color: #FFA500; text-align: center; padding: 10px;">
-                    <h3>DILIGENCES INTERNE</h3>
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3>DILIGENCES INTERNES</h3>
+                    </div>
                 </div>
-                <br/>
-                <div>
-                    <p>DECLARATIONS <span style="float: right;"><div id="declarations"/></span></p>
-                    <p>DESCENTE SUR TERRAIN <span style="float: right;"><div id="descente_terrain"/></span></p>
-                    <p>RDV PROSPECTION <span style="float: right;"><div id="rdv_prospection"/></span></p>
-                    <p>AVIS TECHNIQUE <span style="float: right;"><div id="avis_technique"/></span></p>
-                    <p>TACHES EN COURS <span style="float: right;"><div id="tache_en_cours"/></span></p>
+                <div class="section-content">
+                    <div class="section-content">
+                        <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                            <p id="declarations_click">DECLARATIONS
+                                <span class="float-right">
+                                    <div id="declarations"/>
+                                </span>
+                            </p>
+                        </a>
+                        <hr/>
+                        <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                            <p id="descente_terrain_click">DESCENTE SUR TERRAIN
+                                <span class="float-right">
+                                    <div id="descente_terrain"/>
+                                </span>
+                            </p>
+                        </a>
+                        <hr/>
+                        <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                            <p id="rdv_prospection_click">RDV PROSPECTION
+                                <span class="float-right">
+                                    <div id="rdv_prospection"/>
+                                </span>
+                            </p>
+                        </a>
+                        <hr/>
+                        <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
+                            <p id="avis_technique_click">AVIS TECHNIQUE
+                                <span class="float-right">
+                                    <div id="avis_technique"/>
+                                </span>
+                            </p>
+                        </a>
+                        <hr/>
+                        <a href="web#action=462&amp;model=project.project&amp;view_type=kanban&amp;cids=1&amp;menu_id=291">
+                            <p id="tache_en_cours_click">TACHES EN COURS
+                                <span class="float-right">
+                                    <div id="tache_en_cours"/>
+                                </span>
+                            </p>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </t>
+
 </templates>
+
+
+
+

@@ -115,8 +115,6 @@ class ControlDocumentDashboard(models.Model):
 
         return document_prefiscal.search_count([('minister_id', '=', inspection_travail)])
 
-
-
     def get_task_in_progress(self):
         current_date_time = fields.Datetime.now()
         return len(self.env['project.task'].search([('date_deadline', '>=', current_date_time)]))

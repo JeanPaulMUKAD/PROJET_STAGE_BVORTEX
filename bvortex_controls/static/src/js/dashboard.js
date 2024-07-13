@@ -14,6 +14,7 @@ class ControlDocumentDashboard extends Component {
     }
 
     _fetch_data() {
+
         const self = this;
         this.orm.call("control.document.dashboard", "get_all_data", [], {}).then(function (result) {
             $('#atd').append('<span>' + result.atd + '<span/>');
