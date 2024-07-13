@@ -8,6 +8,7 @@ class ControlDocumentDashboard(models.Model):
 
     @api.model
     def get_all_data(self):
+
         return {
             'atd': self.get_all_atd(),
             'avis_de_verification': self.get_all_avis_verification(),
@@ -28,7 +29,7 @@ class ControlDocumentDashboard(models.Model):
             'descente_terrain': 0,
             'rdv_prospection': 0,
             'avis_technique': 0,
-            'tache_en_cours': self.get_task_in_progress()
+            'tache_en_cours': self.get_all_tasks()
         }
 
     def get_all_atd(self):
@@ -128,7 +129,16 @@ class ControlDocumentDashboard(models.Model):
     def get_all_document_parafiscal(self):
         return self.env['control.document'].search([('category', '=', 'parafiscal')])
 
+    def get_all_tasks(self):
+        document_in_progress = self.env['control.document'].search([('state', '=', 'in_progress')])
+        tasks = 0
+        for document in document_in_progress:
+            for task in document.task_ids:
+                if self.is_in_progress(task):
+                    tasks += 1
 
+        return tasks
 
-
-
+    def is_in_progress(self, task):
+        in_progress_id = self.env.ref('bvortex_controls.in_progress_stage').id
+        return task.stage_id.id == in_progress_id
