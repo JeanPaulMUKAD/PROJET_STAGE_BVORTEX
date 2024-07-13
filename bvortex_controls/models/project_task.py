@@ -6,4 +6,5 @@ class project_task(models.Model):
     _inherit = "project.task"
 
     document_id = fields.Many2one('control.document', string="Document")
+    action_id = fields.Many2one('control.action', string="Action")
     category = fields.Selection(string='Category', related='document_id.category')

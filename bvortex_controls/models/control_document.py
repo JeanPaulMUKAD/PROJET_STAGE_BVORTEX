@@ -152,6 +152,7 @@ class control_document(models.Model):
                     'name': f'{rec.action_ids[i].name}-{rec.name}',
                     'project_id': project_id.id,
                     'partner_id': rec.partner_id.id,
+                    'action_id': rec.action_ids[i].id,
                     'user_ids': [(6, 0, [rec.user_ids[i].id])],
                     'document_id': rec.id,
                     'date_deadline': rec.deadline,
