@@ -23,6 +23,7 @@
         'data/ir_sequence_data.xml',
         'data/ir_minister_data.xml',
         'data/ir_nature_data.xml',
+        'data/ir_action_data.xml',
         'data/activity_document.xml',
         'data/ir_project_task_type_data.xml',
         'views/menu.xml',

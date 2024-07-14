@@ -10,11 +10,11 @@ class ControlDocumentDashboard extends Component {
     setup() {
         super.setup();
         this.orm = useService('orm');
+        this.action = useService('action');
         this._fetch_data();
     }
 
     _fetch_data() {
-
         const self = this;
         this.orm.call("control.document.dashboard", "get_all_data", [], {}).then(function (result) {
             $('#atd').append('<span>' + result.atd + '<span/>');
@@ -39,6 +39,15 @@ class ControlDocumentDashboard extends Component {
             $('#tache_en_cours').append('<span>' + result.tache_en_cours + '<span/>');
         });
     };
+
+    onLinkClick(ev) {
+        ev.preventDefault();
+        const id = ev.currentTarget.id;
+        this.orm.call("control.document.dashboard", "on_link_click", [id], {}).then((result) => {
+            this.action.doAction(result);
+        });
+    }
+
 
 }
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="cotisation_soc_autres_code_action" model="control.action">
+            <field name="name">COTISATION SOC ET AUTRES</field>
+        </record>
+        <record id="declarations_code_action" model="control.action">
+            <field name="name">DECLARATIONS</field>
+        </record>
+        <record id="descente_terrain_code_action" model="control.action">
+            <field name="name">DESCENTE SUR TERRAIN</field>
+        </record>
+        <record id="rdv_prospection_code_action" model="control.action">
+            <field name="name">RENDEZ-VOUS DE PROSPECTION</field>
+        </record>
+        <record id="avis_technique_code_action" model="control.action">
+            <field name="name">AVIS TECHNIQUE</field>
+        </record>
+        <record id="demande_renseignement_code_action" model="control.action">
+            <field name="name">DEMANDE DE RENSEIGNEMENT</field>
+        </record>
+    </data>
+</odoo>

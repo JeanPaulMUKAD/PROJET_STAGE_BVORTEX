@@ -72,80 +72,80 @@
                     </div>
                 </div>
                 <div class="section-content">
-                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                        <p id="atd_click">ATD
+                    <a href="#" id="atd_click" t-on-click="onLinkClick">
+                        <p>ATD
                             <span class="float-right">
                                 <div id="atd"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                        <p id="avis_de_verification_click">AVIS DE VERIFICATION
+                    <a href="#" id="avis_de_verification_click" t-on-click="onLinkClick">
+                        <p >AVIS DE VERIFICATION
                             <span class="float-right">
                                 <div id="avis_de_verification"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                        <p id="contrainte_click">CONTRAINTES
+                    <a href="#" id="contrainte_click" t-on-click="onLinkClick">
+                        <p>CONTRAINTES
                             <span class="float-right">
                                 <div id="contrainte"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                        <p id="notification_penal_click">NOTIFICATION DE PENAL
+                    <a href="#" id="notification_penal_click" t-on-click="onLinkClick">
+                        <p >NOTIFICATION DE PENAL
                             <span class="float-right">
                                 <div id="notification_penal"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                        <p id="amrs_click">AMRS
+                    <a href="#" id="amrs_click" t-on-click="onLinkClick">
+                        <p >AMRS
                             <span class="float-right">
                                 <div id="amrs"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                        <p id="med_click">MED
+                    <a href="#" id="med_click" t-on-click="onLinkClick">
+                        <p >MED
                             <span class="float-right">
                                 <div id="med"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                        <p id="avis_taxation_click">AVIS DE TAXATION
+                    <a href="#" id="avis_taxation_click" t-on-click="onLinkClick">
+                        <p >AVIS DE TAXATION
                             <span class="float-right">
                                 <div id="avis_taxation"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                        <p id="invitation_serv_click">INVITATION DE SERV
+                    <a href="#" id="invitation_serv_click" t-on-click="onLinkClick">
+                        <p >INVITATION DE SERV
                             <span class="float-right">
                                 <div id="invitation_serv"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                        <p id="avis_regulation_click">AVIS DE REGULARISATION
+                    <a href="#" id="avis_regulation_click" t-on-click="onLinkClick">
+                        <p >AVIS DE REGULARISATION
                             <span class="float-right">
                                 <div id="avis_regulation"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="">
-                        <p id="demande_renseign_click">DEMANDE RENSEIGN
+                    <a href="#" id="demande_renseign_click" t-on-click="onLinkClick">
+                        <p>DEMANDE RENSEIGN
                             <span class="float-right">
                                 <div id="demande_renseign"/>
                             </span>
@@ -162,40 +162,40 @@
                     </div>
                 </div>
                 <div class="section-content">
-                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                        <p id="dgrad_click">DGRAD
+                    <a href="#" id="dgrad_click" t-on-click="onLinkClick">
+                        <p >DGRAD
                             <span class="float-right">
                                 <div id="dgrad"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                        <p id="economie_click">ECONOMIE
+                    <a href="#" id="economie_click" t-on-click="onLinkClick">
+                        <p>ECONOMIE
                             <span class="float-right">
                                 <div id="economie"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                        <p id="environement_click">ENVIRONNEMENT
+                    <a href="#" id="environement_click" t-on-click="onLinkClick">
+                        <p>ENVIRONNEMENT
                             <span class="float-right">
                                 <div id="environement"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                        <p id="inspection_travail_click">INSPECTION DU TRAVAIL
+                    <a href="#" id="inspection_travail_click" t-on-click="onLinkClick">
+                        <p>INSPECTION DU TRAVAIL
                             <span class="float-right">
                                 <div id="inspection_travail"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                        <p id="cotisation_soc_autres_click">COTISATION SOC ET AUTRES
+                    <a href="#" id="cotisation_soc_autres_click" t-on-click="onLinkClick">
+                        <p>COTISATION SOC ET AUTRES
                             <span class="float-right">
                                 <div id="cotisation_soc_autres"/>
                             </span>
@@ -213,40 +213,40 @@
                 </div>
                 <div class="section-content">
                     <div class="section-content">
-                        <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                            <p id="declarations_click">DECLARATIONS
+                        <a href="#" id="declarations_click" t-on-click="onLinkClick">
+                            <p>DECLARATIONS
                                 <span class="float-right">
                                     <div id="declarations"/>
                                 </span>
                             </p>
                         </a>
                         <hr/>
-                        <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                            <p id="descente_terrain_click">DESCENTE SUR TERRAIN
+                        <a href="#" id="descente_terrain_click" t-on-click="onLinkClick">
+                            <p>DESCENTE SUR TERRAIN
                                 <span class="float-right">
                                     <div id="descente_terrain"/>
                                 </span>
                             </p>
                         </a>
                         <hr/>
-                        <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                            <p id="rdv_prospection_click">RDV PROSPECTION
+                        <a href="#" id="rdv_prospection_click" t-on-click="onLinkClick">
+                            <p>RDV PROSPECTION
                                 <span class="float-right">
                                     <div id="rdv_prospection"/>
                                 </span>
                             </p>
                         </a>
                         <hr/>
-                        <a href="web#action=491&amp;model=control.document&amp;view_type=list&amp;cids=1&amp;menu_id=313">
-                            <p id="avis_technique_click">AVIS TECHNIQUE
+                        <a href="#" id="avis_technique_click" t-on-click="onLinkClick">
+                            <p>AVIS TECHNIQUE
                                 <span class="float-right">
                                     <div id="avis_technique"/>
                                 </span>
                             </p>
                         </a>
                         <hr/>
-                        <a href="web#action=462&amp;model=project.project&amp;view_type=kanban&amp;cids=1&amp;menu_id=291">
-                            <p id="tache_en_cours_click">TACHES EN COURS
+                        <a href="#" id="tache_en_cours_click" t-on-click="onLinkClick">
+                            <p>TACHES EN COURS
                                 <span class="float-right">
                                     <div id="tache_en_cours"/>
                                 </span>
