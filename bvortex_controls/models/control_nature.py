@@ -1,5 +1,6 @@
 from odoo import api, fields, models, _
 
+
 class control_nature(models.Model):
     _name = 'control.nature'
 
@@ -23,3 +24,17 @@ class control_nature(models.Model):
                 }
             ).id
         return result
+
+    def write(self, vals):
+        res = super(control_nature, self).write(vals)
+        if 'name' in vals:
+            for record in self:
+                if record.tag_id:
+                    record.tag_id.name = record.name
+        return res
+
+    def unlink(self):
+        for record in self:
+            if record.tag_id:
+                record.tag_id.unlink()
+        return super(control_nature, self).unlink()
