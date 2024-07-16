@@ -16,9 +16,16 @@
         <field name="name">Dashboard Control Document</field>
         <field name="tag">dashboard_control_document_tag</field>
     </record>
+    <menuitem
+            id="main_menu_dashboard_management"
+            name="Dashboard"
+            sequence="1"
+            web_icon="bvortex_controls,static/description/icon_dash.png"
+    />
 
     <menuitem name="Dashboard"
               id="menu_control_document_dashboard"
+              parent="bvortex_controls.main_menu_dashboard_management"
               sequence="6"
               action="action_dashboard_control_document"/>
 
