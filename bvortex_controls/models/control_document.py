@@ -194,6 +194,18 @@ class control_document(models.Model):
 
     def action_in_progress(self):
         for rec in self:
+            if not rec.action_ids:
+                raise exceptions.UserError(
+                    _("There are no actions on the form !!"))
+
+            if not rec.user_ids:
+                raise exceptions.UserError(
+                    _("There are no users on the form !!"))
+
+            if len(rec.action_ids) != len(rec.user_ids):
+                raise exceptions.UserError(
+                    _("The number of actions is different from the number of users !!"))
+
             activity_id = self.env['mail.activity'].search(
                 [('res_id', '=', rec.id), ('user_id', '=', rec.env.user.id),
                  ('activity_type_id', '=', rec.env.ref('bvortex_controls.mail_act_document').id)]
