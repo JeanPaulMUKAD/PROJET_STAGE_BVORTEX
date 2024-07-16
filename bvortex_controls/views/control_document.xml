@@ -3,7 +3,7 @@
          <record id="action_control_document" model="ir.actions.act_window">
             <field name="name">Control Document</field>
             <field name="res_model">control.document</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,calendar</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     No Record Found
@@ -13,6 +13,36 @@
                 </p>
             </field>
          </record>
+         <record id="view_control_document_calendar" model="ir.ui.view">
+    <field name="name">control.document.calendar</field>
+    <field name="model">control.document</field>
+    <field name="arch" type="xml">
+        <calendar string="Control Document Calendar"
+                  create="0" mode="month"
+                  date_start="reception_date" date_stop="deadline" color="code">
+            <field name="code" />
+            <field name="name" />
+            <field name="reference" />
+            <!-- Ajoutez ici le champ manquant ou supprimez cette ligne -->
+            <field name="category"
+                   select="True"
+                   widget="badge"
+                   decoration-warning=" category == 'spontanne' "
+                   decoration-info=" category == 'fiscal' "
+                   decoration-success=" category == 'parafiscal' "
+            />
+            <field name="state"
+                   select="True"
+                   widget="badge"
+                   decoration-danger=" state == 'cancel' "
+                   decoration-info=" state == 'confirmed' "
+                   decoration-warning=" state == 'in_progress' "
+                   decoration-success=" state == 'done' "
+            />
+        </calendar>
+    </field>
+</record>
+
           <record id="view_control_document_tree" model="ir.ui.view">
             <field name="name">control.document.tree</field>
             <field name="model">control.document</field>
@@ -85,12 +115,14 @@
                                 <field name="reception_date"/>
                                 <field name="minister_id" />
                                 <field name="reference" />
+                                <field name="amount" />
                             </group>
                             <group>
                                 <field name="partner_id"/>
                                 <field name="deadline" readonly="1"/>
                                 <field name="nature_id" />
                                 <field name="category" />
+                                <field name="currency_id" />
                             </group>
                         </group>
                         <group string="Tasks Info" groups="bvortex_controls.group_fiscal_manager">
