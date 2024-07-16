@@ -44,7 +44,7 @@ class control_document(models.Model):
             'res_model': 'project.task',
             'domain': [('id', '=', self.task_ids.ids)],
             'context': {
-                'create': False,
+                'create': True,
                 'default_partner_id': self.partner_id.id,
                 'default_document_id': self.id,
             }

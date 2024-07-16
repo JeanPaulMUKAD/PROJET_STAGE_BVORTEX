@@ -6,9 +6,23 @@
         <field name="inherit_id" ref="project.view_task_form2"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='tag_ids']" position="before">
-                <field name="document_id" />
-                <field name="action_id" />
-                <field name="category" />
+                <field name="document_id"/>
+                <field name="action_id"/>
+                <field name="category"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_task_view_tree_main_base_view_inherit" model="ir.ui.view">
+        <field name="name">project.task.tree.view.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.project_task_view_tree_main_base"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='sequence']" position="before">
+                <header>
+                    <button name="action_concluded" string="Conclude" type="object" class="oe_highlight"/>
+                    <button name="action_cancelled" string="Cancel" type="object" class="oe_highlight"/>
+                </header>
             </xpath>
         </field>
     </record>
