@@ -199,12 +199,31 @@ class control_document(models.Model):
                  ('activity_type_id', '=', self.env.ref('bvortex_controls.mail_act_document').id)]
             )
             other_activity_ids.unlink()
+            rec.out_of_time = False
+            rec.on_time = False
             rec.state = 'cancel'
 
     def action_done(self):
         for rec in self:
+            rec.out_of_time = False
+            rec.on_time = False
             rec.state = 'done'
+            message = _(f'Concluded Document !!')
+            user = rec.env.user.sudo()
+
+            return {
+                'effect': {
+                    'fadeout': 'slow',
+                    'message': message,
+                    'img_url': '/web/image/%s/%s/image_1024' % (
+                        user._name, user.id) if user.image_1024 else '/web/static/img/smile.svg',
+                    'type': 'rainbow_man',
+                }
+            }
 
     def action_draft(self):
         for rec in self:
+            rec.out_of_time = False
+            rec.on_time = False
             rec.state = 'draft'
+
