@@ -71,7 +71,7 @@ class ControlDocumentDashboard(models.Model):
         return {
             'name': "Control Document",
             'res_model': "control.document",
-            'views': [[False, "tree"]],
+            'views': [[False, "tree"], [False, "form"]],
             'type': "ir.actions.act_window",
             'domain': [('nature_id', '=', nature_id)],
             'view_mode': "tree"
@@ -81,7 +81,7 @@ class ControlDocumentDashboard(models.Model):
         return {
             'name': "Control Document",
             'res_model': "control.document",
-            'views': [[False, "tree"]],
+            'views': [[False, "tree"], [False, "form"]],
             'type': "ir.actions.act_window",
             'domain': [('minister_id', '=', minister_id)],
             'view_mode': "tree"
@@ -92,7 +92,7 @@ class ControlDocumentDashboard(models.Model):
         return {
             'name': "Toutes les taches",
             'res_model': "project.task",
-            'views': [[False, "tree"]],
+            'views': [[False, "tree"], [False, "form"]],
             'type': "ir.actions.act_window",
             'domain': [('action_id', '=', action_id), ('stage_id', '=', progress_state)],
             'view_mode': "tree"
@@ -103,7 +103,7 @@ class ControlDocumentDashboard(models.Model):
         return {
             'name': "Toutes les taches",
             'res_model': "project.task",
-            'views': [[False, "tree"]],
+            'views': [[False, "tree"], [False, "form"]],
             'type': "ir.actions.act_window",
             'domain': [('stage_id', '=', progress_state)],
             'view_mode': "tree"
