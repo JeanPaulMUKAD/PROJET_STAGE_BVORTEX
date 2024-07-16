@@ -117,6 +117,7 @@ class ControlDocumentDashboard(models.Model):
         rdv_prospection = self.env.ref('bvortex_controls.rdv_prospection_code_action').id
         avis_technique = self.env.ref('bvortex_controls.avis_technique_code_action').id
 
+
         return {
             'atd': self.get_all_atd(),
             'avis_de_verification': self.get_all_avis_verification(),
@@ -231,7 +232,7 @@ class ControlDocumentDashboard(models.Model):
             if self.is_in_progress(task):
                 quantity += 1
 
-        return 0
+        return quantity
 
     def get_all_document_spontanne(self):
         return self.env['control.document'].search([('category', '=', 'spontanne')])
