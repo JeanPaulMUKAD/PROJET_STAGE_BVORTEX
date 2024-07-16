@@ -1,141 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-         <record id="action_control_document" model="ir.actions.act_window">
-            <field name="name">Control Document</field>
-            <field name="res_model">control.document</field>
-            <field name="view_mode">tree,form,calendar</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    No Record Found
-                </p>
-                <p>
-                    Click to add a Control Document. />
-                </p>
-            </field>
-         </record>
-         <record id="view_control_document_calendar" model="ir.ui.view">
-    <field name="name">control.document.calendar</field>
-    <field name="model">control.document</field>
-    <field name="arch" type="xml">
-        <calendar string="Control Document Calendar"
-                  create="0" mode="month"
-                  date_start="reception_date" date_stop="deadline" color="code">
-            <field name="code" />
-            <field name="name" />
-            <field name="reference" />
-            <!-- Ajoutez ici le champ manquant ou supprimez cette ligne -->
-            <field name="category"
-                   select="True"
-                   widget="badge"
-                   decoration-warning=" category == 'spontanne' "
-                   decoration-info=" category == 'fiscal' "
-                   decoration-success=" category == 'parafiscal' "
-            />
-            <field name="state"
-                   select="True"
-                   widget="badge"
-                   decoration-danger=" state == 'cancel' "
-                   decoration-info=" state == 'confirmed' "
-                   decoration-warning=" state == 'in_progress' "
-                   decoration-success=" state == 'done' "
-            />
-        </calendar>
-    </field>
-</record>
+    <record id="action_control_document" model="ir.actions.act_window">
+        <field name="name">Control Document</field>
+        <field name="res_model">control.document</field>
+        <field name="view_mode">tree,calendar,kanban,form,graph</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Record Found
+            </p>
+            <p>
+                Click to add a Control Document. />
+            </p>
+        </field>
+    </record>
+    <record id="view_control_document_calendar" model="ir.ui.view">
+        <field name="name">control.document.calendar</field>
+        <field name="model">control.document</field>
+        <field name="arch" type="xml">
+            <calendar string="Control Document Calendar"
+                      create="0" mode="month"
+                      date_start="reception_date" date_stop="deadline" color="code">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="reference"/>
+                <!-- Ajoutez ici le champ manquant ou supprimez cette ligne -->
+                <field name="category"
+                       select="True"
+                       widget="badge"
+                       decoration-warning=" category == 'spontanne' "
+                       decoration-info=" category == 'fiscal' "
+                       decoration-success=" category == 'parafiscal' "
+                />
+                <field name="state"
+                       select="True"
+                       widget="badge"
+                       decoration-danger=" state == 'cancel' "
+                       decoration-info=" state == 'confirmed' "
+                       decoration-warning=" state == 'in_progress' "
+                       decoration-success=" state == 'done' "
+                />
+            </calendar>
+        </field>
+    </record>
 
-          <record id="view_control_document_tree" model="ir.ui.view">
-            <field name="name">control.document.tree</field>
-            <field name="model">control.document</field>
-            <field name="arch" type="xml">
-              <tree string="Control Document Structure">
-                  <field name="code" />
-                  <field name="name" />
-                  <field name="reference" />
-                  <field name="partner_id" />
-                  <field name="reception_date" />
-                  <field name="deadline" />
-                  <field name="category"
-                         select="True"
-                         widget="badge"
-                         decoration-warning = " category == 'spontanne' "
-                         decoration-info = " category == 'fiscal' "
-                         decoration-success = " category == 'parafiscal' "
-                  />
-                  <field name="state"
-                         select="True"
-                         widget="badge"
-                         decoration-danger = " state == 'cancel' "
-                         decoration-info = " state == 'confirmed' "
-                         decoration-warning = " state == 'in_progress' "
-                         decoration-success = " state == 'done' "
-                  />
-              </tree>
-            </field>
-          </record>
-          <record id="view_control_document_form" model="ir.ui.view">
-            <field name="name">control.document.form</field>
-            <field name="model">control.document</field>
-            <field name="arch" type="xml">
-                <form string="Control Document Form">
-                    <header>
+    <record id="view_control_document_tree" model="ir.ui.view">
+        <field name="name">control.document.tree</field>
+        <field name="model">control.document</field>
+        <field name="arch" type="xml">
+            <tree string="Control Document Structure">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="reference"/>
+                <field name="partner_id"/>
+                <field name="reception_date"/>
+                <field name="deadline"/>
+                <field name="category"
+                       select="True"
+                       widget="badge"
+                       decoration-warning=" category == 'spontanne' "
+                       decoration-info=" category == 'fiscal' "
+                       decoration-success=" category == 'parafiscal' "
+                />
+                <field name="state"
+                       select="True"
+                       widget="badge"
+                       decoration-danger=" state == 'cancel' "
+                       decoration-info=" state == 'confirmed' "
+                       decoration-warning=" state == 'in_progress' "
+                       decoration-success=" state == 'done' "
+                />
+            </tree>
+        </field>
+    </record>
+    <record id="view_control_document_form" model="ir.ui.view">
+        <field name="name">control.document.form</field>
+        <field name="model">control.document</field>
+        <field name="arch" type="xml">
+            <form string="Control Document Form">
+                <header>
 
-                        <button name="action_confirmed" type="object" invisible="state not in ['draft']"
-                                            string="Confirm Control" class="oe_highlight" groups="bvortex_controls.group_receptionist"/>
-                        <button name="action_in_progress" type="object" invisible="state not in ['confirmed']" groups="bvortex_controls.group_receptionist"
-                                            string="Validate Control" class="oe_highlight btn-success"/>
-                        <button name="action_cancel" type="object" invisible="state not in ['confirmed']" groups="bvortex_controls.group_fiscal_manager"
-                                            string="Cancel Control" class="oe_highlight btn-danger"/>
-                        <button name="action_done" type="object" invisible="state not in ['in_progress']" groups="bvortex_controls.group_fiscal_manager"
-                                            string="Conclude Control" class="oe_highlight btn-primary"/>
-                        <button name="action_draft" type="object" invisible="state not in ['cancel','done']" groups="bvortex_controls.group_fiscal_manager"
-                                            string="Reset Control" class="oe_highlight btn-primary"/>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,in_progress,cancel,done" statusbar_colors='{"invoice_except":"red","waiting_date":"blue"}'/>
-                    </header>
+                    <button name="action_confirmed" type="object" invisible="state not in ['draft']"
+                            string="Confirm Control" class="oe_highlight" groups="bvortex_controls.group_receptionist"/>
+                    <button name="action_in_progress" type="object" invisible="state not in ['confirmed']"
+                            groups="bvortex_controls.group_receptionist"
+                            string="Validate Control" class="oe_highlight btn-success"/>
+                    <button name="action_cancel" type="object" invisible="state not in ['confirmed']"
+                            groups="bvortex_controls.group_fiscal_manager"
+                            string="Cancel Control" class="oe_highlight btn-danger"/>
+                    <button name="action_done" type="object" invisible="state not in ['in_progress']"
+                            groups="bvortex_controls.group_fiscal_manager"
+                            string="Conclude Control" class="oe_highlight btn-primary"/>
+                    <button name="action_draft" type="object" invisible="state not in ['cancel','done']"
+                            groups="bvortex_controls.group_fiscal_manager"
+                            string="Reset Control" class="oe_highlight btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,in_progress,cancel,done"
+                           statusbar_colors='{"invoice_except":"red","waiting_date":"blue"}'/>
+                </header>
 
-                    <sheet>
-                        <div class="oe_button_box" name="button_box">
-                                    <button class="oe_stat_button" icon="fa-hourglass-end">
-                                        <field string="Day(s) left" name="day_count" widget="statinfo"/>
-                                    </button>
-                                    <button class="oe_stat_button" type="object" name="get_tasks" icon="fa-tasks">
-                                        <field string="Tasks" name="task_count" widget="statinfo"/>
-                                    </button>
-                        </div>
-                        <field name="compute_situation" invisible="1" />
-                        <field name="out_of_time" invisible="1" />
-                        <field name="on_time" invisible="1" />
-                        <widget name="web_ribbon" text="out of time" bg_color="bg-warning" invisible="out_of_time == False"/>
-                        <widget name="web_ribbon" text="on time" bg_color="bg-info" invisible="on_time == False"/>
-                        <widget name="web_ribbon" text="Done" bg_color="bg-success" invisible="state not in ['cancel']"/>
-                        <widget name="web_ribbon" text="Close" bg_color="bg-danger" invisible="state not in ['cancel']"/>
-                        <h1><field name="code" /></h1>
-                        <group string="Document Infos">
-                            <group>
-                                <field name="name"/>
-                                <field name="reception_date"/>
-                                <field name="minister_id" />
-                                <field name="reference" />
-                                <field name="amount" />
-                            </group>
-                            <group>
-                                <field name="partner_id"/>
-                                <field name="deadline" readonly="1"/>
-                                <field name="nature_id" />
-                                <field name="category" />
-                                <field name="currency_id" />
-                            </group>
-                        </group>
-                        <group string="Tasks Info" groups="bvortex_controls.group_fiscal_manager">
-                            <field name="action_ids" widget="many2many_tags" />
-                            <field name="user_ids" widget="many2many_avatar_user"/>
-                        </group>
-                    </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids" widget="mail_followers"/>
-                        <field name="message_ids" widget="mail_thread"/>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" icon="fa-hourglass-end">
+                            <field string="Day(s) left" name="day_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="get_tasks" icon="fa-tasks">
+                            <field string="Tasks" name="task_count" widget="statinfo"/>
+                        </button>
                     </div>
-                </form>
-            </field>
-          </record>
-        <menuitem id="control_document" name="Documents" parent="bvortex_controls.main_menu_control_management" action="bvortex_controls.action_control_document" sequence="20"/>
+                    <field name="compute_situation" invisible="1"/>
+                    <field name="out_of_time" invisible="1"/>
+                    <field name="on_time" invisible="1"/>
+                    <widget name="web_ribbon" text="out of time" bg_color="bg-warning"
+                            invisible="out_of_time == False"/>
+                    <widget name="web_ribbon" text="on time" bg_color="bg-info" invisible="on_time == False"/>
+                    <widget name="web_ribbon" text="Done" bg_color="bg-success" invisible="state not in ['cancel']"/>
+                    <widget name="web_ribbon" text="Close" bg_color="bg-danger" invisible="state not in ['cancel']"/>
+                    <h1>
+                        <field name="code"/>
+                    </h1>
+                    <group string="Document Infos">
+                        <group>
+                            <field name="name"/>
+                            <field name="reception_date"/>
+                            <field name="minister_id"/>
+                            <field name="reference"/>
+                            <field name="amount"/>
+                        </group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="deadline" readonly="1"/>
+                            <field name="nature_id"/>
+                            <field name="category"/>
+                            <field name="currency_id"/>
+                        </group>
+                    </group>
+                    <group string="Tasks Info" groups="bvortex_controls.group_fiscal_manager">
+                        <field name="action_ids" widget="many2many_tags"/>
+                        <field name="user_ids" widget="many2many_avatar_user"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_control_document_graph_line" model="ir.ui.view">
+        <field name="name">control.document.graph.line</field>
+        <field name="model">control.document</field>
+        <field name="arch" type="xml">
+            <graph string="Situation des Dossiers" type="line">
+                <field name="reception_date" type="row" interval="month"/>
+                <field name="state" type="col"/>
+                <field name="id" type="measure" operator="count"/>
+            </graph>
+        </field>
+    </record>
+
+    <menuitem id="control_document" name="Documents" parent="bvortex_controls.main_menu_control_management"
+              action="bvortex_controls.action_control_document" sequence="20"/>
 </odoo>
