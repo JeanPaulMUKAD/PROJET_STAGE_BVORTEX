@@ -71,7 +71,7 @@ class ControlDocumentDashboard(models.Model):
         return {
             'name': "Control Document",
             'res_model': "control.document",
-            'views': [[False, "tree"]],
+            'views': [[False, "tree"], [False, "form"]],
             'type': "ir.actions.act_window",
             'domain': [('nature_id', '=', nature_id)],
             'view_mode': "tree"
@@ -81,7 +81,7 @@ class ControlDocumentDashboard(models.Model):
         return {
             'name': "Control Document",
             'res_model': "control.document",
-            'views': [[False, "tree"]],
+            'views': [[False, "tree"], [False, "form"]],
             'type': "ir.actions.act_window",
             'domain': [('minister_id', '=', minister_id)],
             'view_mode': "tree"
@@ -92,7 +92,7 @@ class ControlDocumentDashboard(models.Model):
         return {
             'name': "Toutes les taches",
             'res_model': "project.task",
-            'views': [[False, "tree"]],
+            'views': [[False, "tree"], [False, "form"]],
             'type': "ir.actions.act_window",
             'domain': [('action_id', '=', action_id), ('stage_id', '=', progress_state)],
             'view_mode': "tree"
@@ -103,7 +103,7 @@ class ControlDocumentDashboard(models.Model):
         return {
             'name': "Toutes les taches",
             'res_model': "project.task",
-            'views': [[False, "tree"]],
+            'views': [[False, "tree"], [False, "form"]],
             'type': "ir.actions.act_window",
             'domain': [('stage_id', '=', progress_state)],
             'view_mode': "tree"
@@ -116,6 +116,7 @@ class ControlDocumentDashboard(models.Model):
         descente_terrain = self.env.ref('bvortex_controls.descente_terrain_code_action').id
         rdv_prospection = self.env.ref('bvortex_controls.rdv_prospection_code_action').id
         avis_technique = self.env.ref('bvortex_controls.avis_technique_code_action').id
+
 
         return {
             'atd': self.get_all_atd(),
@@ -231,7 +232,7 @@ class ControlDocumentDashboard(models.Model):
             if self.is_in_progress(task):
                 quantity += 1
 
-        return 0
+        return quantity
 
     def get_all_document_spontanne(self):
         return self.env['control.document'].search([('category', '=', 'spontanne')])

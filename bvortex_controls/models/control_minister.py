@@ -1,5 +1,6 @@
 from odoo import api, fields, models, _
 
+
 class control_minister(models.Model):
     _name = 'control.minister'
 
@@ -24,3 +25,17 @@ class control_minister(models.Model):
                 }
             ).id
         return result
+
+    def write(self, vals):
+        res = super(control_minister, self).write(vals)
+        if 'name' in vals:
+            for record in self:
+                if record.tag_id:
+                    record.tag_id.name = record.name
+        return res
+
+    def unlink(self):
+        for record in self:
+            if record.tag_id:
+                record.tag_id.unlink()
+        return super(control_minister, self).unlink()
