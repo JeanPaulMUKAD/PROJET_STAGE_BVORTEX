@@ -17,6 +17,11 @@ class control_document(models.Model):
     nature_id = fields.Many2one('control.nature', string="Nature")
     reference = fields.Char('Reference')
     task_ids = fields.One2many('project.task', 'document_id', string="Tasks")
+    out_of_time = fields.Boolean(default=False)
+    amount = fields.Monetary(string='Amount', currency_field='currency_id')
+    currency_id = fields.Many2one('res.currency', string='Currency', required=True,
+                                  default=lambda self: self.env.company.currency_id)
+    on_time = fields.Boolean(default=False)
     action_ids = fields.Many2many('control.action', string="Actions")
     user_ids = fields.Many2many('res.users', string="Assignees")
     category = fields.Selection(selection=[
@@ -34,6 +39,23 @@ class control_document(models.Model):
         tracking=True, default='draft')
     task_count = fields.Integer(compute='task_compute_count')
     day_count = fields.Integer(compute='deadline_compute_count')
+    compute_situation = fields.Boolean(compute='_compute_situation')
+
+    @api.depends('deadline', 'state')
+    def _compute_situation(self):
+        for rec in self:
+            if rec.deadline:
+                if rec.state in ['confirmed','in_progress']:
+                    if rec.deadline >= datetime.date.today():
+                        rec.out_of_time = False
+                        rec.on_time = True
+                    elif datetime.date.today() > rec.deadline:
+                        rec.out_of_time = True
+                        rec.on_time = False
+
+                rec.compute_situation = True
+            else:
+                rec.compute_situation = False
 
     def get_tasks(self):
         self.ensure_one()
@@ -80,11 +102,82 @@ class control_document(models.Model):
                 raise exceptions.UserError(
                     _("No users in the group Fiscal Manager !!"))
 
+            if not rec.user_id.email:
+                raise exceptions.UserError(
+                    _("Your email is empty !!"))
+
+            if not rec.get_fiscal_manager_user().email:
+                raise exceptions.UserError(
+                    _("The Fiscal Manager email is empty !!"))
+
+            if rec.user_id.email:
+                if not rec.is_valid_email(rec.user_id.email):
+                    raise exceptions.UserError(
+                        _("Your email is not valid !!"))
+
+            if rec.get_fiscal_manager_user().email:
+                if not rec.is_valid_email(rec.get_fiscal_manager_user().email):
+                    raise exceptions.UserError(
+                        _("The Fiscal Manager email is not valid !!"))
+
             activity_type = self.env.ref('bvortex_controls.mail_act_document')
 
             for user in users:
                 self.activity_schedule(activity_type_id=activity_type.id, user_id=user.id,
                                        note=f'Please check this document for the customer {self.partner_id.name}')
+
+            deadline = datetime.timedelta(days=rec.minister_id.deadline)
+            rec.deadline = datetime.date.today() + deadline
+            email_body = """
+                <html>
+                    <head>
+                        <style>
+                            table {
+                                border-collapse: collapse;
+                                width: 100%;
+                            }
+                            th, td {
+                                text-align: left;
+                                padding: 8px;
+                                border-bottom: 1px solid #ddd;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div style="margin: 0px; padding: 0px;">
+                            <p style="margin: 0px; padding: 0px; font-size: 13px;">
+            """
+            email_body += f"""Bonjour <b>Mr {rec.get_fiscal_manager_user().name}</b>,<br/>"""
+            email_body += """Chers collaborateurs en copie<br/><br/>"""
+            email_body += f"""Je vous prie de trouver en annexe le document sur le (la) : <b>{rec.nature_id.name}</b> issu du (la) <b>{rec.minister_id.name}</b><br/>"""
+            email_body += f"""pour un montant de <b>{rec.currency_id.name}</b> <b>{rec.amount}</b> dans le cadre du <b>{rec.get_category()}</b> pour compte du client <b>{rec.partner_id.name}</b><br/>"""
+            email_body += f"""dont l'échéance de traitement est de <b>{rec.day_count} jours</b><br/>
+                        <br/>
+                        <br/>"""
+            email_body += """Merci pour votre diligence quant au traitement ce dossier
+                        <br/>Cordialement,<br></br>"""
+            email_body += f"""<i><b>{rec.env.user.name}</b></i>"""
+            email_body += """
+                            </p>
+                        </div>
+                    </body>
+                </html>
+            """
+
+            mail_vals = {
+                'email_to': rec.get_fiscal_manager_user().email,
+                'subject': f"{rec.env.company.name} Contrôle: (Ref {rec.name or 'n/a'})",
+                'body_html': email_body,
+            }
+            if rec.get_emails_for_department_head():
+                mail_vals['email_cc'] = rec.get_emails_for_department_head()
+
+            mail_id = self.env['mail.mail'].create(mail_vals)
+            mail_id.send()
+
+            template_id = rec.env.ref('bvortex_controls.email_template_document').id
+            rec.env['mail.template'].browse(template_id).send_mail(self.id, force_send=True)
+
             rec.state = 'confirmed'
             message = _(f'Confirmed Document !!')
             user = rec.env.user.sudo()
@@ -111,9 +204,6 @@ class control_document(models.Model):
                  ('activity_type_id', '=', rec.env.ref('bvortex_controls.mail_act_document').id)]
             )
             other_activity_ids.unlink()
-
-            deadline = datetime.timedelta(days=rec.minister_id.deadline)
-            rec.deadline = datetime.date.today() + deadline
 
             users = rec.env['res.groups'].search(
                 [('id', '=', rec.env.ref('bvortex_controls.group_fiscal_manager').id)]).users
@@ -199,12 +289,31 @@ class control_document(models.Model):
                  ('activity_type_id', '=', self.env.ref('bvortex_controls.mail_act_document').id)]
             )
             other_activity_ids.unlink()
+            rec.out_of_time = False
+            rec.on_time = False
             rec.state = 'cancel'
 
     def action_done(self):
         for rec in self:
+            rec.out_of_time = False
+            rec.on_time = False
             rec.state = 'done'
+            message = _(f'Concluded Document !!')
+            user = rec.env.user.sudo()
+
+            return {
+                'effect': {
+                    'fadeout': 'slow',
+                    'message': message,
+                    'img_url': '/web/image/%s/%s/image_1024' % (
+                        user._name, user.id) if user.image_1024 else '/web/static/img/smile.svg',
+                    'type': 'rainbow_man',
+                }
+            }
 
     def action_draft(self):
         for rec in self:
+            rec.out_of_time = False
+            rec.on_time = False
             rec.state = 'draft'
+
