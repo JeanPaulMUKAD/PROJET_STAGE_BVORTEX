@@ -20,6 +20,7 @@
               <tree string="Control Document Structure">
                   <field name="code" />
                   <field name="name" />
+                  <field name="reference" />
                   <field name="partner_id" />
                   <field name="reception_date" />
                   <field name="deadline" />
