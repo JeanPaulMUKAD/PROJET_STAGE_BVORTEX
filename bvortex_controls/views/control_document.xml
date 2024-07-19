@@ -79,9 +79,9 @@
                 <header>
 
                     <button name="action_confirmed" type="object" invisible="state not in ['draft']"
-                            string="Confirm Control" class="oe_highlight" groups="bvortex_controls.group_receptionist"/>
+                            string="Confirm Control" class="oe_highlight" groups="bvortex_controls.group_receptionist,bvortex_controls.group_fiscal_manager"/>
                     <button name="action_in_progress" type="object" invisible="state not in ['confirmed']"
-                            groups="bvortex_controls.group_receptionist"
+                            groups="bvortex_controls.group_receptionist,bvortex_controls.group_fiscal_manager"
                             string="Validate Control" class="oe_highlight btn-success"/>
                     <button name="action_cancel" type="object" invisible="state not in ['confirmed']"
                             groups="bvortex_controls.group_fiscal_manager"

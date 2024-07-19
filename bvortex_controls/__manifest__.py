@@ -25,6 +25,7 @@
         'data/ir_nature_data.xml',
         'data/ir_action_data.xml',
         'data/activity_document.xml',
+        'data/email_document.xml',
         'data/ir_project_task_type_data.xml',
         'views/menu.xml',
         'views/control_nature.xml',

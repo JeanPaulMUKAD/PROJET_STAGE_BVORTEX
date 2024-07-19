@@ -1,4 +1,5 @@
 import datetime
+import re
 
 from odoo import api, fields, models, exceptions, _
 
@@ -21,6 +22,7 @@ class control_document(models.Model):
     amount = fields.Monetary(string='Amount', currency_field='currency_id')
     currency_id = fields.Many2one('res.currency', string='Currency', required=True,
                                   default=lambda self: self.env.company.currency_id)
+    user_id = fields.Many2one('res.users', 'Login User', readonly=True, default=lambda self: self.env.user)
     on_time = fields.Boolean(default=False)
     action_ids = fields.Many2many('control.action', string="Actions")
     user_ids = fields.Many2many('res.users', string="Assignees")
@@ -71,6 +73,17 @@ class control_document(models.Model):
                 'default_document_id': self.id,
             }
         }
+    def get_fiscal_manager_user(self):
+        users = self.env['res.groups'].search(
+            [('id', '=', self.env.ref('bvortex_controls.group_fiscal_manager').id)]).users
+        return users[0]
+
+    def is_valid_email(self, email):
+        regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$'
+        if re.search(regex, email):
+            return True
+        else:
+            return False
 
     def task_compute_count(self):
         for record in self:
@@ -93,6 +106,22 @@ class control_document(models.Model):
                 msg.message_post(body=msg_body)
             result = super(control_document, self).create(vals_list)
         return result
+    def get_emails_for_department_head(self):
+        users = self.env['res.groups'].search(
+            [('id', '=', self.env.ref('bvortex_controls.group_department_head').id)]).users
+        emails = ''
+        for user in users:
+            emails += f"{user.email},"
+        return emails
+
+    def get_category(self):
+        for rec in self:
+            if rec.category == 'spontanne':
+                return 'Contrôle Spontanné'
+            if rec.category == 'fiscal':
+                return 'Contrôle Fiscal'
+            if rec.category == 'parafiscal':
+                return 'Parafiscalité'
 
     def action_confirmed(self):
         for rec in self:
