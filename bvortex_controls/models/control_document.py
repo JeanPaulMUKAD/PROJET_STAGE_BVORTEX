@@ -1,5 +1,6 @@
 import datetime
 import re
+import calendar
 
 from odoo import api, fields, models, exceptions, _
 
@@ -357,4 +358,72 @@ class control_document(models.Model):
             rec.out_of_time = False
             rec.on_time = False
             rec.state = 'draft'
+
+    def send_mails(self):
+
+        
+        current_date = datetime.now()
+        current_day = current_date.day
+        current_month = current_date.month
+        month_name = calendar.month_name[current_month]
+        current_year = current_date.year
+
+        days_in_month = calendar.monthrange(current_year, current_month)[1]
+
+        
+        if current_day == days_in_month:
+
+            #  mail n*1
+            mail_values = {
+                'email_to': rec.get_fiscal_manager_user().email,
+                'subject': 'Contrôles de' + ' ' + month_name + "/" + current_year,
+                'body_html': f"""
+                           <p>Bonjour cher manager {rec.get_fiscal_manager_user().name},</p>
+                           <p>Je vous prie de trouver en annexe le rapport mensuel sur les contrôleurs.</p>
+                       """,
+            }
+            
+            if rec.get_emails_for_department_head():
+                mail_vals['email_cc'] = rec.get_emails_for_department_head()
+
+            mail = self.env['mail.mail'].sudo().create(mail_values)
+            mail.send()
+
+            # mail n*2
+
+            mail2_values = {
+                'email_to': rec.get_fiscal_manager_user().email,
+                'subject': 'déclarations fiscales de' + ' ' + month_name + "/" + current_year,
+                'body_html': f"""
+                               <p>Bonjour cher manager {rec.get_fiscal_manager_user().name},</p>
+                               <p>Je vous prie de trouver en annexe  mensuel sur les déclarations avec  les différents statuts de chaque impôt ou taxe</p>
+                               <p>Cordialement <p/>
+                                   """,
+            }
+
+            if rec.get_emails_for_department_head():
+                mail2_vals['email_cc'] = rec.get_emails_for_department_head()
+
+            mail2 = self.env['mail.mail'].sudo().create(mail2_values)
+            mail2.send()
+
+            # mail n*3
+
+            mail3_values = {
+                'email_to': rec.get_fiscal_manager_user().email,
+                'subject': 'taches du mois de' + ' ' + month_name + "/" + current_year,
+                'body_html': f"""
+                           <p>Bonjour cher manager {rec.get_fiscal_manager_user().name},</p>
+                           <p>Je vous prie de trouver en annexe, le rapport mensuel sur les taches mensuelles  du mois, lesquels répartissent, les taches prévues, effectuées et celles en cours par département, collaborateur et projet.</p>
+                           <p>Cordialement <p/>
+                              """,
+            }
+
+            if rec.get_emails_for_department_head():
+                mail3_vals['email_cc'] = rec.get_emails_for_department_head()
+
+            mail3 = self.env['mail.mail'].sudo().create(mail3_values)
+            mail3.send()
+
+
 
