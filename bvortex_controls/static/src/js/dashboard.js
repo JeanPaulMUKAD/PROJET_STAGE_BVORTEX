@@ -53,3 +53,10 @@ class ControlDocumentDashboard extends Component {
 
 ControlDocumentDashboard.template = "bvortex_controls.ControlDocumentDashboard";
 actionRegistry.add("dashboard_control_document_tag", ControlDocumentDashboard);
+
+class ControlDeclarationDashboard extends Component {
+
+}
+
+ControlDeclarationDashboard.template = "bvortex_controls.ControlDeclarationDashboard";
+actionRegistry.add("dashboard_declaration_document_tag", ControlDeclarationDashboard);

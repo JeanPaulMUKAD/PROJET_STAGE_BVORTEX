@@ -17,5 +17,44 @@
             <field name="sequence">3</field>
             <field name="name">CANCELLED</field>
         </record>
+
+        <!-- ici -->
+
+        <record id="draft_stage" model="project.task.type">
+            <field name="sequence">4</field>
+            <field name="name">DRAFT</field>
+        </record>
+         <record id="etablie_stage" model="project.task.type">
+            <field name="sequence">4</field>
+            <field name="name">ÉTABLIE</field>
+        </record>
+         <record id="revue_stage" model="project.task.type">
+            <field name="sequence">5</field>
+            <field name="name">REVUE</field>
+        </record>
+         <record id="validée_stage" model="project.task.type">
+            <field name="sequence">6</field>
+            <field name="name">VALIDER</field>
+        </record>
+         <record id="payé_stage" model="project.task.type">
+            <field name="sequence">7</field>
+            <field name="name">PAYER</field>
+        </record>
+         <record id="déclarée_stage" model="project.task.type">
+            <field name="sequence">8</field>
+            <field name="name">DECLARER</field>
+        </record>
+         <record id="apuré_stage" model="project.task.type">
+            <field name="sequence">9</field>
+            <field name="name">APURER</field>
+        </record>
+         <record id="archivé_stage" model="project.task.type">
+            <field name="sequence">10</field>
+            <field name="name">ARCHIVER</field>
+        </record>
+         <record id="transmis_stage" model="project.task.type">
+            <field name="sequence">11</field>
+            <field name="name">TRANSMIS</field>
+        </record>
     </data>
 </odoo>

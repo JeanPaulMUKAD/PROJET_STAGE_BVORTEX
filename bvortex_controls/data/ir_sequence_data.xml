@@ -25,5 +25,11 @@
             <field name="prefix">ACT</field>
             <field name="padding">6</field>
         </record>
+         <record id="planingue_code_sequence" model="ir.sequence">
+            <field name="name">Control Planingue</field>
+            <field name="code">control.planingue</field>
+            <field name="prefix">PLAN</field>
+            <field name="padding">6</field>
+        </record>
     </data>
 </odoo>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ?>menu_project_config -->
+<odoo>
+
+     <record id="view_control_planingue_line_tree" model="ir.ui.view">
+            <field name="name">control.palningue.line.tree</field>
+            <field name="model">control.planingue.line</field>
+            <field name="arch" type="xml">
+              <tree string="Control planingue line  Structure">
+                  <field name="client" />
+                  <field name="date_debut" />
+                  <field name="date_fin" />
+                  <field name="planingue_taches_ids"/>
+                  <field name="statut"/>
+                  <field name="type_selct"/>
+                  <field name="planingue_id"/>
+              </tree>
+            </field>
+    </record>
+
+    <record id="view_control_planingue_line_form" model="ir.ui.view">
+            <field name="name">control.planingue.line.form</field>
+            <field name="model">control.planingue.line</field>
+            <field name="arch" type="xml">
+                <form string="Control Planingue line Form">
+                    <header>
+                          <field name="statut" widget="statusbar" statusbar_visible="draft,confirmed,in_progress,cancel,done"
+                           statusbar_colors='{"invoice_except":"red","waiting_date":"blue"}' />
+                    </header>
+                    <sheet>
+                        <h1><field name="client" /></h1>
+                        <group>
+                            <group>
+                                <field name="date_debut" />
+                            </group>
+                            <group>
+                                <field name="date_fin" />
+                            </group>
+                              <group>
+                                <field name="type_selct" />
+                            </group>
+                        </group>
+
+                        <notebook>
+                           <page string="listes des taches">
+                                <field name="planingue_taches_ids" widget="one2many_list">
+                                    <tree edit="form" >
+                                        <field name="nom"/>
+                                        <field name="utilisateur" widget="many2many_tags"/>
+                                        <field name="date"/>
+                                        <field name="statut"
+                                               select="True"
+                                               widget="badge"
+                                               decoration-success = " statut == 'confirmed' "
+                                               decoration-info = " statut == 'in_progress' "
+                                               decoration-danger = " statut == 'cancel' "
+                                               decoration-primary=" statut == 'done' "
+                                               decoration-secondary=" statut == 'draft' "
+                                        />
+                                    </tree>
+                               </field>
+                           </page>
+                       </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+    </record>
+
+
+</odoo>

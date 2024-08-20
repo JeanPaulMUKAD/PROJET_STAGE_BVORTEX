@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ?>menu_project_config -->
+<odoo>
+
+
+    <record id="view_coontrol_planingue_form" model="ir.ui.view">
+            <field name="name">coontrol.planingue.form</field>
+            <field name="model">control.planingue</field>
+            <field name="arch" type="xml">
+                <form string="Control Planingue Form">
+                    <header>
+                        <button name="action_confirmed" type="object" invisible="statut not in ['draft']"
+                            string="confirmer" class="oe_highlight"/>
+                        <button name="action_in_progress" type="object" invisible="statut not in ['confirmed']"
+                            string="Initialiser" class="oe_highlight"/>
+                        <button name="action_cancel" type="object" invisible="statut not in ['confirmed']"
+                            string="Annuler" class="oe_highlight"/>
+                        <button name="action_done" type="object" invisible="statut not in ['in_progress']"
+                            string="Cloturer" class="oe_highlight"/>
+
+
+
+                          <button name="action_draft" type="object" invisible="statut not in ['cancel','done']"
+                            string="remettre en bruillons" class="oe_highlight btn-primary"/>
+                        <field name="statut" widget="statusbar" statusbar_visible="draft,confirmed,in_progress,cancel,done"
+                           statusbar_colors='{"invoice_except":"red","waiting_date":"blue"}' />
+                    </header>
+                    <sheet>
+                         <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="get_project" icon="fa-product-hunt">
+                            <field string="project" name="project_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="get_tasks" icon="fa-tasks">
+                            <field string="Tasks" name="task_count" widget="statinfo"/>
+                        </button>
+                    </div>
+
+                        <h1><field name="code" /></h1>
+                        <group>
+                            <group>
+                                   <field name="nom"/>
+                            </group>
+                            <group>
+                                <field name="date_debut" />
+                            </group>
+                            <group>
+                                <field name="date_fin" />
+                            </group>
+
+
+                        </group>
+
+                         <notebook>
+                           <page string="planingue line">
+                                <field name="planingue_line_ids" widget="one2many_list">
+                                    <tree edit="form" >
+                                        <field name="client"/>
+                                        <field name="date_debut"/>
+                                        <field name="date_fin"/>
+                                        <field name="planingue_taches_ids" widget="many2many_tags"/>
+                                        <field name="statut"
+                                               select="True"
+                                               widget="badge"
+                                               decoration-success = " statut == 'confirmed' "
+                                               decoration-info = " statut == 'in_progress' "
+                                               decoration-danger = " statut == 'cancel' "
+                                               decoration-primary=" statut == 'done' "
+                                               decoration-secondary=" statut == 'draft' "
+                                        />
+                                        <field name="type_selct"/>
+                                    </tree>
+                               </field>
+                           </page>
+                       </notebook>
+                    </sheet>
+                </form>
+            </field>
+    </record>
+
+    <record id="action_control_planingue" model="ir.actions.act_window">
+
+        <field name="name">planingue</field>
+
+        <field name="res_model">control.planingue</field>
+
+        <field name="view_mode">tree,form</field>
+
+        <field name="context">{}</field>
+
+        <field name="domain">[]</field>
+
+        <field name="help" type="html">
+
+            <p class="o_view_nocontent_smiling_face">
+
+                Créer un nouvel étudiant, la première étape d'une gestion scolaire !
+
+            </p>
+
+        </field>
+
+    </record>
+
+    <menuitem id="menu_control_planingue2"
+              name="Control Planingue"
+              parent="project.menu_project_config"
+              action="bvortex_controls.action_control_planingue"
+              sequence="15"/>
+
+
+
+
+
+     <record id="view_control_document_tree" model="ir.ui.view">
+        <field name="name">control.planingue.tree</field>
+        <field name="model">control.planingue</field>
+        <field name="arch" type="xml">
+            <tree string="Control Document Structure">
+                <field name="code"/>
+                <field name="nom"/>
+                <field name="date_debut"/>
+                <field name="date_fin"/>
+                <field name="statut"
+                       select="True"
+                       widget="badge"
+                       decoration-danger=" statut == 'draft' "
+                       decoration-info=" statut == 'confirmed' "
+                       decoration-warning=" statut == 'in_progress' "
+                       decoration-success=" statut == 'cancel' "
+                       decoration-primary=" statut == 'done' "
+
+                />
+            </tree>
+        </field>
+    </record>
+</odoo>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
+
     <t t-name="bvortex_controls.ControlDocumentDashboard">
         <style>
             .main-section {
@@ -154,6 +155,9 @@
                 </div>
             </div>
 
+
+
+
             <!-- Section PARAFISCALITE -->
             <div class="section">
                 <div class="background-section-header">
@@ -256,6 +260,608 @@
                 </div>
             </div>
         </div>
+    </t>
+
+      <t t-name="bvortex_controls.ControlDeclarationDashboard">
+
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+	<title></title>
+	<meta name="generator" content="https://conversiontools.io" />
+	<meta name="created" content="2024-08-14T16:32:39.767396825"/>
+	<meta name="changed" content="2024-08-14T16:34:08.237613411"/>
+
+     <style>
+            .main-section {
+            display: flex;
+            justify-content: space-between;
+            max-height: 100vh;
+            padding: 120px;
+            }
+            .section {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            width: 100%;
+            background-color: #f9f9f9;
+            margin: 0 10px;
+            }
+            .section:hover {
+            transform: translateY(-10px);
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+
+            .background-section-header {
+            background-color: #ffffff;
+            position: -webkit-sticky; /* For Safari */
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            }
+
+            .background-section-header .section-header {
+            background-color: rgba(113, 99, 158, 0.86);
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px 8px 8px 8px;
+            }
+
+            .section-header h3 {
+            color: #ffffff;
+            }
+            .section-content {
+            margin-top: 15px;
+            overflow-y: auto;
+            }
+
+            .section-content a {
+
+            }
+
+            .section-content a:hover {
+            background-color: #ccc;
+            }
+
+            .float-right {
+            float: right;
+            }
+            p {
+            margin: 10px 0;
+            font-weight: bold;
+            }
+        </style>
+
+</head>
+
+<body style="
+    overflow-x: auto;
+    overflow-y: auto;">
+            <div class="main-section">
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3>ONEM</h3>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <a href="#" id="atd_click" t-on-click="onLinkClick">
+                        <p>Établie
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="avis_de_verification_click" t-on-click="onLinkClick">
+                        <p >Revue
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="contrainte_click" t-on-click="onLinkClick">
+                        <p>Validée
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="notification_penal_click" t-on-click="onLinkClick">
+                        <p >Payé
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="amrs_click" t-on-click="onLinkClick">
+                        <p >Déclarée
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="med_click" t-on-click="onLinkClick">
+                        <p >Apuré
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="avis_taxation_click" t-on-click="onLinkClick">
+                        <p >Archivé
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="invitation_serv_click" t-on-click="onLinkClick">
+                        <p >Transmis
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3>INPP</h3>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <a href="#" id="atd_click" t-on-click="onLinkClick">
+                        <p>Établie
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="avis_de_verification_click" t-on-click="onLinkClick">
+                        <p >Revue
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="contrainte_click" t-on-click="onLinkClick">
+                        <p>Validée
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="notification_penal_click" t-on-click="onLinkClick">
+                        <p >Payé
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="amrs_click" t-on-click="onLinkClick">
+                        <p >Déclarée
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="med_click" t-on-click="onLinkClick">
+                        <p >Apuré
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="avis_taxation_click" t-on-click="onLinkClick">
+                        <p >Archivé
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="invitation_serv_click" t-on-click="onLinkClick">
+                        <p >Transmis
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3>CNSS</h3>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <a href="#" id="atd_click" t-on-click="onLinkClick">
+                        <p>Établie
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="avis_de_verification_click" t-on-click="onLinkClick">
+                        <p >Revue
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="contrainte_click" t-on-click="onLinkClick">
+                        <p>Validée
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="notification_penal_click" t-on-click="onLinkClick">
+                        <p >Payé
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="amrs_click" t-on-click="onLinkClick">
+                        <p >Déclarée
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="med_click" t-on-click="onLinkClick">
+                        <p >Apuré
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="avis_taxation_click" t-on-click="onLinkClick">
+                        <p >Archivé
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="invitation_serv_click" t-on-click="onLinkClick">
+                        <p >Transmis
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3>MINECO</h3>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <a href="#" id="atd_click" t-on-click="onLinkClick">
+                        <p>Établie
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="avis_de_verification_click" t-on-click="onLinkClick">
+                        <p >Revue
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="contrainte_click" t-on-click="onLinkClick">
+                        <p>Validée
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="notification_penal_click" t-on-click="onLinkClick">
+                        <p >Payé
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="amrs_click" t-on-click="onLinkClick">
+                        <p >Déclarée
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="med_click" t-on-click="onLinkClick">
+                        <p >Apuré
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="avis_taxation_click" t-on-click="onLinkClick">
+                        <p >Archivé
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="invitation_serv_click" t-on-click="onLinkClick">
+                        <p >Transmis
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3>INDUSTRIE</h3>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <a href="#" id="atd_click" t-on-click="onLinkClick">
+                        <p>Établie
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="avis_de_verification_click" t-on-click="onLinkClick">
+                        <p >Revue
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="contrainte_click" t-on-click="onLinkClick">
+                        <p>Validée
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="notification_penal_click" t-on-click="onLinkClick">
+                        <p >Payé
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="amrs_click" t-on-click="onLinkClick">
+                        <p >Déclarée
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="med_click" t-on-click="onLinkClick">
+                        <p >Apuré
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="avis_taxation_click" t-on-click="onLinkClick">
+                        <p >Archivé
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="invitation_serv_click" t-on-click="onLinkClick">
+                        <p >Transmis
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3>IPR</h3>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <a href="#" id="atd_click" t-on-click="onLinkClick">
+                        <p>Établie
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="avis_de_verification_click" t-on-click="onLinkClick">
+                        <p >Revue
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="contrainte_click" t-on-click="onLinkClick">
+                        <p>Validée
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="notification_penal_click" t-on-click="onLinkClick">
+                        <p >Payé
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="amrs_click" t-on-click="onLinkClick">
+                        <p >Déclarée
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="med_click" t-on-click="onLinkClick">
+                        <p >Apuré
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="avis_taxation_click" t-on-click="onLinkClick">
+                        <p >Archivé
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="invitation_serv_click" t-on-click="onLinkClick">
+                        <p >Transmis
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3>TVA</h3>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <a href="#" id="atd_click" t-on-click="onLinkClick">
+                        <p>Établie
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="avis_de_verification_click" t-on-click="onLinkClick">
+                        <p >Revue
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="contrainte_click" t-on-click="onLinkClick">
+                        <p>Validée
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="notification_penal_click" t-on-click="onLinkClick">
+                        <p >Payé
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="amrs_click" t-on-click="onLinkClick">
+                        <p >Déclarée
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="med_click" t-on-click="onLinkClick">
+                        <p >Apuré
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="avis_taxation_click" t-on-click="onLinkClick">
+                        <p >Archivé
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                    <a href="#" id="invitation_serv_click" t-on-click="onLinkClick">
+                        <p >Transmis
+                            <span class="float-right">
+                                0
+                            </span>
+                        </p>
+                    </a>
+                    <hr/>
+                </div>
+            </div>
+            </div>
+
+<!-- ************************************************************************** -->
+</body>
+
     </t>
 
 </templates>

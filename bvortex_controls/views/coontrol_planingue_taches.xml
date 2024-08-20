@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- ?>menu_project_config -->
+<odoo>
+
+
+       <record id="view_control_planingue_taches_tree" model="ir.ui.view">
+            <field name="name">control.planingue.taches.tree</field>
+            <field name="model">control.planingue.taches</field>
+            <field name="arch" type="xml">
+              <tree string="Control planingue taches Structure">
+                  <field name="nom" />
+                  <field name="utilisateur" widget="many2many_tags"/>
+                  <field name="date" />
+                  <field name="statut"/>
+              </tree>
+            </field>
+    </record>
+
+    <record id="view_control_planingue_taches_form" model="ir.ui.view">
+            <field name="name">control.planingue.taches.form</field>
+            <field name="model">control.planingue.taches</field>
+            <field name="arch" type="xml">
+                <form string="Control Planingue taches Form">
+                    <header>
+                          <field name="statut" widget="statusbar" statusbar_visible="draft,confirmed,in_progress,cancel,done"
+                           statusbar_colors='{"invoice_except":"red","waiting_date":"blue"}' />
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="nom" />
+                        </group>
+                        <group>
+                             <group>
+                                <field name="utilisateur" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="date" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+    </record>
+
+
+</odoo>
