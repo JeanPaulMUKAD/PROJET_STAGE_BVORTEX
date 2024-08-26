@@ -35,6 +35,7 @@
         'views/coontrol_planingue.xml',
         'views/coontrol_planingue_line.xml',
         'views/coontrol_planingue_taches.xml',
+        'views/coontrol_planingue_report.xml',
         'views/control_action.xml',
         'views/project_task.xml',
     ],

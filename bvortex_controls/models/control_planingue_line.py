@@ -9,23 +9,28 @@ class control_planingue_line(models.Model):
     planingue_taches_ids = fields.One2many('control.planingue.taches','action_id','ligne des actions')
     planingue_id = fields.Many2one('control.planingue')
     project_ids = fields.One2many('project.project','planingue_line_id')
+   # statut_task = fields.One2many('project.task','statut_ch','statut des taches')
 
     statut = fields.Selection(selection=[
         ('draft', 'Draft'),
-        ('confirmed', 'Confirmed'),
-        ('in_progress', 'In progress'),
-        ('cancel', 'Cancelled'),
-        ('done', 'Done'),
+        ('etablie', 'Etablie'),
+        ('revue', 'Revue'),
+        ('valider', 'Valider'),
+        ('payer', 'Payer'),
+        ('déclarer', 'Déclarer'),
+        ('apurer', 'Apurer'),
+        ('archiver', 'Archiver'),
+        ('transmis', 'Transmis'),
     ], string='Status', required=True,  copy=False,
         tracking=True, default='draft')
 
     type_selct = fields.Selection([
-        ('ONEM', 'ONEM '),
-        ('INPP', 'INPP '),
-        ('CNSS', 'CNSS '),
-        ('MINECO', 'MINECO '),
-        ('INDUSTRIE', 'INDUSTRIE '),
-        ('IPR', 'IPR '),
+        ('ONEM', 'ONEM'),
+        ('INPP', 'INPP'),
+        ('CNSS', 'CNSS'),
+        ('MINECO', 'MINECO'),
+        ('INDUSTRIE', 'INDUSTRIE'),
+        ('IPR', 'IPR'),
         ('TVA', 'TVA'),
 
     ], string='Type select')
@@ -39,5 +44,6 @@ class control_planingue_line(models.Model):
                     if (self.date_debut < planingue.date_debut or self.date_debut > planingue.date_fin or self.date_fin < planingue.date_debut or self.date_fin > planingue.date_fin):
                         raise exceptions.UserError(_("Les dates ne sont pas dans l'intervalle des dates du planingue."))
 
-   
 
+
+   

@@ -10,3 +10,4 @@ from . import control_declaration_dashbord
 from . import control_planingue
 from . import control_planingue_line
 from . import control_planingue_taches
+from . import control_planingue_report

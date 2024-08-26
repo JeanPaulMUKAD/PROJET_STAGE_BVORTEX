@@ -1,31 +1,46 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!-- ?>menu_project_config -->
 <odoo>
 
-    <record id="view_control_planingue_line_form" model="ir.ui.view">
-            <field name="name">control.planingue.line.form</field>
-            <field name="model">control.planingue.line</field>
+     <record id="view_control_planingue_report_tree" model="ir.ui.view">
+            <field name="name">control.palningue.report.tree</field>
+            <field name="model">control.planingue.report</field>
             <field name="arch" type="xml">
-                <form string="Control Planingue line Form">
+              <tree string="Control planingue report  Structure">
+                  <field name="client" />
+                  <field name="nbr_jour" />
+                  <field name="planingue_taches_ids"/>
+                  <field name="statut"/>
+                  <field name="type_selct"/>
+                  <field name="etape"/>
+
+              </tree>
+                <!-- draft in_progress done -->
+            </field>
+    </record>
+
+    <record id="view_control_planingue_report_form" model="ir.ui.view">
+            <field name="name">control.planingue.report.form</field>
+            <field name="model">control.planingue.report</field>
+            <field name="arch" type="xml">
+                <form string="Control Planingue report Form">
                     <header>
-                          <field name="statut" widget="statusbar" statusbar_visible="draft,etablie,revue,valider,payer,déclarer,apurer,archiver,transmis"
+                          <field name="statut" widget="statusbar" statusbar_visible="draft,in_progress,done"
                            statusbar_colors='{"invoice_except":"red","waiting_date":"blue"}' />
                     </header>
                     <sheet>
                         <h1><field name="client" /></h1>
                         <group>
                             <group>
-                                <field name="date_debut" />
-                            </group>
-                            <group>
-                                <field name="date_fin" />
+                                <field name="nbr_jour" />
                             </group>
                               <group>
                                 <field name="type_selct" />
                             </group>
+                             <group>
+                                <field name="etape" widget="many2many_tags"/>
+                            </group>
                         </group>
 
-                      <notebook>
+                        <notebook>
                            <page string="listes des taches">
                                 <field name="planingue_taches_ids" widget="one2many_list">
                                     <tree edit="form" >
@@ -44,40 +59,16 @@
                                                decoration-alert="statut == 'apurer'"
                                                decoration-default="statut == 'archiver'"
                                                decoration-highlight="statut == 'transmis'"/>
+                                        />
                                     </tree>
                                </field>
                            </page>
                        </notebook>
+
                     </sheet>
                 </form>
             </field>
     </record>
 
-
-
-
-
-     <record id="view_control_planingue_line_tree" model="ir.ui.view">
-        <field name="name">control.planingue.line.tree</field>
-        <field name="model">control.planingue.line</field>
-        <field name="arch" type="xml">
-            <tree string="Planingue Lines">
-                <field name="client"/>
-                <field name="date_debut"/>
-                <field name="date_fin"/>
-                <field name="type_selct"/>
-                 <field name="statut"
-                       select="True"
-                       widget="badge"
-                       decoration-danger=" statut == 'draft' "
-                       decoration-info=" statut == 'confirmed' "
-                       decoration-warning=" statut == 'in_progress' "
-                       decoration-success=" statut == 'cancel' "
-                       decoration-primary=" statut == 'done' "
-
-                />
-            </tree>
-        </field>
-    </record>
 
 </odoo>

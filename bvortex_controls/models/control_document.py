@@ -376,7 +376,7 @@ class control_document(models.Model):
             #  mail n*1
             mail_values = {
                 'email_to': rec.get_fiscal_manager_user().email,
-                'subject': 'Contrôles de' + ' ' + month_name + "/" + current_year,
+                'subject': ' Rapport Mensuel sur les contrôles fiscaux et parafiscaux.' + ' du ' + month_name + "/" + current_year,
                 'body_html': f"""
                            <p>Bonjour cher manager {rec.get_fiscal_manager_user().name},</p>
                            <p>Je vous prie de trouver en annexe le rapport mensuel sur les contrôleurs.</p>
@@ -393,10 +393,10 @@ class control_document(models.Model):
 
             mail2_values = {
                 'email_to': rec.get_fiscal_manager_user().email,
-                'subject': 'déclarations fiscales de' + ' ' + month_name + "/" + current_year,
+                'subject': 'Rapport sur l’état de déclarations mensuelles récurrentes' + ' du ' + month_name + "/" + current_year,
                 'body_html': f"""
                                <p>Bonjour cher manager {rec.get_fiscal_manager_user().name},</p>
-                               <p>Je vous prie de trouver en annexe  mensuel sur les déclarations avec  les différents statuts de chaque impôt ou taxe</p>
+                               <p>Veillez trouver en annexe, l’objet repris en concerne lequel, détaille  les statistiques de déclarations.</p>
                                <p>Cordialement <p/>
                                    """,
             }

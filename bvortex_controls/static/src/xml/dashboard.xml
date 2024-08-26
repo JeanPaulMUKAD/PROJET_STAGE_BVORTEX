@@ -262,7 +262,7 @@
         </div>
     </t>
 
-      <t t-name="bvortex_controls.ControlDeclarationDashboard">
+      <t t-name="bvortex_controls.ControlDeclarationDashboard2">
 
 <head>
 
@@ -347,66 +347,66 @@
                     </div>
                 </div>
                 <div class="section-content">
-                    <a href="#" id="atd_click" t-on-click="onLinkClick">
+                    <a href="#" id="etablie_click" t-on-click="onLinkClick">
                         <p>Établie
                             <span class="float-right">
-                                0
+                                <div id="etablie_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="avis_de_verification_click" t-on-click="onLinkClick">
+                    <a href="#" id="revue_click" t-on-click="onLinkClick">
                         <p >Revue
                             <span class="float-right">
-                                0
+                                <div id="revue_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="contrainte_click" t-on-click="onLinkClick">
+                    <a href="#" id="valider_click" t-on-click="onLinkClick">
                         <p>Validée
                             <span class="float-right">
-                                0
+                                <div id="valider_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="notification_penal_click" t-on-click="onLinkClick">
+                    <a href="#" id="payer_click" t-on-click="onLinkClick">
                         <p >Payé
                             <span class="float-right">
-                                0
+                                <div id="payer_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="amrs_click" t-on-click="onLinkClick">
+                    <a href="#" id="déclarer_click" t-on-click="onLinkClick">
                         <p >Déclarée
                             <span class="float-right">
-                                0
+                                <div id="declarer_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="med_click" t-on-click="onLinkClick">
+                    <a href="#" id="apurer_click" t-on-click="onLinkClick">
                         <p >Apuré
                             <span class="float-right">
-                                0
+                                <div id="apurer_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="avis_taxation_click" t-on-click="onLinkClick">
+                    <a href="#" id="archiver_click" t-on-click="onLinkClick">
                         <p >Archivé
                             <span class="float-right">
-                                0
+                                <div id="archiver_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="invitation_serv_click" t-on-click="onLinkClick">
+                    <a href="#" id="transmis_click" t-on-click="onLinkClick">
                         <p >Transmis
                             <span class="float-right">
-                                0
+                                <div id="transmit_nbr"/>
                             </span>
                         </p>
                     </a>
@@ -421,66 +421,66 @@
                     </div>
                 </div>
                 <div class="section-content">
-                    <a href="#" id="atd_click" t-on-click="onLinkClick">
+                    <a href="#" id="etablie2_click" t-on-click="onLinkClick">
                         <p>Établie
                             <span class="float-right">
-                                0
+                                <div id="etablie2_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="avis_de_verification_click" t-on-click="onLinkClick">
+                    <a href="#" id="revue2_click" t-on-click="onLinkClick">
                         <p >Revue
                             <span class="float-right">
-                                0
+                                <div id="revue2_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="contrainte_click" t-on-click="onLinkClick">
+                    <a href="#" id="valider2_click" t-on-click="onLinkClick">
                         <p>Validée
                             <span class="float-right">
-                                0
+                                <div id="valider2_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="notification_penal_click" t-on-click="onLinkClick">
+                    <a href="#" id="payer2_click" t-on-click="onLinkClick">
                         <p >Payé
                             <span class="float-right">
-                                0
+                                <div id="payer2_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="amrs_click" t-on-click="onLinkClick">
+                    <a href="#" id="déclarer2_click" t-on-click="onLinkClick">
                         <p >Déclarée
                             <span class="float-right">
-                                0
+                                <div id="declarer2_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="med_click" t-on-click="onLinkClick">
+                    <a href="#" id="apurer2_click" t-on-click="onLinkClick">
                         <p >Apuré
                             <span class="float-right">
-                                0
+                                <div id="apurer2_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="avis_taxation_click" t-on-click="onLinkClick">
+                    <a href="#" id="archiver2_click" t-on-click="onLinkClick">
                         <p >Archivé
                             <span class="float-right">
-                                0
+                                <div id="archiver2_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="invitation_serv_click" t-on-click="onLinkClick">
+                    <a href="#" id="transmis2_click" t-on-click="onLinkClick">
                         <p >Transmis
                             <span class="float-right">
-                                0
+                                <div id="transmit2_nbr"/>
                             </span>
                         </p>
                     </a>
@@ -495,66 +495,66 @@
                     </div>
                 </div>
                 <div class="section-content">
-                    <a href="#" id="atd_click" t-on-click="onLinkClick">
+                    <a href="#" id="etablie3_click" t-on-click="onLinkClick">
                         <p>Établie
                             <span class="float-right">
-                                0
+                                <div id="etablie3_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="avis_de_verification_click" t-on-click="onLinkClick">
+                    <a href="#" id="revue3_click" t-on-click="onLinkClick">
                         <p >Revue
                             <span class="float-right">
-                                0
+                                <div id="revue3_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="contrainte_click" t-on-click="onLinkClick">
+                    <a href="#" id="valider3_click" t-on-click="onLinkClick">
                         <p>Validée
                             <span class="float-right">
-                                0
+                                <div id="valider3_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="notification_penal_click" t-on-click="onLinkClick">
+                    <a href="#" id="payer3_click" t-on-click="onLinkClick">
                         <p >Payé
                             <span class="float-right">
-                                0
+                                <div id="payer3_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="amrs_click" t-on-click="onLinkClick">
+                    <a href="#" id="déclarer3_click" t-on-click="onLinkClick">
                         <p >Déclarée
                             <span class="float-right">
-                                0
+                                <div id="declarer3_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="med_click" t-on-click="onLinkClick">
+                    <a href="#" id="apurer3_click" t-on-click="onLinkClick">
                         <p >Apuré
                             <span class="float-right">
-                                0
+                                <div id="apurer3_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="avis_taxation_click" t-on-click="onLinkClick">
+                    <a href="#" id="archiver3_click" t-on-click="onLinkClick">
                         <p >Archivé
                             <span class="float-right">
-                                0
+                                <div id="archiver3_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="invitation_serv_click" t-on-click="onLinkClick">
+                    <a href="#" id="transmis3_click" t-on-click="onLinkClick">
                         <p >Transmis
                             <span class="float-right">
-                                0
+                                <div id="transmit3_nbr"/>
                             </span>
                         </p>
                     </a>
@@ -569,66 +569,66 @@
                     </div>
                 </div>
                 <div class="section-content">
-                    <a href="#" id="atd_click" t-on-click="onLinkClick">
+                    <a href="#" id="etablie4_click" t-on-click="onLinkClick">
                         <p>Établie
                             <span class="float-right">
-                                0
+                                <div id="etablie4_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="avis_de_verification_click" t-on-click="onLinkClick">
+                    <a href="#" id="revue4_click" t-on-click="onLinkClick">
                         <p >Revue
                             <span class="float-right">
-                                0
+                                <div id="revue4_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="contrainte_click" t-on-click="onLinkClick">
+                    <a href="#" id="valider4_click" t-on-click="onLinkClick">
                         <p>Validée
                             <span class="float-right">
-                                0
+                                <div id="valider4_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="notification_penal_click" t-on-click="onLinkClick">
+                    <a href="#" id="payer4_click" t-on-click="onLinkClick">
                         <p >Payé
                             <span class="float-right">
-                                0
+                                <div id="payer4_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="amrs_click" t-on-click="onLinkClick">
+                    <a href="#" id="déclarer4_click" t-on-click="onLinkClick">
                         <p >Déclarée
                             <span class="float-right">
-                                0
+                                <div id="declarer4_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="med_click" t-on-click="onLinkClick">
+                    <a href="#" id="apurer4_click" t-on-click="onLinkClick">
                         <p >Apuré
                             <span class="float-right">
-                                0
+                                <div id="apurer4_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="avis_taxation_click" t-on-click="onLinkClick">
+                    <a href="#" id="archiver4_click" t-on-click="onLinkClick">
                         <p >Archivé
                             <span class="float-right">
-                                0
+                                <div id="archiver4_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="invitation_serv_click" t-on-click="onLinkClick">
+                    <a href="#" id="transmis4_click" t-on-click="onLinkClick">
                         <p >Transmis
                             <span class="float-right">
-                                0
+                                <div id="transmit4_nbr"/>
                             </span>
                         </p>
                     </a>
@@ -643,66 +643,66 @@
                     </div>
                 </div>
                 <div class="section-content">
-                    <a href="#" id="atd_click" t-on-click="onLinkClick">
+                    <a href="#" id="etablie5_click" t-on-click="onLinkClick">
                         <p>Établie
                             <span class="float-right">
-                                0
+                                <div id="etablie5_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="avis_de_verification_click" t-on-click="onLinkClick">
+                    <a href="#" id="revue5_click" t-on-click="onLinkClick">
                         <p >Revue
                             <span class="float-right">
-                                0
+                                <div id="revue5_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="contrainte_click" t-on-click="onLinkClick">
+                    <a href="#" id="valider5_click" t-on-click="onLinkClick">
                         <p>Validée
                             <span class="float-right">
-                                0
+                                <div id="valider5_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="notification_penal_click" t-on-click="onLinkClick">
+                    <a href="#" id="payer5_click" t-on-click="onLinkClick">
                         <p >Payé
                             <span class="float-right">
-                                0
+                                <div id="payer5_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="amrs_click" t-on-click="onLinkClick">
+                    <a href="#" id="déclarer5_click" t-on-click="onLinkClick">
                         <p >Déclarée
                             <span class="float-right">
-                                0
+                                <div id="declarer5_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="med_click" t-on-click="onLinkClick">
+                    <a href="#" id="apurer5_click" t-on-click="onLinkClick">
                         <p >Apuré
                             <span class="float-right">
-                                0
+                                <div id="apurer5_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="avis_taxation_click" t-on-click="onLinkClick">
+                    <a href="#" id="archiver5_click" t-on-click="onLinkClick">
                         <p >Archivé
                             <span class="float-right">
-                                0
+                                <div id="archiver5_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="invitation_serv_click" t-on-click="onLinkClick">
+                    <a href="#" id="transmis5_click" t-on-click="onLinkClick">
                         <p >Transmis
                             <span class="float-right">
-                                0
+                                <div id="transmit5_nbr"/>
                             </span>
                         </p>
                     </a>
@@ -717,66 +717,66 @@
                     </div>
                 </div>
                 <div class="section-content">
-                    <a href="#" id="atd_click" t-on-click="onLinkClick">
+                    <a href="#" id="etablie6_click" t-on-click="onLinkClick">
                         <p>Établie
                             <span class="float-right">
-                                0
+                                <div id="etablie6_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="avis_de_verification_click" t-on-click="onLinkClick">
+                    <a href="#" id="revue6_click" t-on-click="onLinkClick">
                         <p >Revue
                             <span class="float-right">
-                                0
+                                <div id="revue6_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="contrainte_click" t-on-click="onLinkClick">
+                    <a href="#" id="valider6_click" t-on-click="onLinkClick">
                         <p>Validée
                             <span class="float-right">
-                                0
+                                <div id="valider6_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="notification_penal_click" t-on-click="onLinkClick">
+                    <a href="#" id="payer6_click" t-on-click="onLinkClick">
                         <p >Payé
                             <span class="float-right">
-                                0
+                                <div id="payer6_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="amrs_click" t-on-click="onLinkClick">
+                    <a href="#" id="déclarer6_click" t-on-click="onLinkClick">
                         <p >Déclarée
                             <span class="float-right">
-                                0
+                                <div id="declarer6_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="med_click" t-on-click="onLinkClick">
+                    <a href="#" id="apurer6_click" t-on-click="onLinkClick">
                         <p >Apuré
                             <span class="float-right">
-                                0
+                                <div id="apurer6_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="avis_taxation_click" t-on-click="onLinkClick">
+                    <a href="#" id="archiver6_click" t-on-click="onLinkClick">
                         <p >Archivé
                             <span class="float-right">
-                                0
+                                <div id="archiver6_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="invitation_serv_click" t-on-click="onLinkClick">
+                    <a href="#" id="transmis6_click" t-on-click="onLinkClick">
                         <p >Transmis
                             <span class="float-right">
-                                0
+                                <div id="transmit6_nbr"/>
                             </span>
                         </p>
                     </a>
@@ -791,66 +791,66 @@
                     </div>
                 </div>
                 <div class="section-content">
-                    <a href="#" id="atd_click" t-on-click="onLinkClick">
+                    <a href="#" id="etablie7_click" t-on-click="onLinkClick">
                         <p>Établie
                             <span class="float-right">
-                                0
+                                <div id="etablie7_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="avis_de_verification_click" t-on-click="onLinkClick">
+                    <a href="#" id="revue7_click" t-on-click="onLinkClick">
                         <p >Revue
                             <span class="float-right">
-                                0
+                                <div id="revue7_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="contrainte_click" t-on-click="onLinkClick">
+                    <a href="#" id="valider7_click" t-on-click="onLinkClick">
                         <p>Validée
                             <span class="float-right">
-                                0
+                                <div id="valider7_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="notification_penal_click" t-on-click="onLinkClick">
+                    <a href="#" id="payer7_click" t-on-click="onLinkClick">
                         <p >Payé
                             <span class="float-right">
-                                0
+                                <div id="payer7_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="amrs_click" t-on-click="onLinkClick">
+                    <a href="#" id="déclarer7_click" t-on-click="onLinkClick">
                         <p >Déclarée
                             <span class="float-right">
-                                0
+                                <div id="declarer7_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="med_click" t-on-click="onLinkClick">
+                    <a href="#" id="apurer7_click" t-on-click="onLinkClick">
                         <p >Apuré
                             <span class="float-right">
-                                0
+                                <div id="apurer7_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="avis_taxation_click" t-on-click="onLinkClick">
+                    <a href="#" id="archiver7_click" t-on-click="onLinkClick">
                         <p >Archivé
                             <span class="float-right">
-                                0
+                                <div id="archiver7_nbr"/>
                             </span>
                         </p>
                     </a>
                     <hr/>
-                    <a href="#" id="invitation_serv_click" t-on-click="onLinkClick">
+                    <a href="#" id="transmis7_click" t-on-click="onLinkClick">
                         <p >Transmis
                             <span class="float-right">
-                                0
+                                <div id="transmit7_nbr"/>
                             </span>
                         </p>
                     </a>

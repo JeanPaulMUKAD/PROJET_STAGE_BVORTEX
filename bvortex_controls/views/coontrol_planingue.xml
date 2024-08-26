@@ -71,6 +71,23 @@
                                     </tree>
                                </field>
                            </page>
+                             <page string="planingue report">
+                                <field name="planingue_report_ids" widget="one2many_list">
+                                    <tree edit="form" >
+                                        <field name="client"/>
+                                        <field name="nbr_jour"/>
+                                        <field name="planingue_taches_ids" widget="many2many_tags"/>
+                                        <field name="statut"
+                                               select="True"
+                                               widget="badge"
+                                               decoration-success = " statut == 'confirmed' "
+                                               decoration-info = " statut == 'in_progress' "
+                                               decoration-danger = " statut == 'done' "
+                                        />
+                                        <field name="type_selct"/>
+                                    </tree>
+                               </field>
+                           </page>
                        </notebook>
                     </sheet>
                 </form>
@@ -111,11 +128,11 @@
 
 
 
-     <record id="view_control_document_tree" model="ir.ui.view">
+     <record id="view_control_planingue_tree" model="ir.ui.view">
         <field name="name">control.planingue.tree</field>
         <field name="model">control.planingue</field>
         <field name="arch" type="xml">
-            <tree string="Control Document Structure">
+            <tree string="Control planingue Structure">
                 <field name="code"/>
                 <field name="nom"/>
                 <field name="date_debut"/>

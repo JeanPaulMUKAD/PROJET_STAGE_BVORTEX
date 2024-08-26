@@ -9,6 +9,7 @@
                 <field name="document_id"/>
                 <field name="action_id"/>
                 <field name="category"/>
+                <field name="planingue"/>
             </xpath>
         </field>
     </record>

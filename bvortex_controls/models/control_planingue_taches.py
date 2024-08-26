@@ -8,15 +8,15 @@ class control_planingue_taches(models.Model):
     utilisateur = fields.Many2many('res.users', 'utilisateur')
     date = fields.Date('Date')
     action_id = fields.Many2one('control.planingue.line')
+
+    action_report_id = fields.Many2one('control.planingue.report')
     statut = fields.Selection(selection=[
         ('draft', 'Draft'),
-        ('confirmed', 'Confirmed'),
         ('in_progress', 'In progress'),
-        ('cancel', 'Cancelled'),
         ('done', 'Done'),
     ], string='Status', required=True, readonly=True, copy=False,
         tracking=True, default='draft')
-
+    task_id = fields.Many2one('project.task', 'Tâche')
     @api.onchange('date','action_id')
     def _onchange_dates2(self):
         if self.action_id:
