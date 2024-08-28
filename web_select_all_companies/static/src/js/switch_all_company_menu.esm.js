@@ -1,79 +1,34 @@
-/** @odoo-module **/
-/* Copyright 2023 Camptocamp - Telmo Santos
- * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
+/**@odoo-module**/
 import {SwitchCompanyMenu} from "@web/webclient/switch_company_menu/switch_company_menu";
-import {browser} from "@web/core/browser/browser";
 import {patch} from "@web/core/utils/patch";
-import { registry } from "@web/core/registry";
 
-// patch(SwitchCompanyMenu.prototype, "SwitchAllCompanyMenu", {
-//     setup() {
-//         this._super(...arguments);
-//         this.allCompanyIds = Object.values(this.companyService.availableCompanies).map(
-//             (x) => x.id
-//         );
-//         this.isAllCompaniesSelected = this.allCompanyIds.every((elem) =>
-//             this.selectedCompanies.includes(elem)
-//         );
-//     },
+patch(SwitchCompanyMenu.prototype, {
+    setup() {
+        super.setup()
+        this.allCompanyIds = Object.values(this.companyService.allowedCompanies).map(x => x.id);
 
+        this.isAllCompaniesSelected = this.allCompanyIds.every((elem) =>
+            this.companySelector.selectedCompaniesIds.includes(elem)
+        );
+    },
 
-
-registry.category("wowl_patches").add("SwitchAllCompanyMenu", {
-    SwitchCompanyMenu: {
-        setup() {
-            this._super(...arguments);
-            this.allCompanyIds = Object.values(this.companyService.availableCompanies).map(
-                (x) => x.id
-            );
-            this.isAllCompaniesSelected = this.allCompanyIds.every((elem) =>
-                this.selectedCompanies.includes(elem)
-            );
-        },
-
-//     togleSelectAllCompanies() {
-//         if (this.isAllCompaniesSelected) {
-//             // Deselect all
-//             this.state.companiesToToggle = this.allCompanyIds;
-//             this.toggleCompany(this.currentCompany.id);
-//             this.isAllCompaniesSelected = false;
-//             browser.clearTimeout(this.toggleTimer);
-//             this.toggleTimer = browser.setTimeout(() => {
-//                 this.companyService.setCompanies(
-//                     "toggle",
-//                     ...this.state.companiesToToggle
-//                 );
-//             }, this.constructor.toggleDelay);
-//         } else {
-//             // Select all
-//             this.state.companiesToToggle = [this.allCompanyIds];
-//             this.isAllCompaniesSelected = true;
-//             browser.clearTimeout(this.toggleTimer);
-//             this.toggleTimer = browser.setTimeout(() => {
-//                 this.companyService.setCompanies(
-//                     "loginto",
-//                     ...this.state.companiesToToggle
-//                 );
-//             }, this.constructor.toggleDelay);
-//         }
-// //     },
-// // });
-// // },
-//     },
-// });
-            toggleSelectAllCompanies(){
-                if (this.isAllCompaniesSelected) {
-                    // Deselect all
-                    this.state.companiesToToggle = this.allCompanyIds;
-                    this.toggleCompany(this.currentCompany.id);
-                    this.isAllCompaniesSelected = false;
-                    this.companyService.setCompanies("toggle", ...this.state.companiesToToggle);
-                } else {
-                    // Select all
-                    this.state.companiesToToggle = [this.allCompanyIds];
-                    this.isAllCompaniesSelected = true;
-                    this.companyService.setCompanies("loginto", ...this.state.companiesToToggle);
+    toggleSelectAllCompanies() {
+        if (!(this.isAllCompaniesSelected)) {
+            this.isAllCompaniesSelected = true
+            for (var id = 1; id < this.allCompanyIds.length + 1; id++) {
+                if (!(this.companySelector.selectedCompaniesIds.includes(id))) {
+                    console.log(id)
+                    this.companySelector.switchCompany("toggle", id)
                 }
-            },
+            }
+        } else {
+            this.isAllCompaniesSelected = false
+            for (var id = 1; id < this.allCompanyIds.length + 1; id++) {
+                if ((this.companySelector.selectedCompaniesIds.includes(id))) {
+                    console.log(id)
+                    this.companySelector.switchCompany("loginto", id)
+                }
+            }
+        }
     },
 });

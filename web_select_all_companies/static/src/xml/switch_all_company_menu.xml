@@ -14,7 +14,7 @@
                         tabindex="0"
                         t-attf-class="{{isCurrent ? 'border-primary' : ''}}"
                         class="border-end toggle_company"
-                        t-on-click.stop="() => this.toggleSelectAllCompanies()"
+                        t-on-click.stop="toggleSelectAllCompanies"
                     >
                             <span class="btn btn-light border-0 p-2">
                                 <i
