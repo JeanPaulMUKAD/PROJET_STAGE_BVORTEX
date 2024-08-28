@@ -20,7 +20,7 @@ patch(SwitchCompanyMenu.prototype, {
                 for (let id of this.allCompanyIds) {
                     if (this.companySelector.selectedCompaniesIds.includes(id)) {
                         console.log(id);
-                        await this.companySelector.switchCompany("loginto", id); // Utilisation d'une attente asynchrone
+                        await this.companySelector.switchCompany("toggle", id); // Utilisation d'une attente asynchrone
                     }
                 }
             } else {
