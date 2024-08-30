@@ -1,18 +1,16 @@
 from odoo import api, fields, models, exceptions,_
 
 class control_planingue_report(models.Model):
-    _name = 'control.planingue.report'
+    _name = 'control.planingue.free.line'
 
     client = fields.Many2one('res.partner')
-    nbr_jour = fields.Integer('nombre de jours')
-    planingue_taches_ids = fields.One2many('control.planingue.taches','action_report_id','ligne des actions')
+    date_debut = fields.Date('Date Debut')
+    date_fin = fields.Date('Date Fin')
     planingue_id = fields.Many2one('control.planingue')
     etape = fields.Many2many('project.task.type')
 
     statut = fields.Selection(selection=[
         ('draft', 'Draft'),
-        ('in_progress', 'In progress'),
-        ('done', 'Done'),
     ], string='Status', required=True,  copy=False,
         tracking=True, default='draft')
 

@@ -133,8 +133,15 @@
                         </group>
                     </group>
                     <group string="Tasks Info" groups="bvortex_controls.group_fiscal_manager">
-                        <field name="action_ids" widget="many2many_tags"/>
+
+                        <group>
+                         <field name="action_ids" widget="many2many_tags"/>
                         <field name="user_ids" widget="many2many_avatar_user"/>
+                        </group>
+                       <group>
+                           <field name="date_debut"/>
+                           <field name="date_fin"/>
+                       </group>
                     </group>
                 </sheet>
                 <div class="oe_chatter">

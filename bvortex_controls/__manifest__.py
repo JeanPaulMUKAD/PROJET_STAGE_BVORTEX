@@ -38,6 +38,8 @@
         'views/coontrol_planingue_report.xml',
         'views/control_action.xml',
         'views/project_task.xml',
+        'views/compagny.xml',
+        'views/coontrol_planingue_free_line.xml',
     ],
     'images': ['bvortex_controls/static/description/icon.png'],
     'assets': {

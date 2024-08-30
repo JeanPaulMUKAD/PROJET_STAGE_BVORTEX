@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Héritage de la vue formulaire -->
+        <record id="view_form_compagny_indiv" model="ir.ui.view">
+            <field name="name">partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <!-- Modifications de la vue -->
+                 <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+
+                    <button class="oe_stat_button" type="object" name="get_project" icon="fa-product-hunt">
+                        <field string="projet" name="project_count" widget="statinfo"/>
+                    </button>
+                    </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

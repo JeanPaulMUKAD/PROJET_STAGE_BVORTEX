@@ -11,3 +11,5 @@ from . import control_planingue
 from . import control_planingue_line
 from . import control_planingue_taches
 from . import control_planingue_report
+from . import inert_res_partner
+from . import control_planingue_free_line

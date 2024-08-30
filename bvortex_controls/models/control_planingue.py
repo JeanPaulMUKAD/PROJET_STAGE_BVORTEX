@@ -26,6 +26,8 @@ class Control_Planingue(models.Model):
         tracking=True, default='draft')
     planingue_line_ids = fields.One2many('control.planingue.line','planingue_id','ligne des planingues')
     planingue_report_ids = fields.One2many('control.planingue.report','planingue_id','ligne des report')
+    planingue_free_line_ids = fields.One2many('control.planingue.free.line','planingue_id','ligne des planingues free')
+
     project_ids = fields.One2many('project.project','planingue_id')
 
     def get_tasks(self):
@@ -79,59 +81,6 @@ class Control_Planingue(models.Model):
         return result
 
     def action_confirmed(self):
-        #  mail n*1
-        mail_values = {
-            'email_to': rec.get_fiscal_manager_user().email,
-            'subject': 'Contrôles de' ,
-            'body_html': f"""
-                                  <p>Bonjour cher manager {rec.get_fiscal_manager_user().name},</p>
-                                  <p>Je vous prie de trouver en annexe le rapport mensuel sur les contrôleurs.</p>
-                              """,
-        }
-
-        if rec.get_emails_for_department_head():
-            mail_vals['email_cc'] = rec.get_emails_for_department_head()
-
-        mail = self.env['mail.mail'].sudo().create(mail_values)
-        mail.send()
-
-        # mail n*2
-
-        mail2_values = {
-            'email_to': rec.get_fiscal_manager_user().email,
-            'subject': 'déclarations fiscales de' ,
-            'body_html': f"""
-                                      <p>Bonjour cher manager {rec.get_fiscal_manager_user().name},</p>
-                                      <p>Je vous prie de trouver en annexe  mensuel sur les déclarations avec  les différents statuts de chaque impôt ou taxe</p>
-                                      <p>Cordialement <p/>
-                                          """,
-        }
-
-        if rec.get_emails_for_department_head():
-            mail2_vals['email_cc'] = rec.get_emails_for_department_head()
-
-        mail2 = self.env['mail.mail'].sudo().create(mail2_values)
-        mail2.send()
-
-        # mail n*3
-
-        mail3_values = {
-            'email_to': rec.get_fiscal_manager_user().email,
-            'subject': 'taches du mois de' ,
-            'body_html': f"""
-                                  <p>Bonjour cher manager {rec.get_fiscal_manager_user().name},</p>
-                                  <p>Je vous prie de trouver en annexe, le rapport mensuel sur les taches mensuelles  du mois, lesquels répartissent, les taches prévues, effectuées et celles en cours par département, collaborateur et projet.</p>
-                                  <p>Cordialement <p/>
-                                     """,
-        }
-
-        if rec.get_emails_for_department_head():
-            mail3_vals['email_cc'] = rec.get_emails_for_department_head()
-
-        mail3 = self.env['mail.mail'].sudo().create(mail3_values)
-        mail3.send()
-
-
         for record in self:
 
             planingue_line_ids = record.planingue_line_ids
@@ -145,8 +94,6 @@ class Control_Planingue(models.Model):
         for record in self:
             record.statut = 'in_progress'
             code = record.code
-            planingue_line_ids = record.planingue_line_ids
-            planingue_report_ids = record.planingue_report_ids
 
 
 
@@ -228,9 +175,10 @@ class Control_Planingue(models.Model):
                     'user_ids': planingue_taches.utilisateur,
                     'date_deadline': planingue_taches.date,
                     'task_task': planingue_taches.id,
-                    'statut_ch': planingue_line_ids.id
+                    'statut_ch': planingue_line.id
                 }
                 task = self.env['project.task'].create(vals)
+
 
         for planingue_report in self.planingue_report_ids:
 
@@ -252,7 +200,7 @@ class Control_Planingue(models.Model):
                 ('partner_id', '=' ,planingue_report.client.id )
             ])
 
-            if planingue_report_ids :
+            if self.planingue_report_ids :
 
                     if not project:
                         vals = {
@@ -286,7 +234,7 @@ class Control_Planingue(models.Model):
                             'user_ids': planingue_taches.utilisateur,
                             'date_deadline': planingue_taches.date,
                             'task_task': planingue_taches.id,
-                            'statut_ch': planingue_report_ids.id
+                            'statut_ch': planingue_report.id
                         }
                         task = self.env['project.task'].create(vals)
 
