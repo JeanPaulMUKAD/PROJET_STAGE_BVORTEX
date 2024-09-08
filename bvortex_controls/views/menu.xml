@@ -43,6 +43,18 @@
               sequence="10"
               action="action_dashboard_declaration_document"/>
 
+     <record id="action_dashboard_statistique_document" model="ir.actions.client">
+        <field name="name">Dashboard statistique Document</field>
+        <field name="tag">dashboard_statistique_document_tag</field>
+    </record>
+
+
+     <menuitem name="Dashboard3"
+              id="menu_control_statistique_dashboard"
+              parent="bvortex_controls.main_menu_dashboard_management"
+              sequence="15"
+              action="action_dashboard_statistique_document"/>
+
 
 
 

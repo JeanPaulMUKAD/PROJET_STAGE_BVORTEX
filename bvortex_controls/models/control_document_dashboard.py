@@ -1,4 +1,6 @@
 from odoo import models, api, _
+from datetime import datetime
+import calendar
 
 
 class ControlDocumentDashboard(models.Model):
@@ -6,10 +8,19 @@ class ControlDocumentDashboard(models.Model):
     _description = 'Control Document Dashboard'
 
     @api.model
-    def on_link_click(self, id):
+    def on_link_click(self, id, selected_value =None, selected_year=None):
+
+        global year
+        year = selected_year if selected_year else datetime.now().year
+        year = int(year)
+
         if id == 'atd_click':
             atd = self.env.ref('bvortex_controls.atd_code_nature').id
             return self.go_to_nature(atd)
+
+        elif id == 'etablie_click':
+            return self.go_to_planingue()
+
         elif id == 'avis_de_verification_click':
             avis_verification = self.env.ref('bvortex_controls.avis_verification_code_nature').id
             return self.go_to_nature(avis_verification)
@@ -71,8 +82,7 @@ class ControlDocumentDashboard(models.Model):
 
 
 
-        elif id == 'etablie_click':
-            return self.go_to_planingue()
+
         elif id == 'revue_click':
             return self.go_to_planingue2()
         elif id == 'valider_click':
@@ -190,6 +200,657 @@ class ControlDocumentDashboard(models.Model):
         elif id == 'transmis7_click':
             return self.go_to_planingue56()
 
+
+
+        elif id == 'janvier' and selected_value == 'ligne_de_planning':
+            return self.janvier()
+        elif id == 'fevrier'and selected_value == 'ligne_de_planning':
+            return self.fevrier()
+        elif id == 'mars'and selected_value == 'ligne_de_planning':
+            return self.mars()
+        elif id == 'avril'and selected_value == 'ligne_de_planning':
+            return self.avril()
+        elif id == 'mai'and selected_value == 'ligne_de_planning':
+            return self.mai()
+        elif id == 'juin'and selected_value == 'ligne_de_planning':
+            return self.juin()
+        elif id == 'juillet'and selected_value == 'ligne_de_planning':
+            return self.juillet()
+        elif id == 'out'and selected_value == 'ligne_de_planning':
+            return self.out()
+        elif id == 'septembre'and selected_value == 'ligne_de_planning':
+            return self.septembre()
+        elif id == 'octobre'and selected_value == 'ligne_de_planning':
+            return self.octobre()
+        elif id == 'novembre'and selected_value == 'ligne_de_planning':
+            return self.novembre()
+        elif id == 'decembre'and selected_value == 'ligne_de_planning':
+            return self.decembre()
+
+
+        elif id == 'janvier' and selected_value == 'projet':
+            return self.janvier_projet()
+        elif id == 'fevrier' and selected_value == 'projet':
+            return self.fevrier_projet()
+        elif id == 'mars' and selected_value == 'projet':
+            return self.mars_projet()
+        elif id == 'avril' and selected_value == 'projet':
+            return self.avril_projet()
+        elif id == 'mai' and selected_value == 'projet':
+            return self.mai_projet()
+        elif id == 'juin' and selected_value == 'projet':
+            return self.juin_projet()
+        elif id == 'juillet' and selected_value == 'projet':
+            return self.juillet_projet()
+        elif id == 'out' and selected_value == 'projet':
+            return self.out_projet()
+        elif id == 'septembre' and selected_value == 'projet':
+            return self.septembre_projet()
+        elif id == 'octobre' and selected_value == 'projet':
+            return self.octobre_projet()
+        elif id == 'novembre' and selected_value == 'projet':
+            return self.novembre_projet()
+        elif id == 'decembre' and selected_value == 'projet':
+            return self.decembre_projet()
+
+
+
+        elif id == 'janvier' and selected_value == 'tache':
+            return self.janvier_tache()
+        elif id == 'fevrier' and selected_value == 'tache':
+            return self.fevrier_tache()
+        elif id == 'mars' and selected_value == 'tache':
+            return self.mars_tache()
+        elif id == 'avril' and selected_value == 'tache':
+            return self.avril_tache()
+        elif id == 'mai' and selected_value == 'tache':
+            return self.mai_tache()
+        elif id == 'juin' and selected_value == 'tache':
+            return self.juin_tache()
+        elif id == 'juillet' and selected_value == 'tache':
+            return self.juillet_tache()
+        elif id == 'out' and selected_value == 'tache':
+            return self.out_tache()
+        elif id == 'septembre' and selected_value == 'tache':
+            return self.septembre_tache()
+        elif id == 'octobre' and selected_value == 'tache':
+            return self.octobre_tache()
+        elif id == 'novembre' and selected_value == 'tache':
+            return self.novembre_tache()
+        elif id == 'decembre' and selected_value == 'tache':
+            return self.decembre_tache()
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': _('Invalid Action'),
+                'message': _('No valid action found for the given parameters.'),
+                'type': 'danger',
+                'sticky': False,
+            }
+        }
+
+
+    def janvier_projet(self):
+
+        start_date = f"{year}-01-01"
+        end_date = f"{year}-01-31"
+        return {
+            'name': "Tout les  projet",
+            'res_model': "project.project",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_start', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def janvier(self):
+        start_date = f"{year}-01-01"
+        end_date = f"{year}-01-31"
+        return {
+            'name': "Tout les  planingue",
+            'res_model': "control.planingue",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_debut', '>=', start_date),
+                ('date_debut', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def janvier_tache(self):
+        start_date = f"{year}-01-01"
+        end_date = f"{year}-01-31"
+        return {
+            'name': "Toute les  taches",
+            'res_model': "control.planingue.taches",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def janvier_tache(self):
+        start_date = f"{year}-01-01"
+        end_date = f"{year}-01-31"
+        return {
+            'name': "Toute les taches",
+            'res_model': "control.planingue.taches",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def fevrier(self):
+        _, last_day_of_february = calendar.monthrange(year,2)
+        start_date = f"{year}-02-01"
+        end_date = f"{year}-02-{last_day_of_february}"
+        return {
+            'name': "Toutes les planingue",
+            'res_model': "control.planingue",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_debut', '>=', start_date),
+                ('date_debut', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def fevrier_projet(self):
+        _, last_day_of_february = calendar.monthrange(year,2)
+        start_date = f"{year}-02-01"
+        end_date = f"{year}-02-{last_day_of_february}"
+        return {
+            'name': "Tout les  projet",
+            'res_model': "project.project",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_start', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def fevrier_tache(self):
+        _, last_day_of_february = calendar.monthrange(year,2)
+        start_date = f"{year}-02-01"
+        end_date = f"{year}-02-{last_day_of_february}"
+        return {
+            'name': "Toute les taches",
+            'res_model': "control.planingue.taches",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def mars(self):
+        start_date = f"{year}-03-01"
+        end_date = f"{year}-03-31"
+        return {
+            'name': "Toutes les planingue",
+            'res_model': "control.planingue",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_debut', '>=', start_date),
+                ('date_debut', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def mars_projet(self):
+        start_date = f"{year}-03-01"
+        end_date = f"{year}-03-31"
+        return {
+            'name': "Tout les  projet",
+            'res_model': "project.project",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_start', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def mars_tache(self):
+        start_date = f"{year}-03-01"
+        end_date = f"{year}-03-31"
+        return {
+            'name': "Toutes les taches ",
+            'res_model': "control.planingue.taches",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def avril(self):
+        start_date = f"{year}-04-01"
+        end_date = f"{year}-04-30"
+        return {
+            'name': "Toutes les planingue",
+            'res_model': "control.planingue",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_debut', '>=', start_date),
+                ('date_debut', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def avril_projet(self):
+        start_date = f"{year}-04-01"
+        end_date = f"{year}-04-30"
+        return {
+            'name': "Tout les  projet",
+            'res_model': "project.project",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_start', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def avril_tache(self):
+        start_date = f"{year}-04-01"
+        end_date = f"{year}-04-30"
+        return {
+            'name': "Toutes les  taches",
+            'res_model': "control.planingue.taches",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def mai(self):
+        start_date = f"{year}-05-01"
+        end_date = f"{year}-05-31"
+        return {
+            'name': "Toutes les planingue",
+            'res_model': "control.planingue",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_debut', '>=', start_date),
+                ('date_debut', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def mai_projet(self):
+        start_date = f"{year}-05-01"
+        end_date = f"{year}-05-31"
+        return {
+            'name': "Tout les  projet",
+            'res_model': "project.project",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_start', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def mai_tache(self):
+        start_date = f"{year}-05-01"
+        end_date = f"{year}-05-31"
+        return {
+            'name': "Toutes les  taches",
+            'res_model': "control.planingue.taches",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+
+
+    def juin(self):
+        start_date = f"{year}-06-01"
+        end_date = f"{year}-06-30"
+        return {
+            'name': "Toutes les planingue",
+            'res_model': "control.planingue",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_debut', '>=', start_date),
+                ('date_debut', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def juin_projet(self):
+        start_date = f"{year}-06-01"
+        end_date = f"{year}-06-30"
+        return {
+            'name': "Tout les  projet",
+            'res_model': "project.project",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_start', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def juin_tache(self):
+        start_date = f"{year}-06-01"
+        end_date = f"{year}-06-30"
+        return {
+            'name': "Toutes les  taches",
+            'res_model': "control.planingue.taches",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def juillet(self):
+        start_date = f"{year}-07-01"
+        end_date = f"{year}-07-31"
+        return {
+            'name': "Toutes les planingue",
+            'res_model': "control.planingue",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_debut', '>=', start_date),
+                ('date_debut', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def juillet_projet(self):
+        start_date = f"{year}-07-01"
+        end_date = f"{year}-07-31"
+        return {
+            'name': "Tout les  projet",
+            'res_model': "project.project",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_start', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def juillet_tache(self):
+        start_date = f"{year}-07-01"
+        end_date = f"{year}-07-31"
+        return {
+            'name': "Toutes les  taches",
+            'res_model': "control.planingue.taches",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def out(self):
+        start_date = f"{year}-08-01"
+        end_date = f"{year}-08-31"
+        return {
+            'name': "Toutes les planingue",
+            'res_model': "control.planingue",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_debut', '>=', start_date),
+                ('date_debut', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def out_projet(self):
+        start_date = f"{year}-08-01"
+        end_date = f"{year}-08-31"
+        return {
+            'name': "Tout les  projet",
+            'res_model': "project.project",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_start', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def out_tache(self):
+        start_date = f"{year}-08-01"
+        end_date = f"{year}-08-31"
+        return {
+            'name': "Toutes les taches",
+            'res_model': "control.planingue.taches",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def septembre(self):
+        start_date = f"{year}-09-01"
+        end_date = f"{year}-09-30"
+        return {
+            'name': "Toutes les planingue",
+            'res_model': "control.planingue",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_debut', '>=', start_date),
+                ('date_debut', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def septembre_projet(self):
+        start_date = f"{year}-09-01"
+        end_date = f"{year}-09-30"
+        return {
+            'name': "Tout les  projet",
+            'res_model': "project.project",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_start', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def septembre_tache(self):
+        start_date = f"{year}-09-01"
+        end_date = f"{year}-09-30"
+        return {
+            'name': "Toutes les  taches",
+            'res_model': "control.planingue.taches",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def octobre(self):
+        start_date = f"{year}-10-01"
+        end_date = f"{year}-10-31"
+        return {
+            'name': "Toutes les planingue",
+            'res_model': "control.planingue",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_debut', '>=', start_date),
+                ('date_debut', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def octobre_projet(self):
+        start_date = f"{year}-10-01"
+        end_date = f"{year}-10-31"
+        return {
+            'name': "Tout les  projet",
+            'res_model': "project.project",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_start', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def octobre_tache(self):
+        start_date = f"{year}-10-01"
+        end_date = f"{year}-10-31"
+        return {
+            'name': "Toutes les taches",
+            'res_model': "control.planingue.taches",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def novembre(self):
+        start_date = f"{year}-11-01"
+        end_date = f"{year}-11-30"
+        return {
+            'name': "Toutes les planingue",
+            'res_model': "control.planingue",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_debut', '>=', start_date),
+                ('date_debut', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def novembre_projet(self):
+        start_date = f"{year}-11-01"
+        end_date = f"{year}-11-30"
+        return {
+            'name': "Tout les  projet",
+            'res_model': "project.project",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_start', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def novembre_tache(self):
+        start_date = f"{year}-11-01"
+        end_date = f"{year}-11-30"
+        return {
+            'name': "Toutes les taches",
+            'res_model': "control.planingue.taches",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def decembre(self):
+        start_date = f"{year}-12-01"
+        end_date = f"{year}-12-31"
+        return {
+            'name': "Toutes les planingue",
+            'res_model': "control.planingue",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_debut', '>=', start_date),
+                ('date_debut', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def decembre_projet(self):
+        start_date = f"{year}-12-01"
+        end_date = f"{year}-12-31"
+        return {
+            'name': "Tout les  projet",
+            'res_model': "project.project",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date_start', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
+
+    def decembre_tache(self):
+        start_date = f"{year}-12-01"
+        end_date = f"{year}-12-31"
+        return {
+            'name': "Toutes les taches",
+            'res_model': "control.planingue.taches",
+            'views': [[False, "tree"], [False, "form"]],
+            'type': "ir.actions.act_window",
+            'domain': [
+                ('date', '>=', start_date),
+                ('date', '<=', end_date),
+            ],
+            'view_mode': "tree"
+        }
 
 
 

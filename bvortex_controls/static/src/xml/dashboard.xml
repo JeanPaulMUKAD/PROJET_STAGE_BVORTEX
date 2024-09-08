@@ -262,7 +262,7 @@
         </div>
     </t>
 
-      <t t-name="bvortex_controls.ControlDeclarationDashboard2">
+    <t t-name="bvortex_controls.ControlDeclarationDashboard2">
 
 <head>
 
@@ -863,6 +863,245 @@
 </body>
 
     </t>
+
+    <t t-name="bvortex_controls.ControlStatitiqueDashboard3">
+
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+	<title></title>
+	<meta name="generator" content="https://conversiontools.io" />
+	<meta name="created" content="2024-08-14T16:32:39.767396825"/>
+	<meta name="changed" content="2024-08-14T16:34:08.237613411"/>
+
+     <style>
+
+
+        .cadre {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+          h3 {
+            cursor: pointer;
+
+        }
+
+
+        label {
+            display: block;
+            color: #6a0dad;
+            margin-bottom: 10px;
+        }
+
+        select {
+            width: 100%; /* Largeur du sélecteur pour s'adapter au cadre */
+            padding: 10px;
+            border: 1px solid #ddd; /* Bordure du sélecteur */
+            border-radius: 4px; /* Coins arrondis du sélecteur */
+        }
+            .main-section {
+            display: flex;
+            justify-content: space-between;
+            max-height: 100vh;
+            padding: 20px;
+            }
+            .section {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            width: 100%;
+            background-color: #f9f9f9;
+            margin: 0 10px;
+            }
+            .section:hover {
+            transform: translateY(-10px);
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+
+            .background-section-header {
+            background-color: #ffffff;
+            position: -webkit-sticky; /* For Safari */
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            }
+
+            .background-section-header .section-header {
+            background-color: rgba(113, 99, 158, 0.86);
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px 8px 8px 8px;
+            }
+
+            .section-header h3 {
+            color: #ffffff;
+            }
+            .section-content {
+            margin-top: 15px;
+            overflow-y: auto;
+            }
+
+            .section-content a {
+
+            }
+
+            .section-content a:hover {
+            background-color: #ccc;
+            }
+
+            .float-right {
+            float: right;
+            }
+            p {
+            margin: 10px 0;
+            font-weight: bold;
+            }
+        </style>
+
+
+
+</head>
+
+<body style="
+    overflow-x: auto;
+    overflow-y: auto;">
+
+      <div class="cadre">
+        <label for="element-selection">Filtre :</label>
+        <select id="element-selection">
+            <option value="projet" id="element-selection" name="projet">Projet</option>
+            <option value="ligne_de_planning" id="element-selection" name="ligne_de_planning">Ligne de planning</option>
+            <option value="tache" id="element-selection" name="tache">Tâche</option>
+        </select>
+
+          <select id="year-selection" name="year-selection" t-on-change="onYearChange">
+            <option t-foreach="years" t-as="year" t-key="year" t-att-value="year">
+                <t t-esc="year"/>
+            </option>
+          </select>
+
+
+    </div>
+
+            <div class="main-section">
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3 id = 'janvier' t-on-click="onLinkClick" >janvier</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3 id = 'fevrier' t-on-click="onLinkClick" >fevrier</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3 id = 'mars' t-on-click="onLinkClick" >mars</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3 id = 'avril' t-on-click="onLinkClick" >avril</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3 id = 'mai' t-on-click="onLinkClick" >mai</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3 id = 'juin' t-on-click="onLinkClick" >juin</h3>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+
+            <div class="main-section">
+
+                <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3 id = 'juillet' t-on-click="onLinkClick" >juillet</h3>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3 id = 'out' t-on-click="onLinkClick" >out</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3 id = 'septembre' t-on-click="onLinkClick" >septembre</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3 id = 'octobre' t-on-click="onLinkClick" >octobre</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3 id = 'novembre' t-on-click="onLinkClick" >novembre</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="background-section-header">
+                    <div class="section-header">
+                        <h3 id = 'decembre' t-on-click="onLinkClick" >decembre</h3>
+                    </div>
+                </div>
+            </div>
+
+
+            </div>
+
+
+</body>
+
+    </t>
+
+
+
 
 </templates>
 

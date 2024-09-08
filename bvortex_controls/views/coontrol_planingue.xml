@@ -46,12 +46,15 @@
                             <group>
                                 <field name="date_fin" />
                             </group>
+                            <group>
+                                <field name="mode_planification"/>
+                            </group>
 
 
                         </group>
 
                          <notebook>
-                           <page string="planingue line">
+                           <page string="planingue line" invisible="mode_planification not in ['prédefini']">
                                 <field name="planingue_line_ids" widget="one2many_list">
                                     <tree edit="form" >
                                         <field name="client"/>
@@ -71,12 +74,13 @@
                                     </tree>
                                </field>
                            </page>
-                             <page string="planingue report">
-                                <field name="planingue_report_ids" widget="one2many_list">
+
+                              <page string="planingue line free" invisible="mode_planification not in ['libre']">
+                                <field name="planingue_free_line_ids" widget="one2many_list">
                                     <tree edit="form" >
                                         <field name="client"/>
-                                        <field name="nbr_jour"/>
-                                        <field name="planingue_taches_ids" widget="many2many_tags"/>
+                                        <field name="date_debut"/>
+                                        <field name="date_fin"/>
                                         <field name="statut"
                                                select="True"
                                                widget="badge"
@@ -88,12 +92,13 @@
                                     </tree>
                                </field>
                            </page>
-                              <page string="planingue line free">
-                                <field name="planingue_free_line_ids" widget="one2many_list">
+
+                               <page string="planingue report">
+                                <field name="planingue_report_ids" widget="one2many_list">
                                     <tree edit="form" >
                                         <field name="client"/>
-                                        <field name="date_debut"/>
-                                        <field name="date_fin"/>
+                                        <field name="nbr_jour"/>
+                                        <field name="planingue_taches_ids" widget="many2many_tags"/>
                                         <field name="statut"
                                                select="True"
                                                widget="badge"

@@ -44,6 +44,29 @@
                         </group>
 
 
+                          <notebook>
+                           <page string="listes des taches">
+                                <field name="planingue_taches_ids" widget="one2many_list">
+                                    <tree edit="form" >
+                                        <field name="nom"/>
+                                        <field name="utilisateur" widget="many2many_tags"/>
+                                        <field name="date"/>
+                                        <field name="statut"
+                                               select="True"
+                                               widget="badge"
+                                               decoration-success = " statut == 'etablie' "
+                                               decoration-info = " statut == 'revue' "
+                                               decoration-danger = " statut == 'valider' "
+                                               decoration-primary=" statut == 'payer' "
+                                               decoration-secondary=" statut == 'draft' "
+                                               decoration-warning="statut == 'déclarer'"
+                                               decoration-alert="statut == 'apurer'"
+                                               decoration-default="statut == 'archiver'"
+                                               decoration-highlight="statut == 'transmis'"/>
+                                    </tree>
+                               </field>
+                           </page>
+                       </notebook>
                     </sheet>
                 </form>
             </field>

@@ -50,9 +50,10 @@ class ControlDocumentDashboard extends Component {
 
 
 }
-
 ControlDocumentDashboard.template = "bvortex_controls.ControlDocumentDashboard";
 actionRegistry.add("dashboard_control_document_tag", ControlDocumentDashboard);
+
+
 
 class ControlDeclarationDashboard2 extends Component {
 
@@ -142,6 +143,62 @@ class ControlDeclarationDashboard2 extends Component {
     }
 
 }
-
 ControlDeclarationDashboard2.template = "bvortex_controls.ControlDeclarationDashboard2";
 actionRegistry.add("dashboard_declaration_document_tag", ControlDeclarationDashboard2);
+
+
+
+class ControlStatitiqueDashboard3 extends Component {
+    setup() {
+        super.setup();
+        this.orm = useService('orm');
+        this.action = useService('action');
+
+        const selectElement = document.getElementById('element-selection');
+        if (selectElement) {
+            selectElement.addEventListener('change', this.onSelectChange.bind(this));
+        }
+         const currentYear = new Date().getFullYear();
+        this.years = Array.from({ length: 25 }, (_, i) => currentYear - i); // Génère les 25 dernières années
+
+        this.selectedYear = currentYear;
+    }
+
+     onYearChange(ev) {
+        const selectedYear = ev.target.value;
+        console.log("Année sélectionnée :", selectedYear);
+        this.selectedYear = selectedYear;
+    }
+
+   onSelectChange(ev) {
+        const selectedValue = ev.target.value;
+        console.log("Valeur sélectionnée :", selectedValue);
+        this.selectedValue = selectedValue;
+    }
+
+    onLinkClick(ev) {
+        ev.preventDefault();
+        const id = ev.currentTarget.id;
+
+        const selectElement = document.getElementById('element-selection');
+        const selectedValue = selectElement ? selectElement.value : null;
+
+        const yearElement = document.getElementById('year-selection');
+        const selectedYear = yearElement ? yearElement.value : null;
+
+        console.log("Lien cliqué avec id:", id, "et selectedValue:", selectedValue);
+        console.log("Lien cliqué avec id:", id, "et année sélectionnée:", selectedYear);
+
+        this.orm.call("control.document.dashboard", "on_link_click", [id, selectedValue, selectedYear], {})
+            .then((result) => {
+                console.log('Result from server:', result);
+                this.action.doAction(result);
+            })
+            .catch((error) => {
+                console.error('RPC Error:', error);
+            });
+    }
+}
+
+ControlStatitiqueDashboard3.template = "bvortex_controls.ControlStatitiqueDashboard3";
+actionRegistry.add("dashboard_statistique_document_tag", ControlStatitiqueDashboard3);

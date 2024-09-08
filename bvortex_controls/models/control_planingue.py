@@ -1,5 +1,6 @@
 from odoo import api, fields, models, exceptions, _
 from datetime import datetime
+import calendar
 from odoo.http import request
 
 
@@ -11,6 +12,10 @@ class Control_Planingue(models.Model):
     #project_ids = fields.One2many('project.project', 'document_id', string="project")
     task_count = fields.Integer(compute='task_compute_count')
     project_count = fields.Integer(compute='project_compute_count')
+    mode_planification = fields.Selection([
+        ('libre', 'Planification Libre'),
+        ('prédefini', 'Planification Prédéfinie')
+    ], string='Mode de Planification', default='prédefini')
 
     code = fields.Char('Code', readonly=True )
     nom = fields.Char('Nom')
@@ -28,7 +33,10 @@ class Control_Planingue(models.Model):
     planingue_report_ids = fields.One2many('control.planingue.report','planingue_id','ligne des report')
     planingue_free_line_ids = fields.One2many('control.planingue.free.line','planingue_id','ligne des planingues free')
 
-    project_ids = fields.One2many('project.project','planingue_id')
+    project_ids = fields.Many2many('project.project', string='Projects')
+
+
+
 
     def get_tasks(self):
         self.ensure_one()
@@ -84,8 +92,9 @@ class Control_Planingue(models.Model):
         for record in self:
 
             planingue_line_ids = record.planingue_line_ids
+            planingue_free_line_ids = record.planingue_free_line_ids
 
-            if planingue_line_ids:
+            if planingue_line_ids or planingue_free_line_ids :
                 record.statut = 'confirmed'
             else:
                 raise exceptions.UserError(_("veillez specifier les lignes de planingue."))
@@ -102,14 +111,15 @@ class Control_Planingue(models.Model):
             now = datetime.now()
             current_month = now.month
             current_year = now.year
-            month_name = now.strftime('%B').upper()  # Nom complet du mois, ex: August
+            month_name = now.strftime('%B').upper()
+            _, last_day_of_month = calendar.monthrange(current_year, current_month)
             year = now.strftime('%Y')
 
             start_date = f'{current_year}-{current_month:02d}-01'
-            end_date = f'{current_year}-{current_month:02d}-31'
+            end_date = f'{current_year}-{current_month:02d}-{last_day_of_month:02d}'
 
             project = self.env['project.project'].search([
-                '|', '|',
+                '&', '&',
                 ('date_start', '<=', end_date),
                 ('date', '>=', start_date),
                 ('date_start', '>=', start_date),
@@ -124,7 +134,7 @@ class Control_Planingue(models.Model):
                     'partner_id': planingue_line.client.id,
                     'date_start': start_date,
                     'date': end_date ,
-                    'planingue_id': self.id
+                    'planingue_id': [(6, 0, [self.id])]  # Utilisation du champ Many2many
                 }
                 project = self.env['project.project'].create(vals)
 
@@ -179,20 +189,79 @@ class Control_Planingue(models.Model):
                 }
                 task = self.env['project.task'].create(vals)
 
+        for planingue_free_line in self.planingue_free_line_ids:
+
+            now = datetime.now()
+            current_month = now.month
+            current_year = now.year
+            month_name = now.strftime('%B').upper()
+            _, last_day_of_month = calendar.monthrange(current_year, current_month)
+            year = now.strftime('%Y')
+
+            start_date = f'{current_year}-{current_month:02d}-01'
+            end_date = f'{current_year}-{current_month:02d}-{last_day_of_month:02d}'
+
+            project = self.env['project.project'].search([
+                '&', '&',
+                ('date_start', '<=', end_date),
+                ('date', '>=', start_date),
+                ('date_start', '>=', start_date),
+                ('date', '<=', end_date),
+                ('partner_id', '=', planingue_free_line.client.id)
+            ])
+
+            if self.planingue_free_line_ids:
+
+                if not project:
+                    vals = {
+                        'name': code + "-" + str(planingue_free_line.client.name).upper() + '-' + month_name + '-' + year,
+                        'user_id': self.env.user.id,
+                        'partner_id': planingue_free_line.client.id,
+                        'date_start': start_date,
+                        'date': end_date,
+                        'planingue_id': [(6, 0, [self.id])]  # Utilisation du champ Many2many
+                                            }
+                    project = self.env['project.project'].create(vals)
+
+                    type_ids = []
+
+                    for step in self.planingue_free_line_ids.etape:
+                        if step.id:
+                            type_ids.append(step.id)
+
+                    project.write({
+                        'type_ids': [(6, 0, type_ids)]
+                    })
+
+                else:
+                    project.write({
+                        'planingue_id': [(4, self.id)]  # Ajoute l'ID actuel au champ Many2many
+                    })
+                for planingue_taches in self.planingue_free_line_ids.planingue_taches_ids:
+                    vals = {
+                        'name': planingue_taches.nom,
+                        'project_id': project.id,
+                        'user_ids': planingue_taches.utilisateur,
+                        'date_deadline': planingue_taches.date,
+                        'task_task': planingue_taches.id,
+                        'statut_free': planingue_free_line.id
+                    }
+                    task = self.env['project.task'].create(vals)
 
         for planingue_report in self.planingue_report_ids:
 
             now = datetime.now()
             current_month = now.month
             current_year = now.year
-            month_name = now.strftime('%B').upper()  # Nom complet du mois, ex: August
+            month_name = now.strftime('%B').upper()
+            _, last_day_of_month = calendar.monthrange(current_year, current_month)
             year = now.strftime('%Y')
 
             start_date = f'{current_year}-{current_month:02d}-01'
-            end_date = f'{current_year}-{current_month:02d}-31'
+            end_date = f'{current_year}-{current_month:02d}-{last_day_of_month:02d}'
 
             project = self.env['project.project'].search([
-                '|', '|',
+                '&', '&',
                 ('date_start', '<=', end_date),
                 ('date', '>=', start_date),
                 ('date_start', '>=', start_date),
@@ -209,7 +278,7 @@ class Control_Planingue(models.Model):
                             'partner_id': planingue_report.client.id,
                             'date_start': start_date,
                             'date': end_date ,
-                            'planingue_id': self.id
+                            'planingue_id': [(6, 0, [self.id])]  # Utilisation du champ Many2many
                         }
                         project = self.env['project.project'].create(vals)
 

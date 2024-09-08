@@ -7,9 +7,11 @@ class control_planingue_taches(models.Model):
     nom = fields.Char('Nom')
     utilisateur = fields.Many2many('res.users', 'utilisateur')
     date = fields.Date('Date')
-    action_id = fields.Many2one('control.planingue.line')
 
+    action_id = fields.Many2one('control.planingue.line')
     action_report_id = fields.Many2one('control.planingue.report')
+    action_free = fields.Many2one('control.planingue.free.line')
+
     statut = fields.Selection(selection=[
         ('draft', 'Draft'),
         ('in_progress', 'In progress'),

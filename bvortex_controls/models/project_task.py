@@ -10,6 +10,7 @@ class project_task(models.Model):
     category = fields.Selection(string='Category', related='document_id.category')
     task_task = fields.Many2one('control.planingue.taches', string="tache dans action")
     statut_ch = fields.Many2one('control.planingue.line', string="statut")
+    statut_free = fields.Many2one('control.planingue.free.line', string="statut")
     planingue = fields.Many2one('control.planingue' ,string="planingue")
 
 
