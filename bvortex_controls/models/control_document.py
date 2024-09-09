@@ -53,10 +53,10 @@ class control_document(models.Model):
         for rec in self:
             if rec.deadline:
                 if rec.state in ['confirmed','in_progress']:
-                    if rec.deadline >= datetime.date.today():
+                    if rec.deadline >= date.today():
                         rec.out_of_time = False
                         rec.on_time = True
-                    elif datetime.date.today() > rec.deadline:
+                    elif date.today() > rec.deadline:
                         rec.out_of_time = True
                         rec.on_time = False
 
