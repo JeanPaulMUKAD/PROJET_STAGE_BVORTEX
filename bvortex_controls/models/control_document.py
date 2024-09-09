@@ -162,7 +162,8 @@ class control_document(models.Model):
 
             #deadline = datetime.timedelta(days=rec.minister_id.deadline)
             deadline = timedelta(days=rec.minister_id.deadline)
-            rec.deadline = date.today() + deadline
+            rec.deadline = rec.deadline - date.today()
+
 
             email_body = """
                 <html>
