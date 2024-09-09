@@ -97,8 +97,17 @@ class control_document(models.Model):
     def deadline_compute_count(self):
         for record in self:
             if record.deadline:
-                difference = record.deadline - datetime.date.today()
-                record.day_count = difference.days
+                from datetime import date, timedelta
+
+                # # Nombre de jours (un chiffre)
+                # current_date = date.today()
+                #
+                # # Calcul de la différence (ajout ou soustraction)
+                # new_date = current_date - timedelta(days=days_difference)
+                # # deadline = timedelta(days=rec.minister_id.deadline)
+                # rec.deadline = new_date
+                # difference = record.deadline - datetime.date.today()
+                record.day_count = 0
             else:
                 record.day_count = 0
 
