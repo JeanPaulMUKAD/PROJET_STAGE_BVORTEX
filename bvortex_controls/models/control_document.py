@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 import re
 import calendar
 from datetime import timedelta
@@ -162,7 +162,8 @@ class control_document(models.Model):
 
             #deadline = datetime.timedelta(days=rec.minister_id.deadline)
             deadline = timedelta(days=rec.minister_id.deadline)
-            rec.deadline = datetime.date.today() + deadline
+            rec.deadline = date.today() + deadline
+
             email_body = """
                 <html>
                     <head>
