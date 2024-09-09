@@ -161,8 +161,18 @@ class control_document(models.Model):
                                        note=f'Please check this document for the customer {self.partner_id.name}')
 
             #deadline = datetime.timedelta(days=rec.minister_id.deadline)
-            deadline = timedelta(days=rec.minister_id.deadline)
-            rec.deadline = rec.deadline - date.today()
+            from datetime import date, timedelta
+
+            # Nombre de jours (un chiffre)
+            days_difference = rec.minister_id.deadline  # Cela peut être positif ou négatif
+
+            # Date d'aujourd'hui
+            current_date = date.today()
+
+            # Calcul de la différence (ajout ou soustraction)
+            new_date = current_date - timedelta(days=days_difference)
+            #deadline = timedelta(days=rec.minister_id.deadline)
+            rec.deadline = new_date
 
 
             email_body = """
