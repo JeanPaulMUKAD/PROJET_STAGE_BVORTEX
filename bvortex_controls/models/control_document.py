@@ -1,8 +1,7 @@
-from datetime import datetime, date
+from datetime import datetime
+import datetime
 import re
 import calendar
-from datetime import timedelta
-
 
 from odoo import api, fields, models, exceptions, _
 
@@ -53,10 +52,10 @@ class control_document(models.Model):
         for rec in self:
             if rec.deadline:
                 if rec.state in ['confirmed','in_progress']:
-                    if rec.deadline >= date.today():
+                    if rec.deadline >= datetime.date.today():
                         rec.out_of_time = False
                         rec.on_time = True
-                    elif date.today() > rec.deadline:
+                    elif datetime.date.today() > rec.deadline:
                         rec.out_of_time = True
                         rec.on_time = False
 
@@ -97,17 +96,8 @@ class control_document(models.Model):
     def deadline_compute_count(self):
         for record in self:
             if record.deadline:
-                from datetime import date, timedelta
-
-                # # Nombre de jours (un chiffre)
-                # current_date = date.today()
-                #
-                # # Calcul de la différence (ajout ou soustraction)
-                # new_date = current_date - timedelta(days=days_difference)
-                # # deadline = timedelta(days=rec.minister_id.deadline)
-                # rec.deadline = new_date
-                # difference = record.deadline - datetime.date.today()
-                record.day_count = 0
+                difference = record.deadline - datetime.date.today()
+                record.day_count = difference.days
             else:
                 record.day_count = 0
 
@@ -169,21 +159,8 @@ class control_document(models.Model):
                 self.activity_schedule(activity_type_id=activity_type.id, user_id=user.id,
                                        note=f'Please check this document for the customer {self.partner_id.name}')
 
-            #deadline = datetime.timedelta(days=rec.minister_id.deadline)
-            from datetime import date, timedelta
-
-            # Nombre de jours (un chiffre)
-            days_difference = rec.minister_id.deadline  # Cela peut être positif ou négatif
-
-            # Date d'aujourd'hui
-            current_date = date.today()
-
-            # Calcul de la différence (ajout ou soustraction)
-            new_date = current_date - timedelta(days=days_difference)
-            #deadline = timedelta(days=rec.minister_id.deadline)
-            rec.deadline = new_date
-
-
+            deadline = datetime.timedelta(days=rec.minister_id.deadline)
+            rec.deadline = datetime.date.today() + deadline
             email_body = """
                 <html>
                     <head>
