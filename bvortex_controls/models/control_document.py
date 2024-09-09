@@ -1,6 +1,8 @@
 from datetime import datetime
 import re
 import calendar
+from datetime import timedelta
+
 
 from odoo import api, fields, models, exceptions, _
 
@@ -158,7 +160,8 @@ class control_document(models.Model):
                 self.activity_schedule(activity_type_id=activity_type.id, user_id=user.id,
                                        note=f'Please check this document for the customer {self.partner_id.name}')
 
-            deadline = datetime.timedelta(days=rec.minister_id.deadline)
+            #deadline = datetime.timedelta(days=rec.minister_id.deadline)
+            deadline = timedelta(days=rec.minister_id.deadline)
             rec.deadline = datetime.date.today() + deadline
             email_body = """
                 <html>
