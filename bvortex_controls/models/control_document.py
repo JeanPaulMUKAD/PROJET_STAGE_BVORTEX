@@ -285,7 +285,6 @@ class control_document(models.Model):
                 project_id.write({
                     'type_ids': [(4, rec.env.ref('bvortex_controls.cancelled_stage').id)],
                 })
-
             for i in range(len(rec.action_ids)):
                 vals = {
                     'name': f'{rec.action_ids[i].name}-{rec.name}',
@@ -369,22 +368,36 @@ class control_document(models.Model):
  
     def send_mails(self):
 
-            current_date = datetime.now()
+            current_date = datetime.datetime.now()
             current_day = current_date.day
             current_month = current_date.month
             month_name = calendar.month_name[current_month]
             current_year = current_date.year
             days_in_month = calendar.monthrange(current_year, current_month)[1]
 
-            if current_day == days_in_month:
+            #if current_day == days_in_month:
+            if True:
 
                 #  mail n*1
                 mail_values = {
                     'email_to': self.get_fiscal_manager_user().email,
-                    'subject': ' Rapport Mensuel sur les contrôles fiscaux et parafiscaux du ' + month_name + "/" + str(current_year),
+                    'subject': ' Rapport Mensuel sur les contrôles fiscaux et parafiscaux du mois d ' + month_name + "/" + str(current_year),
                     'body_html': f"""
                                <p>Bonjour cher manager {self.get_fiscal_manager_user().name},</p>
                                <p>Je vous prie de trouver en annexe le rapport mensuel sur les contrôleurs.</p>
+                               
+                               <table style="width: 100%; border-collapse: collapse;">
+                                   <thead>
+                                       <tr style="background-color: #4CAF50; color: white;>
+                                           <th style="border: 1px solid #ddd; padding: 8px;">Libelle</th>
+                                           <th style="border: 1px solid #ddd; padding: 8px;">Reference</th>
+                                           <th style="border: 1px solid #ddd; padding: 8px;">Dateline</th>
+                                           <th style="border: 1px solid #ddd; padding: 8px;">Category</th>
+                                           <th style="border: 1px solid #ddd; padding: 8px;">Status</th>
+                                       </tr>
+                                   </thead>
+                                       
+                               </table>
                            """,
                 }
 
